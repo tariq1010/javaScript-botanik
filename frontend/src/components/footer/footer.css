@@ -1,0 +1,126 @@
+.footer-container{
+    background-color: black;
+    left: 0;
+   
+    width: 100%;
+    color: white;
+}
+
+.heading-title{
+    color: #FFFFFF;
+    font-family: "Jenna", Sans-serif;
+    font-size: 50px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 80px;
+    letter-spacing: 10px;
+}
+
+.footer-content{
+    width: 90%;
+    display: flex;
+    margin: auto;
+    justify-content: space-around;
+    padding-bottom: 1rem;
+
+}
+
+.footer-col-1{
+    width: 50%;
+    margin: auto;
+
+}
+
+.footer-col-2{
+    width: 50%;
+    margin-top: auto;
+    display: flex;
+    font-size: 2rem;
+    justify-content: center;
+}
+
+.pi{
+    color: gray;
+    font-size: 1.5rem;
+    padding: 0.7rem;
+   }
+
+.pi-twitter{
+  background-color: #1da1f2;
+  color: white;
+  border-radius: 5px;
+   }
+
+.pi-discord{
+    color: #5865F2;
+    background-color: gray;
+    margin-left: 1rem;
+    border-radius: 5px;
+}
+
+.sub-heading{
+    text-align: left;
+    color: #FFFFFF;
+    font-family: "Jenna", Sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 20px;
+}
+
+.sub-heading::after {
+    content: "";
+    display: block;
+    clear: both;
+    width: 0;
+    height: 0;
+}
+
+.heading-desc{
+    text-transform: uppercase;
+    text-align: left;
+    color: #FFFFFF;
+     font-family: "Jenna", Sans-serif; 
+    font-size: 14px;
+    font-weight: 200;
+    font-style: normal;
+    line-height: 35px;
+    letter-spacing: 3.7px;
+}
+
+.btn-footer{
+    background-color: #171717;
+    color: white;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  
+}
+
+.btn-footer:hover{
+    background-color: #54595F;
+}
+
+.p-right{
+    margin-bottom: 0px;
+    width: 90%;
+    margin: auto;
+    margin-top: 1.5rem;
+    padding-bottom: 1rem;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+
+@media (max-width:700px)
+{
+ .footer-col-1{
+     width: 70%;
+ }
+ 
+ .footer-col-2{
+     width: 40%;
+ }
+}

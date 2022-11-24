@@ -1,0 +1,14 @@
+.btn-connect{
+    border: 4px solid #FFEE00;
+    padding: 0.7rem;
+    font-size: 1.5rem;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.btn-connect:hover{
+    background-color: #171717;
+  }

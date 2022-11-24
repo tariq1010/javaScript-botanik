@@ -1,0 +1,26 @@
+.upload-container{
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.upload-container a{
+  
+    color: #FFEE00;
+}
+
+.btn-upload{
+    background-color: #DE4230;
+    color: white;
+    padding: 0.6rem 2rem;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-upload:hover{
+    transform: scale(1.2);
+    transition: all 0.3s linear;
+}

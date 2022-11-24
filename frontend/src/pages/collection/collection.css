@@ -1,0 +1,36 @@
+.card-container{
+    width: 95%;
+    max-width: 1376px;
+    margin: auto;
+    padding-top: 4rem;
+}
+
+.card-row{
+    display:grid;
+    gap:3rem;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 16rem));
+  }
+  
+  .p-row{
+      width: 100%;
+  }
+
+  .div-connect-wallet{
+    text-align: center;
+    padding: 4rem;
+  }
+  
+  
+  @media  (min-width: 1390px){
+    .card-row{
+      grid-template-columns: repeat(auto-fit, minmax(17rem, 20rem));
+    }
+  }
+  
+  @media  (min-width: 1800px){ 
+    .card-row{
+      grid-template-columns: repeat(auto-fit, minmax(17rem, 20rem));
+    }
+  }
+  

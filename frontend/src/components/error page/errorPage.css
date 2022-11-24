@@ -1,0 +1,21 @@
+.error-container{
+    width: 100%;
+    margin: auto;
+    padding: 6rem;
+}
+
+.error-header{
+    display: flex;
+}
+
+.error-container h2{
+    margin-top: 2rem;
+}
+
+.error-container p{
+    font-style: italic;
+}
+
+.error-container span{
+    font-weight: bold;
+}
