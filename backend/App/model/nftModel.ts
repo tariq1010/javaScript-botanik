@@ -1,4 +1,4 @@
-const { Nft } = require("../schema/spotNftSchema");
+const { Nft } = require("../schema/nftSchema");
 
 //--create methods--
 

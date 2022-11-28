@@ -8,7 +8,6 @@ const { getNftsLeft } = require('../controller/getRemainingNftsController')
 const { nftMint } = require('../controller/mintRandomNftController')
 const { generateToken } = require('../controller/generateToken')
 const { validateToken } = require('../validators/validateToken')
-const { saveSpotNfts } = require('../controller/saveSpotNft')
 const { getNftForUnMint } = require('../controller/getNftForUnMintController')
 const { nftUnMint } = require('../controller/unMintNftController')
 const { getFee } = require('../controller/getFee')
@@ -16,9 +15,7 @@ const { getUpdatedCount } = require('../controller/nftCount')
 const { getAll } = require('../controller/getAllNfts')
 const { deleteNft } = require("../model/nftModel")
 const { saveAddresses, checkAddress, generateMerkleRoot } = require('../controller/whitelistAddressesController')
-const {updatePassword, updateUserName, createCredentials} = require('../controller/adminController')
 const {addBlacklistToken} = require('../controller/blacklistController')
-const { adminLogin,checkAuth} = require('../auth')
 
 const { validate, validateWallet, validateTokenId } = require('../validators/nftValidator')
 
@@ -37,7 +34,6 @@ router.post("/generate_token", validateWallet, generateToken)
 router.get("/get_fee", getFee)
 // router.get("/get_nftCount", nftCount)
 router.get("/get_all", getAll)
-router.post("/create", saveSpotNfts)
 router.delete("/delete", deleteNft)
 router.get("/updated-route", getUpdatedCount)
 //addresses routes
@@ -45,12 +41,5 @@ router.get("/check-address", checkAddress)
 router.post("/save-addresses",validateToken, saveAddresses)
 router.post('/generate-merkle-root', validateToken, generateMerkleRoot)
 
-//admin routes
-router.post("/insert-credentials", createCredentials)
-router.post("/login", (ctx: any, next: any) => validate(ctx, next, ["username", "password"]), adminLogin)
-router.put("/update-password", validateToken, (ctx: any, next: any) => validate(ctx, next, ["new_password", "current_password"]), updatePassword)
-router.put("/update-username", validateToken, (ctx: any, next: any) => validate(ctx, next, ["username"]), updateUserName)
-router.get("/auth", validateToken, checkAuth)
-router.post("/blacklist-token", validateToken, addBlacklistToken)
 
 export { router }

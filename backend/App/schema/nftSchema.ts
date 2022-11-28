@@ -50,6 +50,6 @@ let nftSchema = mongoose.Schema(
   }
 );
 
-const Nft = mongoose.model("senshiNft", nftSchema);
+const Nft = mongoose.model("botanikNft", nftSchema);
 
 export { Nft };
