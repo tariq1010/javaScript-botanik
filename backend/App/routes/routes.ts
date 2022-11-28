@@ -14,8 +14,7 @@ const { getFee } = require('../controller/getFee')
 const { getUpdatedCount } = require('../controller/nftCount')
 const { getAll } = require('../controller/getAllNfts')
 const { deleteNft } = require("../model/nftModel")
-const { saveAddresses, checkAddress, generateMerkleRoot } = require('../controller/whitelistAddressesController')
-const {addBlacklistToken} = require('../controller/blacklistController')
+const { addBlacklistToken } = require('../controller/blacklistController')
 
 const { validate, validateWallet, validateTokenId } = require('../validators/nftValidator')
 
@@ -36,10 +35,7 @@ router.get("/get_fee", getFee)
 router.get("/get_all", getAll)
 router.delete("/delete", deleteNft)
 router.get("/updated-route", getUpdatedCount)
-//addresses routes
-router.get("/check-address", checkAddress)
-router.post("/save-addresses",validateToken, saveAddresses)
-router.post('/generate-merkle-root', validateToken, generateMerkleRoot)
+
 
 
 export { router }

@@ -21,7 +21,7 @@
     "node",
     "blockchain"
   ],
-  "author": "Javeria Saher",
+  "author": "Build My Dapp",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.15",
