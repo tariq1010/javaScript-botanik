@@ -118,7 +118,8 @@ class Botanik {
   async mint(web3: any, account: string,amount:Number) {
     try {
       const contract = CommonUtility.contract(web3, CONTRACT_ABI, CONTRACT_ADDRESS);
-      const mint = await contract.methods.mint(account,amount).send({ from: account });
+      const price = await this.mintFee(web3)
+      const mint = await contract.methods.mint(account,amount).send({ from: account, value: Number(amount) * Number(price)});
       return mint;
     } catch (error) {
       console.log("error in mint func", error);

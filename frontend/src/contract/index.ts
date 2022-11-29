@@ -1,6 +1,6 @@
 export const CONTRACT_ADDRESS = "0xA5f85b395c7C02a828B7Cf230D8b2B6056e9960e";
 export const CONTRACT_ABI = [
-	[
+	
 		{
 			"inputs": [
 				{
@@ -587,5 +587,5 @@ export const CONTRACT_ABI = [
 			"stateMutability": "nonpayable",
 			"type": "function"
 		}
-	]
+	
 ]

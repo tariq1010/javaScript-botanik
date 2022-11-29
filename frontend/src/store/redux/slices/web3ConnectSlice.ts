@@ -3,12 +3,12 @@ import Web3 from "web3";
 import { AbiItem } from "web3-utils";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import EthContract from "web3-eth-contract";
-import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../../../contract/index';
+import { CONTRACT_ABI, CONTRACT_ADDRESS } from "contract";
 import { RootStateType, useAppDispatch } from "../../store";
 import { stateClear } from "./mintNftSlice";
 import { setTransaction } from "./mintNftSlice";
 import NFTService from "services/nftServices";
-
+import { BTKService } from "services/botanikService";
 
 export type StateType = {
   web3: null | Web3;
@@ -31,7 +31,7 @@ type Web3ConnectPayloadType = {
   web3Loading: boolean;
   ownerAddress: string;
   userBalance: number;
-  marketPlaceContract: EthContract.Contract;
+  botanikContract: EthContract.Contract;
   web3LoadingErrorMessage: string;
 };
 type AsyncMintType = {
@@ -45,6 +45,7 @@ export const initialState: StateType = {
   ownerAddress: "",
   accounts: [],
   userBalance: 0,
+  
   transaction: false,
   web3LoadingErrorMessage: "",
   web3Loading: false,
@@ -63,14 +64,14 @@ export const loadBlockchain: any = createAsyncThunk(
         await Web3.givenProvider.enable();
         const web3 = new Web3(Web3.givenProvider);
         const accounts = await web3.eth.getAccounts();
-        const marketPlaceContract: EthContract.Contract = new web3.eth.Contract(
+        const botanikContract: EthContract.Contract = new web3.eth.Contract(
           CONTRACT_ABI as AbiItem[],
           CONTRACT_ADDRESS
         );
         return {
           web3,
           accounts,
-          marketPlaceContract,
+          botanikContract,
         };
       } else {
         console.log("error connecting to metamask");
@@ -104,7 +105,7 @@ export const loadWalletConnect: any = createAsyncThunk(
         console.log("Web3", web3);
         const accounts = await web3.eth.getAccounts();
         console.log("accounts", accounts);
-        const marketPlaceContract: EthContract.Contract = new web3.eth.Contract(
+        const botanikContract: EthContract.Contract = new web3.eth.Contract(
           CONTRACT_ABI as AbiItem[],
           CONTRACT_ADDRESS
         );
@@ -112,7 +113,7 @@ export const loadWalletConnect: any = createAsyncThunk(
         return {
           web3,
           accounts,
-          marketPlaceContract,
+          botanikContract,
 
         };
       } else {
@@ -176,55 +177,55 @@ type Data = {
 // });
 
 
-export const mintNftAsync: any = async(contract,accounts, web3, data: Data)=> {
+// export const mintNftAsync: any = async(contract,accounts, web3, data: Data)=> {
   
-  let quantity = data.nftCount;
-  let nftFees = data.nftFees;
-  let nftFeesRound = nftFees.toFixed(5)
-  const merkleHash = data.proof
-  let mintLoading = true;
+//   let quantity = data.nftCount;
+//   let nftFees = data.nftFees;
+//   let nftFeesRound = nftFees.toFixed(5)
+//   const merkleHash = data.proof
+//   let mintLoading = true;
 
-  let nftFeesDecimals = web3 ? web3.utils.toWei(`${nftFeesRound}`, 'ether') : 0;
-    try {
-      console.log("Started Minting NFT from public sale");
-      let result = await contract?.methods
-        .mint(quantity, merkleHash)
-        .send({
-          from: accounts[0],
-          value: nftFeesDecimals,
-        }, async (err: any, transactionHash: any) => {
+//   let nftFeesDecimals = web3 ? web3.utils.toWei(`${nftFeesRound}`, 'ether') : 0;
+//     try {
+//       console.log("Started Minting NFT from public sale");
+//       let result = await contract?.methods
+//         .mint(quantity, merkleHash)
+//         .send({
+//           from: accounts[0],
+//           value: nftFeesDecimals,
+//         }, async (err: any, transactionHash: any) => {
 
-        });
-      if (result) {
-        new NFTService().getUpdatedCount()
-        mintLoading = false
-      }
-      return {
-        mintLoading,
-        result
-      };
+//         });
+//       if (result) {
+//         new NFTService().getUpdatedCount()
+//         mintLoading = false
+//       }
+//       return {
+//         mintLoading,
+//         result
+//       };
 
-    } catch (error) {
-      console.log("User rejected the transaction", error);
-      return error
+//     } catch (error) {
+//       console.log("User rejected the transaction", error);
+//       return error
 
-    }
+//     }
   
 
-}
+// }
 
 //current token_id
 
-export const nftCountAsync = async (contract: any) => {
+// export const nftCountAsync = async (contract: any) => {
 
-  try {
-    let result = await contract?.methods.currentSupply().call();
-    return result;
-  } catch (error) {
-    console.log("User rejected the transaction");
-    return error;
-  }
-}
+//   try {
+//     let result = await contract?.methods.currentSupply().call();
+//     return result;
+//   } catch (error) {
+//     console.log("User rejected the transaction");
+//     return error;
+//   }
+// }
 
 
 export const totalSupplyAsync = createAsyncThunk("totalSupplyAsync", async (_, thunkAPI) => {
@@ -320,7 +321,7 @@ const web3ConnectSlice = createSlice({
       state.web3 = payload?.web3;
       state.accounts = payload?.accounts;
       state.web3Loading = false;
-      state.contract = payload?.marketPlaceContract;
+      state.contract = payload?.botanikContract;
       // state.web3LoadingErrorMessage = payload?.web3LoadingErrorMessage
     },
     [loadBlockchain.fulfilled.toString()]: (
@@ -331,7 +332,7 @@ const web3ConnectSlice = createSlice({
       state.web3 = payload?.web3;
       state.accounts = payload?.accounts;
       state.web3Loading = false;
-      state.contract = payload?.marketPlaceContract;
+      state.contract = payload?.botanikContract;
       state.web3LoadingErrorMessage = payload?.web3LoadingErrorMessage;
       state.ownerAddress = payload?.ownerAddress
     },

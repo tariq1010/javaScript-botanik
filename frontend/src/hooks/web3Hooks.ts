@@ -7,7 +7,7 @@ import { useAppSelector } from "store/store";
 export const PhaseCountHook = () => {
     const [phaseMintLimit, setPhaseMintLimit] = useState<number>()
     const { contract } = useAppSelector((state) => state.web3Connect)
-    const { mintedCount } = useAppSelector((state) => state.mintNft);
+   // const { mintedCount } = useAppSelector((state) => state.mintNft);
 
     const phaseLimit = async () => {
         const limit = await mintLimit(contract)
@@ -19,15 +19,15 @@ export const PhaseCountHook = () => {
         }
     }, [contract]);
 
-    useEffect(() => {
-        phaseMintLimit === mintedCount && openNotification('Phase Completed', 'Current phase of minting has reached its minting limit', 'warning')
-    }, [phaseMintLimit])
+    // useEffect(() => {
+    //     phaseMintLimit === mintedCount && openNotification('Phase Completed', 'Current phase of minting has reached its minting limit', 'warning')
+    // }, [phaseMintLimit])
 
     return {
-        mintedCount,
+      //  mintedCount,
         phaseMintLimit,
         phaseLimit,
-        remainingInPhase: phaseMintLimit - (+mintedCount)
+      //  remainingInPhase: phaseMintLimit - (+mintedCount)
     }
 }
 
