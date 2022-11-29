@@ -729,6 +729,7 @@
 		"type": "function"
 	}
 ]
+
 module.exports = {
 
 	CONTRACT_ADDRESS,
