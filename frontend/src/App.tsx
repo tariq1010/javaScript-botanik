@@ -18,6 +18,7 @@ import { RevealNft, WhiteListAddress } from "pages/admin"
 import io from "socket.io-client";
 import env from "./enviornment";
 import { setCount } from "store/redux/slices/mintNftSlice";
+import { btkData } from "store/redux/slices/helperSlices/modelSlice";
 
 let socket: any;
 const ENDPOINT = env.BACKEND_BASE_URL;
@@ -42,6 +43,24 @@ const App = () => {
       });
   }, [socket]);
 
+  const { botanikData} = useAppSelector(
+    (state) => state.model
+  );
+console.log("BTK NFT", botanikData)
+  useEffect(()=>{
+    if(web3)
+    {
+      const getBTKData=async()=>
+      {
+        try {
+          dispatch(btkData());
+          
+       } catch (error) {
+         
+       }
+      }
+      getBTKData();
+    }},[web3])
 
   return (
     <div>

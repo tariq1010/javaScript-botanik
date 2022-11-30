@@ -1,10 +1,26 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import { useState } from "react";
+import { BotanikService } from "web3Functions/botanik";
+//const [botanikConfig, setBotanikConfig] = useState(null)
 export const initialState = {
   collapsed: null,
   modelOpen: null,
+  botanikData:null
 };
-
+export const btkData: any = createAsyncThunk(
+  "btkData",
+  async (web3: any, thunkAPI) => {
+    try {
+     
+    const data = await BotanikService.getBTKData()
+    console.log("DATA BTK", data);
+    return data
+    } catch (error) {
+      console.log("Error");
+      return error;
+    }
+  }
+);
 export const collapsedDashboard: any = createAsyncThunk(
   "collapsedDashboard",
   async (collapsed: any, thunkAPI) => {
@@ -44,6 +60,12 @@ const modelSlice = createSlice({
     },
     [mainModel.fulfilled.toString()]: (state, { payload }: PayloadAction) => {
       state.modelOpen = payload;
+    },
+    [btkData.fulfilled.toString()]: (
+      state,
+      { payload }: PayloadAction
+    ) => {
+      state.botanikData = payload;
     },
   },
 });

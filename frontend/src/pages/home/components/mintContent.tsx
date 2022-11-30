@@ -9,15 +9,14 @@ import InputNumbers from "./inputNumbers";
 import mintBtn from "assets/images/mintNft.png";
 import { ConnectBtnImg, openNotification } from "components/common";
 import { LogoDesc } from "./homeElement";
-// import {
-//   mintNftAsync,
-//   nftCountAsync,
-// } from "store/redux/slices/web3ConnectSlice";
+
 import SimpleBackdrop from "components/backdrop/backdrop";
 import { GetProofHook } from "../../../hooks/whiteListAddressHooks";
 import { GetMintStatusHook, PhaseCountHook } from "hooks/web3Hooks";
 import { BotanikService } from "web3Functions/botanik";
-import { BTKService } from "services/botanikService";
+import ToastMessage from "components/toast Message/toastMessage";
+import { btkData } from "store/redux/slices/helperSlices/modelSlice";
+
 
 type Props = {
   num: number;
@@ -35,61 +34,69 @@ const MintContent: React.FC<Props> = ({
   const dispatch = useAppDispatch();
 
   //useState
-  const [showToast, setShowToast] = useState(false);
-  const [showToastType, setShowToastType] = useState("");
-  const [toastMessage, setToastMessage] = useState("");
   const [mintLoading, setMintLoading] = useState(false);
   const [botanikConfig, setBotanikConfig] = useState(null);
-  
+  const [status, setStatus] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   //useAppSelector
   const { web3, userBalance, contract, accounts } = useAppSelector(
     (state) => state.web3Connect
   );
+  const { botanikData} = useAppSelector(
+    (state) => state.model
+  );
+console.log("BTK NFT mint", botanikData)
+
+useEffect(()=>{
+  if(web3)
+  {
+    dispatch(btkData());
+  }
+ },[web3])
   const { fee, feeLoading } = useAppSelector((state) => state.getFee);
   const { count } = useAppSelector((state) => state.mintNft);
-  const loadBotanikData = async () => {
-    await BTKService.getBTKData(setBotanikConfig);
-    console.log("Name",botanikConfig.name);
-  };
+
 
   useEffect(() => {
-    (async () => {
       setIsLoading(true);
-      await loadBotanikData();
+      validateFunc();
       setIsLoading(false);
-    })();
-  }, []);
-  //components Functions
-  // const mintfn = async (values) => {
-  //   try {
-  //     let receipt = await mintNftAsync(contract, accounts, web3, values);
-  //     if (receipt?.message) throw "Transaction Rejected";
-  //     setShowToast(true);
-  //     setToastMessage("NFT minted Request confirmed");
-  //     setShowToastType("success");
+  }, [botanikData]);
+  
 
-  //     setMintLoading(false);
-  //   } catch (error) {
-  //     setShowToast(true);
-  //     setToastMessage("Transaction rejected");
-  //     setShowToastType("error");
-  //     setMintLoading(false);
-  //   }
-  // };
-
+const validateFunc = async() => {
+ if(botanikData?.isPaused || botanikData?.totalSupply >= botanikData?.phaseLimit){
+  setStatus(true);
+  console.log("Status", status);
+ }
+ else {
+  setStatus(false);
+  console.log("Status", status);
+ }
+}
   const mint = async () => {
     try {
+      if(status) {
+        alert("error")
+      }
+      else {
       setMintLoading(true);
-    
-      const txn = await BotanikService.mint(web3, accounts[0], 1 )
+      const txn = await BotanikService.mint(web3, accounts[0], num)
+      if(txn && txn.status) {
+        ToastMessage("Success","Transaction Successfull","success")
+      }
+      if(txn && txn.code) {
+        ToastMessage(" ", "Transaction Rejected by User", "error");
+      }
+      dispatch(btkData());
       console.log(txn);
+      validateFunc();
       setMintLoading(false);
-      
+      }
     } catch (error) {
-      console.log("mint error", error);
-   
+      console.log(error);
       setMintLoading(false);
+    
     }
   };
 
@@ -113,14 +120,9 @@ const MintContent: React.FC<Props> = ({
 
   return (
     <>
-      <Toast
-        message={toastMessage}
-        type={showToastType}
-        open={showToast}
-        setOpen={setShowToast}
-      />
+      
       <SimpleBackdrop loading={mintLoading || feeLoading} />
-      <p style={{ color: "white" }}>Total Price: {(num * fee).toFixed(4)}</p>
+      <p style={{ color: "white" }}>Total Price: {(num * botanikData?.mintFee)}</p>
       <InputNumbers
         setIsSubmitting={setIsSubmitting}
         validate={validate}
@@ -129,6 +131,9 @@ const MintContent: React.FC<Props> = ({
         num={num}
         setNum={setNum}
         remaingNftLength={count?.remainingInPhase}
+        setStatus={setStatus}
+        botanikConfig={botanikData}
+        status ={status}
       />
       <br />
       {count && count.phaseLimit > 0 ? (
@@ -142,9 +147,9 @@ const MintContent: React.FC<Props> = ({
       <LogoDesc battleDesc>Join the battle for {} ETH</LogoDesc>
 
       {web3 ? (
-        <ConnectBtnImg
+        <ConnectBtnImg  
           className={!mintPauseStatus ? "mintedBtn" : ""}
-          src={mintBtn}
+          src={mintBtn }
           onClick={(event) => {
             if (count.remainingInPhase === 0) {
               openNotification(

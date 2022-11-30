@@ -61,12 +61,7 @@ const Reveal: React.FC<Props> = () => {
       <MainNavbar />
       <SimpleBackdrop loading={loading} />
       {success ? (
-        <Toast
-          type="success"
-          open={open}
-          setOpen={setOpen}
-          message="Nfts Revealed!"
-        />
+     ""
       ) : (
         ""
       )}

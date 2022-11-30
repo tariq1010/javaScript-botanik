@@ -41,8 +41,8 @@ export const GetMintStatusHook = () => {
         try {
             setStatusLoaidng(true)
             let isMint = await mintStatusWeb3(contract);
-            let isWhitelist = await whitelistMintStatus(contract);
-            setWhitelistStatus(isWhitelist);
+           // let isWhitelist = await whitelistMintStatus(contract);
+           // setWhitelistStatus(isWhitelist);
             setMintPauseStatus(isMint)
             setStatusLoaidng(false)
         } catch (error) {

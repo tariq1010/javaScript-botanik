@@ -3,30 +3,20 @@ import { Button, Wrapper, MainDiv } from "./contractFunctionsElements";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector, useAppDispatch } from "../../store/store";
-import { loadBlockchain } from "../../store/redux/slices/web3ConnectSlice";
 import { useNavigate } from "react-router-dom";
 import connectBtn from "assets/images/connectBtn.png";
 import { MainModel, ConnectBtnImg, openNotification } from "components/common";
 // redux Slice
 import { mainModel } from "store/redux/slices/helperSlices/modelSlice";
-import {
-  mintStatusWeb3,
-  whitelistMintStatus,
-} from "store/redux/slices/contractFunctions/read";
+
 import SimpleBackdrop from "components/backdrop/backdrop";
-import {
-  pauseWeb3,
-  renounceOwnership,
-  toggleWhitelistStatus,
-  unpauseWeb3,
-} from "store/redux/slices/contractFunctions/write";
+import { toggleWhitelistStatus } from "store/redux/slices/contractFunctions/write";
 
 import MainNavbar from "components/navbar";
 import { GetMintStatusHook, PhaseCountHook } from "hooks/web3Hooks";
 import { getFeeRequest } from "store/redux/slices/getFeeSlice";
 import { CheckAuthHook } from "hooks/adminhooks";
-import { resetcheckAuth } from "store/redux/slices/adminSlices/checkAuthSlice";
-import { MintedNftHook } from "hooks/nftHooks";
+import { BotanikService } from "web3Functions/botanik";
 
 toast.configure();
 
@@ -52,12 +42,14 @@ const ContractFunctions: React.FC<Props> = () => {
   const [transferModel, setTransferModel] = useState(false);
   const [withDrawModel, setWithDrawModel] = useState(false);
   const [phaseModel, setPhaseModel] = useState(false);
+  const [config, setBotanikConfig] = useState(null);
 
   //custom hooks
   const { whitelistStatus, mintPauseStatus, getMintStatus, statusLoading } =
     GetMintStatusHook();
   const { loading: authLoading, error, auth } = CheckAuthHook();
-
+  const { botanikData } = useAppSelector((state) => state.model);
+  console.log("BTK NFT admin", botanikData);
   //component functions
   const transferOwnerShipModel = () => {
     setTransferModel(true);
@@ -94,7 +86,7 @@ const ContractFunctions: React.FC<Props> = () => {
   const handleRenounceOwnership = async () => {
     try {
       setLoading(true);
-      const receipt = await renounceOwnership(contract, accounts[0]);
+      const receipt = await BotanikService.renounceOwnership(web3, accounts[0]);
       console.log(receipt);
       setLoading(false);
     } catch (error) {
@@ -105,11 +97,10 @@ const ContractFunctions: React.FC<Props> = () => {
   const pauseWeb3Fn = async () => {
     try {
       setLoading(true);
-      const receipt = await pauseWeb3(contract, accounts[0]);
-      setLoading(false);
-
+      const receipt = await BotanikService.pause(web3, accounts[0]);
       await getMintStatus();
       console.log(receipt);
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log("error", error);
@@ -118,13 +109,11 @@ const ContractFunctions: React.FC<Props> = () => {
 
   const unpauseWeb3Fn = async () => {
     try {
-      const receipt = await unpauseWeb3(contract, accounts[0]);
       setLoading(true);
-
+      const receipt = await BotanikService.unpause(web3, accounts[0]);
       await getMintStatus();
-      setLoading(false);
-
       console.log(receipt);
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log("error", error);
@@ -151,8 +140,14 @@ const ContractFunctions: React.FC<Props> = () => {
   }, []);
 
   useEffect(() => {
-    (error || !token) && dispatch(resetcheckAuth()) && navigate("/admin-login");
-  }, [error, token]);
+    //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
+    if ((accounts[0] || []).length !== 0 && botanikData?.owner) {
+      (botanikData?.owner).toLowerCase() === accounts[0].toLowerCase() &&
+        navigate("/contract-functions");
+    } else {
+      navigate("/admin-login");
+    }
+  }, [accounts, botanikData]);
 
   return (
     <>

@@ -16,6 +16,7 @@ import {
 import { useAppDispatch, useAppSelector } from "store/store";
 import { withdrawEthWeb3 } from "store/redux/slices/contractFunctions/write";
 import SimpleBackdrop from "components/backdrop/backdrop";
+import { BotanikService } from "web3Functions/botanik";
 
 const WithDrawModel = () => {
   const [loading, setLoading] = useState(false);
@@ -28,13 +29,12 @@ const WithDrawModel = () => {
 
   const handleWithdrawEthWeb3 = async (value) => {
     try {
-      const amount = value?.amount;
+      const to = value?.amount;
 
       setLoading(true);
-      const receipt = await withdrawEthWeb3(contract, accounts[0], (amount*10**18).toFixed(0).toString());
-      setLoading(false);
-
+      const receipt = await BotanikService.withdraw(web3,to,accounts[0]);
       console.log(receipt);
+      setLoading(false);
     } catch (error) {
       console.log("error", error);
     }
@@ -51,11 +51,11 @@ const WithDrawModel = () => {
               <Forms.Item
                 name="amount"
                 rules={[
-                  { required: true, message: "Enter Amount!" },
-                  {pattern:/(^[+]?\d*\.?\d*[0-9]+\d*$)|(^[+]?[0-9]+\d*\.\d*$)/, message:"Negative values not allowed" }
+                  { required: true, message: "Enter Address!" },
+              
                 ]}
               >
-                <InputField  placeholder="Enter Amount!" type="number" />
+                <InputField  placeholder="Enter Address!" type="text" />
               </Forms.Item>
 
               <TransferButton>Withdraw</TransferButton>

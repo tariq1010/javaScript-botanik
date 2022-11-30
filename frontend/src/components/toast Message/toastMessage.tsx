@@ -1,32 +1,12 @@
-import * as React from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import { notification } from 'antd';
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-    props,
-    ref,
-) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+const ToastMessage = (title, message,type) => {
+  notification[type]({
+    message: title,
+    description: message,
+    duration: 5.2
+  });
+};
 
-export default function CustomizedSnackbars({ open, setOpen, message, type }: { open: any, setOpen: any, message:string, type:any }) {
 
-    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-    };
-
-    return (
-        <Stack spacing={2} sx={{ width: '100%' }}>
-            <Snackbar open={open} autoHideDuration={6000}   key={"top" + "right"}  anchorOrigin={{ vertical:"top", horizontal:"right" }} onClose={handleClose}>
-                <Alert onClose={handleClose} severity={type} sx={{ width: '100%' }}>
-                  {message}
-                </Alert>
-            </Snackbar>
-        </Stack>
-    );
-}
+export default ToastMessage;

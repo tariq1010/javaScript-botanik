@@ -89,7 +89,7 @@ export const GetProofHook = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        console.log(web3, accounts, "data1")
+       // console.log(web3, accounts, "data1")
         web3 && accounts && dispatch(getProofRequest({ address: accounts[0] }))
     }, [web3, accounts])
 
