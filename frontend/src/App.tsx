@@ -19,6 +19,7 @@ import io from "socket.io-client";
 import env from "./enviornment";
 import { setCount } from "store/redux/slices/mintNftSlice";
 import { btkData } from "store/redux/slices/helperSlices/modelSlice";
+import UploadNft from "pages/uploadNft";
 
 let socket: any;
 const ENDPOINT = env.BACKEND_BASE_URL;
@@ -67,6 +68,8 @@ const App = () => {
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/*" element={<Error404 />} />
           <Route path="/contract-functions" element={<ContractFunctions />} />
+          <Route path="/collection" element={<Collection />} />
+          <Route path="/upload-nft" element={<UploadNft />} />
         </Routes>
       </BrowserRouter>
     </div>
