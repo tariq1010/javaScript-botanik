@@ -2,12 +2,13 @@ import { renounceOwnership, transferOwnership } from './../store/redux/slices/co
 import { CONTRACT_ABI,CONTRACT_ADDRESS } from "contract";
 import { CommonUtility } from "utility/common";
 import Web3 from "web3";
+import environment from 'enviornment';
 
 
 class Botanik {
   // <<<<--- READ FUNCTIONS --->>>>
   getBTKData = async () => {
-    const web3 = new Web3('https://goerli.infura.io/v3/2b2b802ce8414591a6c76a30cf192ad3');
+    const web3 = new Web3(environment.rpc);
     try {
       if (web3) {
         let config = {
