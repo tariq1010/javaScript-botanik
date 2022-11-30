@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import Backdrop from "../../components/backdrop/backdrop";
-import Datatable from "../../components/datatable/datatable";
 import ErrorPage from "../../components/error page/errorPage";
 import { getMintedNftsRequest } from "../../store/redux/slices/getNftSlice";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +38,7 @@ const MintedNfts = () => {
       ) : (
         <div>
           <Backdrop loading={mintedLoading} />
-          <Datatable data={mintedNfts} minted={true} />
+          {/* <Datatable data={mintedNfts} minted={true} /> */}
         </div>
       )}
     </>
