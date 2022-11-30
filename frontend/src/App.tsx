@@ -14,20 +14,19 @@ import Error404 from "./components/error404/error404";
 import ContractFunctions from "./components/contractFunctions/contractFunctions";
 import GlobalStyle from "./globalStyles";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { RevealNft, WhiteListAddress } from "pages/admin"
+import { RevealNft, WhiteListAddress } from "pages/admin";
 import io from "socket.io-client";
 import env from "./enviornment";
 import { setCount } from "store/redux/slices/mintNftSlice";
 import { btkData } from "store/redux/slices/helperSlices/modelSlice";
+import UploadNft from "pages/uploadNft";
 
 let socket: any;
 const ENDPOINT = env.BACKEND_BASE_URL;
 
 const App = () => {
-  const dispatch = useAppDispatch()
-  const { web3 } = useAppSelector(
-    (state) => state.web3Connect
-  );
+  const dispatch = useAppDispatch();
+  const { web3 } = useAppSelector((state) => state.web3Connect);
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -39,28 +38,22 @@ const App = () => {
     });
     socket &&
       socket.on("nftCount", (result: any) => {
-        dispatch(setCount(result))
+        dispatch(setCount(result));
       });
   }, [socket]);
 
-  const { botanikData} = useAppSelector(
-    (state) => state.model
-  );
-console.log("BTK NFT", botanikData)
-  useEffect(()=>{
-    if(web3)
-    {
-      const getBTKData=async()=>
-      {
+  const { botanikData } = useAppSelector((state) => state.model);
+  console.log("BTK NFT", botanikData);
+  useEffect(() => {
+    if (web3) {
+      const getBTKData = async () => {
         try {
           dispatch(btkData());
-          
-       } catch (error) {
-         
-       }
-      }
+        } catch (error) {}
+      };
       getBTKData();
-    }},[web3])
+    }
+  }, [web3]);
 
   return (
     <div>
@@ -82,6 +75,7 @@ console.log("BTK NFT", botanikData)
           <Route path="/contract-functions" element={<ContractFunctions />} />
 
           <Route path="/collection" element={<Collection />} />
+          <Route path="/upload-nft" element={<UploadNft />} />
         </Routes>
       </BrowserRouter>
     </div>
