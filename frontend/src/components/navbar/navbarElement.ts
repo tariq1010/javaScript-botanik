@@ -4,7 +4,8 @@ import { Navbar, Nav } from "react-bootstrap";
 
 export const MainNavbar = styled(Navbar)`
   background: #df6b6b !important;
-  
+  /* background: #b42221 !important; */
+  /* background: rgba(180, 34, 33, 0.7) !important; */
 `;
 
 export const MainNav = styled(Nav)`
@@ -16,7 +17,7 @@ export const MainNav = styled(Nav)`
   }
   cursor: pointer;
 
-  &>.nav-link:hover {
+  & > .nav-link:hover {
     transform: scale(1.2);
     transition: all 0.3s linear;
   }

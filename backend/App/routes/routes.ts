@@ -47,6 +47,7 @@ router.post(
 );
 router.get("/nfts_minted", getMintedNfts);
 router.get("/nft_left", getNftsLeft);
+
 router.get(
   "/nft/:token_id",
   (ctx: any, next: any) => validateTokenId(ctx, next, ["token_id"]),

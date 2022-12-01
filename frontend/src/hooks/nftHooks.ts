@@ -1,36 +1,25 @@
-import openNotification from "components/common/toatMessage/toastMessage"
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { getMintedNftsRequest } from "store/redux/slices/getNftSlice"
-import { useAppDispatch, useAppSelector } from "store/store"
+import openNotification from "components/common/toatMessage/toastMessage";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getMintedNftsRequest } from "store/redux/slices/getNftSlice";
+import { useAppDispatch, useAppSelector } from "store/store";
+import axios from "axios";
+import env from "enviornment";
 
+export const MintedNftHook = () => {
+  const [data, setData] = useState(null);
 
-export const MintedNftHook =()=>{
-    const dispatch = useAppDispatch()
-    const token = localStorage.getItem('access_token')
-    const navigate = useNavigate()
-    const { mintedNfts, mintedLoading, mintedError, mintedErrorMessage } =
-    useAppSelector((state) => state.getNfts);
+  const getMinted = async () => {
+    let result = await axios.get(`${env.BACKEND_BASE_URL}/nfts_minted`);
+    setData(result);
+  };
 
-    const getMinted =()=>{
-        dispatch(getMintedNftsRequest({token}))
-    }
+  useEffect(() => {
+    getMinted();
+  }, []);
 
-    useEffect(()=>{
-        if(token){
-          getMinted()
-        }
-    }, [token])
-
-    useEffect(()=>{
-        // mintedError && openNotification('')
-    },[mintedError])
-
-    return{
-        mintedNfts,
-        offChainCount: mintedNfts?.length,
-        mintedLoading,
-        getMinted
-    }
-    
-}
+  return {
+    data,
+    getMinted,
+  };
+};

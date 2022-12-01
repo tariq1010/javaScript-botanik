@@ -4,6 +4,7 @@ import { UploadNftHook } from "hooks/uploadNftHooks";
 import styled from "styled-components";
 import { openNotification } from "components/common";
 
+import MainNavbar from "components/navbar";
 const UploadWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -41,15 +42,18 @@ const UploadNft = () => {
   }, [data]);
 
   return (
-    <UploadWrapper>
-      <Container>
-        <Row>
-          <Col>
-            <input type="file" onChange={handleChange} />
-          </Col>
-        </Row>
-      </Container>
-    </UploadWrapper>
+    <>
+      <MainNavbar />
+      <UploadWrapper>
+        <Container>
+          <Row>
+            <Col>
+              <input type="file" onChange={handleChange} />
+            </Col>
+          </Row>
+        </Container>
+      </UploadWrapper>
+    </>
   );
 };
 

@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import "primeicons/primeicons.css";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.css";
-import "primeflex/primeflex.css";
+
 import Home from "./pages/home";
 import MintedNfts from "./pages/minted Nfts";
 import { useAppDispatch, useAppSelector } from "./store/store";

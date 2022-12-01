@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import mainBg from "./assets/images/mintingBg.png";
+
 const GlobalStyle = createGlobalStyle`
   * {
   box-sizing: border-box;
@@ -13,14 +14,16 @@ const GlobalStyle = createGlobalStyle`
 
  body
 {
-  /* background: url(${mainBg}) no-repeat ; */
+  /* background: url(${mainBg}) no-repeat ;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-position: center center;
-  background-attachment: fixed;
- 
-}
+  background-attachment: fixed; */
+  background: #2b2b2b
+;
+  
+} 
  
  
 iframe
