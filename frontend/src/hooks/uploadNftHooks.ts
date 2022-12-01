@@ -1,23 +1,23 @@
 import openNotification from "components/common/toatMessage/toastMessage";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import env from "enviornment";
 import axios from "axios";
 
 export const UploadNftHook = () => {
-  let result;
+  const [data, setData] = useState(null);
 
   const uploadHandle = async (file) => {
     console.log("uplad", file);
     let obj = {
       data: JSON.parse(file),
     };
-
-    result = await axios.post("http://localhost:8080/upload-nft", obj);
-    console.log("result", result);
+    let result;
+    result = await axios.post(`${env.BACKEND_BASE_URL}/upload-nft`, obj);
+    setData(result);
   };
 
   return {
-    result,
+    data,
     uploadHandle,
   };
 };

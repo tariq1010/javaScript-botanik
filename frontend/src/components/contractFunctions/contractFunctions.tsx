@@ -152,7 +152,7 @@ const ContractFunctions: React.FC<Props> = () => {
   return (
     <>
       <MainNavbar />
-      <SimpleBackdrop loading={loading || authLoading} />
+      <SimpleBackdrop loading={loading} />
       <Wrapper>
         <MainModel
           connectModel={connectModel}

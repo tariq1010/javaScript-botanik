@@ -21,6 +21,8 @@ import SimpleBackdrop from "components/backdrop/backdrop";
 import { BotanikService } from "web3Functions/botanik";
 import { Button } from "react-bootstrap";
 import { btkData } from "store/redux/slices/helperSlices/modelSlice";
+import { mainModel } from "store/redux/slices/helperSlices/modelSlice";
+import { MainModel } from "components/common";
 
 const AdminLogin = () => {
   //decalartions
@@ -35,79 +37,40 @@ const AdminLogin = () => {
     (state) => state.web3Connect
   );
 
-  const { botanikData} = useAppSelector(
-    (state) => state.model
-  );
-console.log("BTK NFT admin", botanikData)
+  console.log("owner", web3, accounts);
+
+  const { botanikData } = useAppSelector((state) => state.model);
+  console.log("BTK NFT admin", botanikData);
 
   //custom hooks
- 
+
   const { loading: authLoading, auth } = CheckAuthHook();
-
-
+  const [loader, setLoader] = useState(false);
+  console.log("loader", loader);
   useEffect(() => {
     //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if ((accounts[0] || []).length !== 0 && botanikData?.owner) {
-      (botanikData?.owner).toLowerCase() === (accounts[0]).toLowerCase() && navigate("/contract-functions")
-    } 
-  }, [accounts,botanikData]);
- 
 
+    if ((accounts[0] || []).length !== 0 && botanikData?.owner) {
+      setLoader(true);
+      let owner =
+        (botanikData?.owner).toLowerCase() === accounts[0].toLowerCase();
+      setLoader(false);
+      owner && navigate("/contract-functions");
+    }
+  }, [web3, accounts, botanikData]);
+
+  const [connectModel, setConnectModel] = useState(false);
+
+  useEffect(() => {
+    setConnectModel(true);
+    dispatch(mainModel(true));
+  }, []);
 
   return (
     <Content>
-      <>
-        <SimpleBackdrop loading={authLoading} />
-        <LoginMain>
-          <LoginContainer>
-            <Heading>LOGIN</Heading>
-            {/* <EmailInputField
-              value={credentials.username}
-              placeholder="User Name"
-              type={"text"}
-              onChange={(e) =>
-                dispatch(
-                  setCredentials({
-                    ...credentials,
-                    username: e.target.value,
-                  })
-                )
-              }
-            /> */}
-            {/* {error && errorMessage.status === 404 && (
-              <p style={{ color: "white" }}>{errorMessage.error}</p>
-            )}
-            {errors.username && (
-              <p style={{ color: "white" }}>{errors.username}</p>
-            )} */}
-            {/* <PasswordInputField
-              value={credentials.password}
-              placeholder="Password"
-              type={"password"}
-              onChange={(e) =>
-                dispatch(
-                  setCredentials({
-                    ...credentials,
-                    password: e.target.value,
-                  })
-                )
-              }
-            /> */}
-            {/* {error && errorMessage.status === 401 && (
-              <p style={{ color: "white" }}>{errorMessage.error}</p>
-            )}
-            {errors.password && (
-              <p style={{ color: "white" }}>{errors.password}</p>
-            )} */}
-
-            {/* <LoginButton disabled={loading} onClick={handleSubmit}>
-              {loading ? "Signing in..." : "Login"}
-            </LoginButton> */}
-            <ConnectWallet />
-            {/* <Button onClick={()=>login()}>Login</Button> */}
-          </LoginContainer>
-        </LoginMain>
-      </>
+      <SimpleBackdrop loading={loader} />
+      <MainModel connectModel={connectModel} />
+      <p className="text-white">Wallet Connecting...</p>
     </Content>
   );
 };
