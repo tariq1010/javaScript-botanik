@@ -56,6 +56,7 @@ import logo from "assets/images/mainlogo1.svg";
 import { btkData, mainModel } from "store/redux/slices/helperSlices/modelSlice";
 import validate from "./components/validateNumber";
 import { GetMintStatusHook } from "hooks/web3Hooks";
+import InputNumbers from "./components/inputNumbers";
 
 type Props = {
   battleDesc?: boolean;
@@ -142,7 +143,7 @@ const Home: React.FC<Props> = ({
       }
       else {
       setMintLoading(true);
-      const txn = await BotanikService.mint(web3, accounts[0], num)
+      const txn = await BotanikService.mint(web3, accounts, num)
       if(txn && txn.status) {
         ToastMessage("Success","Transaction Successfull","success")
       }
@@ -204,28 +205,37 @@ const Home: React.FC<Props> = ({
           </Title>
 
           <InputField className="modelInput">
-            <input
-              placeholder="Enter amount"
-              type="number"
-              id="amount"
-              min="0"
-              onKeyPress={preventMinus}
+            <InputNumbers
+              setIsSubmitting={setIsSubmitting}
+              validate={validate}
+              setErrors={setErrors}
+              error={errors.num}
+              num={num}
+              setNum={setNum}
+              remaingNftLength={
+                botanikData?.phaseLimit - botanikData?.totalSupply
+              }
+              setStatus={setStatus}
+              botanikConfig={botanikData}
+              status={status}
             />
           </InputField>
           {web3 ? (
-            <Button onClick={(event) => {
-              if (botanikData?.totalSupply === botanikData?.phaseLimit) {
-                openNotification(
-                  "Phase Completed",
-                  "Current phase of minting in finished",
-                  "warning"
-                );
-              } else if ( botanikData?.isPaused) {
-                openNotification("Paused", "Minting paused", "warning");
-              } else {
-                handleSubmit(event);
-              }
-            }}>
+            <Button
+              onClick={(event) => {
+                if (botanikData?.totalSupply === botanikData?.phaseLimit) {
+                  openNotification(
+                    "Phase Completed",
+                    "Current phase of minting in finished",
+                    "warning"
+                  );
+                } else if (botanikData?.isPaused) {
+                  openNotification("Paused", "Minting paused", "warning");
+                } else {
+                  handleSubmit(event);
+                }
+              }}
+            >
               <button>Mint NFT</button>
             </Button>
           ) : (

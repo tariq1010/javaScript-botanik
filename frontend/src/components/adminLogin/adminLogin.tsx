@@ -37,7 +37,6 @@ const AdminLogin = () => {
     (state) => state.web3Connect
   );
 
- 
   const { botanikData } = useAppSelector((state) => state.model);
   console.log("BTK NFT admin", botanikData);
 
@@ -49,17 +48,15 @@ const AdminLogin = () => {
   useEffect(() => {
     //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
 
-    if ((accounts[0] || []).length !== 0 && botanikData?.owner) {
+    if (accounts && botanikData?.owner) {
       setLoader(true);
-      let owner =
-        (botanikData?.owner).toLowerCase() === accounts[0].toLowerCase();
+      let owner = (botanikData?.owner).toLowerCase() === accounts.toLowerCase();
       setLoader(false);
       owner && navigate("/contract-functions");
     }
   }, [web3, accounts, botanikData]);
 
   const [connectModel, setConnectModel] = useState(false);
-
 
   useEffect(() => {
     setConnectModel(true);

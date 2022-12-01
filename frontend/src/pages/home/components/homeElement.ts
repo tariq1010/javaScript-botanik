@@ -93,7 +93,6 @@ export const Title = styled.h5`
 export const InputField = styled.div`
   text-align: center;
   margin-top: 1.5rem;
-
   input {
     width: 442px;
     height: 42px;
