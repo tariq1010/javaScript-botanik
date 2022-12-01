@@ -70,7 +70,7 @@ const AdminLogin = () => {
     <Content>
       <SimpleBackdrop loading={loader} />
       <MainModel connectModel={connectModel} />
-      <>Wallet Connecting...</>
+      <p className="text-white">Wallet Connecting...</p>
     </Content>
   );
 };
