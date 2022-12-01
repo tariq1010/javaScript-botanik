@@ -7,10 +7,46 @@ import MintContent from "./components/mintContent";
 import { ownerAsync } from "../../store/redux/slices/web3ConnectSlice";
 import { getFeeRequest } from "../../store/redux/slices/getFeeSlice";
 import env from "../../enviornment";
+import s1 from "../../assets/images/s1.png";
+// import img from '../../assets/images/nextArrow.svg'
+import img from '../../assets/images/prevArrow.svg'
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { MainRow, MainCol } from "components/common";
-import { LogoTitle, LogoDesc, MainWrapper,HomeSection,Title,InputField } from "./components/homeElement";
-import img1 from '../../assets/images/img1.png'
+// Import Swiper styles
+import "swiper/swiper-bundle.min.css";
+import "swiper/modules/pagination/pagination.min.css";
+import "swiper/modules/effect-coverflow/effect-coverflow.min.css";
+// import "swiper/css/effect-coverflow";
+// import "swiper/css/pagination";
+
+// import "./styles.css";
+
+// import required modules
+import { EffectCoverflow, Pagination,Navigation } from "swiper";
+
+import { MainRow, MainCol, MainContainer } from "components/common";
+import {
+  LogoTitle,
+  LogoDesc,
+  MainWrapper,
+  HeroSection,
+  Title,
+  InputField,
+  Button,
+  Text,
+  HeaderSection,
+  JungleSection,
+  JungleTitle,
+  JungleDescription,
+  GallerySection,
+  GalleryTitle,
+  GallerySwiper,
+  ContactSection,
+  ContactTitle,
+  ContactButton,
+  FooterText
+} from "./components/homeElement";
+import img1 from "../../assets/images/img1.png";
 
 // logo
 import logo from "assets/images/mainlogo1.svg";
@@ -33,11 +69,8 @@ const Home: React.FC<Props> = ({
   const { web3, accounts } = useAppSelector((state) => state.web3Connect);
   const { loading } = useAppSelector((state) => state.getToken);
   const [num, setNum] = useState(0);
-  const { botanikData} = useAppSelector(
-    (state) => state.model
-  );
+  const { botanikData } = useAppSelector((state) => state.model);
   const dispatch = useAppDispatch();
-
 
   useEffect(() => {
     if (web3 && accounts[0]) {
@@ -55,17 +88,17 @@ const Home: React.FC<Props> = ({
   }, []);
 
   const preventMinus = (e) => {
-    if (e.code === 'Minus') {
-        e.preventDefault();
+    if (e.code === "Minus") {
+      e.preventDefault();
     }
-};
+  };
 
-  useEffect(()=>{
-    
+  useEffect(() => {
     {
       dispatch(btkData());
     }
-   },[])
+  }, []);
+
   return (
     <div style={{ overflow: "hidden" }}>
       <Backdrop loading={loading} />
@@ -79,22 +112,161 @@ const Home: React.FC<Props> = ({
         </MainCol>
       </MainRow> */}
 
-      <HomeSection>
-        <div>
-        <img src={img1} className="img1"/>
+      <HeroSection>
+        <div className="mainImage">
+          <img src={img1} />
         </div>
 
-        <Title>
-          Total Price
-        </Title>
+        <HeaderSection>
+          <Title>Total Price</Title>
 
-        <InputField className="modelInput">
-        <input  placeholder="Enter amount" type="number"  id="amount" min='0' onKeyPress={preventMinus}  />
-        </InputField>
+          <InputField className="modelInput">
+            <input
+              placeholder="Enter amount"
+              type="number"
+              id="amount"
+              min="0"
+              onKeyPress={preventMinus}
+            />
+          </InputField>
 
+          <Button>
+            <button>Connect Wallet</button>
+          </Button>
 
-        
-      </HomeSection>
+          <Text>
+            Mint Price: 0.0001
+            <br />
+            <br />
+            <span>NFTS Left: 6647</span>
+          </Text>
+        </HeaderSection>
+
+        <JungleSection>
+          <MainContainer>
+            <div className="overlayBg">
+              <JungleTitle>Tapera Jungle</JungleTitle>
+
+              <JungleDescription>
+                The Tapera jungle project aims to preserve and give value to the
+                Tapera forest in the Amazon, in the village of Urucara.
+                <br />
+                <br />
+                This area has been protected by a group of local farmers since
+                2003, and they have designated a few dozen plots of native
+                forest so that local residents can enjoy this natural space and
+                the forest's exuberance.
+                <br />
+                <br /> But for several years now, wood theft and illegal
+                invasions have become more and more frequent, and many producers
+                have lost their land, which is now occupied by illegal loggers
+                or by ranchers who are beginning to transform the forest into
+                pasture for their livestock.
+                <br />
+                <br /> The Tapera project is a private initiative of the
+                Agro-Frut cooperative in Urucara and a group of botanical and
+                nature enthusiasts, which aims to recover ownership of these
+                lands, restore and protect them, while valuing this treasure of
+                biodiversity, which has more than 100 species of trees.
+                <br />
+                <br /> Thus, several plots have already been bought from illegal
+                sawmills, located in Sao Sebastiao, a village next to Urucara,
+                where the majority of sawmills are located, all in an irregular
+                situation.
+                <br />
+                <br />
+                Demarcations are underway, with the installation of fences that
+                materialize the limits of the properties, by installing a post
+                every 4 meters. The first observatory was built to house the
+                rangers.
+                <br />
+                <br /> Additionally, a forest inventory has been initiated to
+                list and tag all trees larger than 10 cm in diameter, and each
+                tree ishis forest inventory, together with physical demarcation
+                work, registration of parcels in the national regiand occupation
+                of the forest by forest rangers, represents a strong initiative
+                to combat deforestation and protect the Tapera Forest. form.
+                <br />
+                <br /> To publish the Tapera Jungle project, an initial
+                collection of his 8,000 original digital artwork of Amazon trees
+                was created, each image associated with a tree in inventory in
+                the form of his NFT.
+                <br />
+                <br />
+                In exchange for your purchase of one or more NFTs, you will be
+                able to become a member of the Tapera Jungle club,where you will
+                have access to all information and activities related to the
+                project, as well as the chance to visit the forest and take part
+                in the extraordinary Amazonian biodiversity conservation
+                project. The Tapera Jungle project is exclusively financed by
+                the sale of these NFTs, and will be able to continue to develop
+                and expand into new areas of native forests currently at risk of
+                extinction through the sale of these NFTs.
+              </JungleDescription>
+            </div>
+          </MainContainer>
+        </JungleSection>
+
+        <GallerySection>
+          <GalleryTitle>Gallery</GalleryTitle>
+         
+          <GallerySwiper>
+            <Swiper
+            // activeSlideKey='2'
+              effect={"coverflow"}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={"auto"}
+              coverflowEffect={{
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2,
+                slideShadows: true,
+                
+              }}
+              // scrollbar={{draggable:true}}
+              navigation={true}
+              initialSlide={2}
+              pagination={true}
+              modules={[EffectCoverflow, Pagination,Navigation]}
+              className="mySwiper"
+            >
+              <SwiperSlide>
+                <img src={s1} />
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <img src={s1} />
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <img src={s1} />
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <img src={s1} />
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <img src={s1} />
+              </SwiperSlide>
+            </Swiper>
+          </GallerySwiper>
+
+          <ContactSection>
+            <ContactTitle>contact@taperajungle.com</ContactTitle>
+
+            <ContactButton>
+              <button>Contact Us</button>
+            </ContactButton>
+          </ContactSection>
+
+          <FooterText>
+          Copyright ©taperajungle. All Rights Reserved
+          </FooterText>
+        </GallerySection>
+      </HeroSection>
     </div>
   );
 };
