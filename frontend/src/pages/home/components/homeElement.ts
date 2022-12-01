@@ -1,4 +1,6 @@
+import { style } from "@mui/system";
 import styled, { css } from "styled-components";
+
 
 interface Props {
   battleDesc?: boolean;
@@ -68,3 +70,42 @@ export const CounterBtn = styled.button<Props>`
 export const CounterValue = styled.h5`
   margin-top: 0.5rem;
 `;
+/* home section start */
+
+export const HomeSection = styled.div`
+
+.img1
+{
+   width: 100%;
+   height: 305px;
+}
+
+`
+
+export const Title = styled.h5`
+
+text-align: center;
+
+`
+
+export const InputField = styled.div`
+text-align: center;
+
+ input
+{
+  width: 442px;
+height: 42px;
+  background: rgba(255, 255, 255, 0.85);
+border: 0.5px solid #295F3F;
+border-radius: 15px;
+
+}
+
+.input:focus
+{
+  border:none;
+  border-color:black;
+}
+
+
+`

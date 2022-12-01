@@ -9,7 +9,8 @@ import { getFeeRequest } from "../../store/redux/slices/getFeeSlice";
 import env from "../../enviornment";
 
 import { MainRow, MainCol } from "components/common";
-import { LogoTitle, LogoDesc, MainWrapper } from "./components/homeElement";
+import { LogoTitle, LogoDesc, MainWrapper,HomeSection,Title,InputField } from "./components/homeElement";
+import img1 from '../../assets/images/img1.png'
 
 // logo
 import logo from "assets/images/mainlogo1.svg";
@@ -50,10 +51,16 @@ const Home: React.FC<Props> = ({
     dispatch(mainModel(true));
   }, []);
 
+  const preventMinus = (e) => {
+    if (e.code === 'Minus') {
+        e.preventDefault();
+    }
+};
+
   return (
     <div style={{ overflow: "hidden" }}>
       <Backdrop loading={loading} />
-      <MainRow>
+      {/* <MainRow>
         <MainCol>
           <MainWrapper>
             <LogoTitle src={logo} width={500}></LogoTitle>
@@ -61,7 +68,24 @@ const Home: React.FC<Props> = ({
             <MintContent num={num} setNum={setNum} />
           </MainWrapper>
         </MainCol>
-      </MainRow>
+      </MainRow> */}
+
+      <HomeSection>
+        <div>
+        <img src={img1} className="img1"/>
+        </div>
+
+        <Title>
+          Total Price
+        </Title>
+
+        <InputField className="modelInput">
+        <input  placeholder="Enter amount" type="number"  id="amount" min='0' onKeyPress={preventMinus}  />
+        </InputField>
+
+
+        
+      </HomeSection>
     </div>
   );
 };

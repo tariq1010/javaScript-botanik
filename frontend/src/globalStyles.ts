@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
 
  body
 {
-  background: url(${mainBg}) no-repeat ;
+  /* background: url(${mainBg}) no-repeat ; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
