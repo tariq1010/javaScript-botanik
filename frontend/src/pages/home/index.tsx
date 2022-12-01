@@ -230,7 +230,7 @@ const Home: React.FC<Props> = ({
               }}
               // scrollbar={{draggable:true}}
               navigation={true}
-              initialSlide={4}
+              initialSlide={2}
               pagination={true}
               modules={[EffectCoverflow, Pagination,Navigation]}
               className="mySwiper"
@@ -255,16 +255,8 @@ const Home: React.FC<Props> = ({
                 <img src={s1} />
               </SwiperSlide>
               
-              <SwiperSlide>
-                <img src={s1} />
-              </SwiperSlide>
-              
-              <SwiperSlide>
-                <img src={s1} />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img src={s1} />
-              </SwiperSlide>
+             
+             
             </Swiper>
           </GallerySwiper>
 
