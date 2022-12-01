@@ -39,9 +39,9 @@ const Home: React.FC<Props> = ({
 
 
   useEffect(() => {
-    if (web3 && accounts[0]) {
+    if (web3 && accounts) {
       const data = {
-        accounts: accounts[0],
+        accounts: accounts,
       };
       web3 && dispatch(getTokenRequest(data));
       web3 && dispatch(ownerAsync());

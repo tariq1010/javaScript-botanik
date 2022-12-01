@@ -39,6 +39,7 @@ const AdminLogin = () => {
     (state) => state.model
   );
 console.log("BTK NFT admin", botanikData)
+console.log("Account",accounts);
 
   //custom hooks
  
@@ -47,8 +48,8 @@ console.log("BTK NFT admin", botanikData)
 
   useEffect(() => {
     //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if ((accounts[0] || []).length !== 0 && botanikData?.owner) {
-      (botanikData?.owner).toLowerCase() === (accounts[0]).toLowerCase() && navigate("/contract-functions")
+    if ((accounts || []).length !== 0 && botanikData?.owner) {
+      (botanikData?.owner).toLowerCase() === (accounts).toLowerCase() && navigate("/contract-functions")
     } 
   }, [accounts,botanikData]);
  

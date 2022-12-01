@@ -50,7 +50,7 @@ const Header = () => {
                             </Link>
                         </li>
                         {
-                            web3 && accounts[0] === ownerAddress ? <li className="nav-item active">
+                            web3 && accounts === ownerAddress ? <li className="nav-item active">
                                 <a>
                                     <NavLink to="admin">
                                         Admin

@@ -15,8 +15,8 @@ const Collection = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (web3 && accounts[0]) {
-            userCollectionAsync(accounts[0], setCollection)
+        if (web3 && accounts) {
+            userCollectionAsync(accounts, setCollection)
         }
     }, [web3, accounts])
 

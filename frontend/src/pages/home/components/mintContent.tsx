@@ -81,7 +81,7 @@ const validateFunc = async() => {
       }
       else {
       setMintLoading(true);
-      const txn = await BotanikService.mint(web3, accounts[0], num)
+      const txn = await BotanikService.mint(web3, accounts, num)
       if(txn && txn.status) {
         ToastMessage("Success","Transaction Successfull","success")
       }
@@ -130,7 +130,7 @@ const validateFunc = async() => {
         error={errors.num}
         num={num}
         setNum={setNum}
-        remaingNftLength={count?.remainingInPhase}
+        remaingNftLength={botanikData?.phaseLimit - botanikData?.totalSupply}
         setStatus={setStatus}
         botanikConfig={botanikData}
         status ={status}
