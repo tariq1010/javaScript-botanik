@@ -218,7 +218,7 @@ const ContractFunctions: React.FC<Props> = () => {
           <MainDiv>
             {web3 ? (
               <div style={{ color: "white" }}>
-                <p>Current Mint Fee: {(botanikData?.mintFee / 10 **18).toFixed(15)}</p>
+                <p>Current Mint Fee: {(botanikData?.mintFee / 10 **18)}</p>
                 {botanikData?.phaseLimit > 0 ? (
                   <p>Current Mint Limit: {botanikData?.phaseLimit}</p>
                 ) : (

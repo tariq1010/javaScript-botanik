@@ -122,7 +122,7 @@ const validateFunc = async() => {
     <>
       
       <SimpleBackdrop loading={mintLoading || feeLoading} />
-      <p style={{ color: "white" }}>Total Price: {(((num * botanikData?.mintFee)/10 **18).toFixed(15) || 0)}</p>
+      <p style={{ color: "white" }}>Total Price: {(((num * botanikData?.mintFee)/10 **18) || 0)}</p>
       <InputNumbers
         setIsSubmitting={setIsSubmitting}
         validate={validate}
