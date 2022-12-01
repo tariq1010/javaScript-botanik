@@ -2,7 +2,7 @@ import { style } from "@mui/system";
 import styled, { css } from "styled-components";
 import wirefram from "../../../assets/images/Wireframe.png";
 import img3 from "../../../assets/images/img3.png";
-import img4 from '../../../assets/images/img4.png'
+import img4 from '../../../assets/images/img4.svg'
 import arrow from '../../../assets/images/Arrow.svg'
 import nextArrow from '../../../assets/images/nextArrow.svg'
 import prevArrow from '../../../assets/images/prevArrow.svg'
@@ -198,13 +198,17 @@ export const HeaderSection = styled.div`
 export const JungleSection = styled.div`
  padding-top: 13rem;
  padding-bottom: 5rem;
+ /* background-image: url(${img4}); */
  background-image: url(${img4});
  -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+   background-repeat: no-repeat;
+  /* transform: matrix(1, 0.08, -0.09, 1, 0, 0); */
+   
  
- 
+   
 `;
 
 export const JungleTitle = styled.h5`

@@ -141,10 +141,11 @@ const Home: React.FC<Props> = ({
             <span>NFTS Left: 6647</span>
           </Text>
         </HeaderSection>
-
+         
         <JungleSection>
-          <MainContainer>
-            <div className="overlayBg">
+         <div className="overlayBg">
+ <MainContainer>
+            <div >
               <JungleTitle>Tapera Jungle</JungleTitle>
 
               <JungleDescription>
@@ -205,6 +206,8 @@ const Home: React.FC<Props> = ({
               </JungleDescription>
             </div>
           </MainContainer>
+         </div>
+         
         </JungleSection>
 
         <GallerySection>
@@ -227,7 +230,7 @@ const Home: React.FC<Props> = ({
               }}
               // scrollbar={{draggable:true}}
               navigation={true}
-              initialSlide={2}
+              initialSlide={4}
               pagination={true}
               modules={[EffectCoverflow, Pagination,Navigation]}
               className="mySwiper"
@@ -248,6 +251,17 @@ const Home: React.FC<Props> = ({
                 <img src={s1} />
               </SwiperSlide>
 
+              <SwiperSlide>
+                <img src={s1} />
+              </SwiperSlide>
+              
+              <SwiperSlide>
+                <img src={s1} />
+              </SwiperSlide>
+              
+              <SwiperSlide>
+                <img src={s1} />
+              </SwiperSlide>
               <SwiperSlide>
                 <img src={s1} />
               </SwiperSlide>
