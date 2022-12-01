@@ -9,12 +9,13 @@ import { getFeeRequest } from "../../store/redux/slices/getFeeSlice";
 import env from "../../enviornment";
 
 import { MainRow, MainCol } from "components/common";
-import { LogoTitle, LogoDesc, MainWrapper } from "./components/homeElement";
+import { LogoTitle, LogoDesc, MainWrapper,HomeSection,Title,InputField } from "./components/homeElement";
+import img1 from '../../assets/images/img1.png'
 
 // logo
 import logo from "assets/images/mainlogo1.svg";
 // redux Slice
-import { mainModel } from "store/redux/slices/helperSlices/modelSlice";
+import { btkData, mainModel } from "store/redux/slices/helperSlices/modelSlice";
 
 type Props = {
   battleDesc?: boolean;
@@ -32,6 +33,9 @@ const Home: React.FC<Props> = ({
   const { web3, accounts } = useAppSelector((state) => state.web3Connect);
   const { loading } = useAppSelector((state) => state.getToken);
   const [num, setNum] = useState(0);
+  const { botanikData} = useAppSelector(
+    (state) => state.model
+  );
   const dispatch = useAppDispatch();
 
 
@@ -50,18 +54,47 @@ const Home: React.FC<Props> = ({
     dispatch(mainModel(true));
   }, []);
 
+  const preventMinus = (e) => {
+    if (e.code === 'Minus') {
+        e.preventDefault();
+    }
+};
+
+  useEffect(()=>{
+    
+    {
+      dispatch(btkData());
+    }
+   },[])
   return (
     <div style={{ overflow: "hidden" }}>
       <Backdrop loading={loading} />
-      <MainRow>
+      {/* <MainRow>
         <MainCol>
           <MainWrapper>
             <LogoTitle src={logo} width={500}></LogoTitle>
-            <LogoDesc>{count?.totalSupply}/10000</LogoDesc>
+            <LogoDesc>{botanikData?`${botanikData?.totalSupply}/${botanikData?.maxSupply}` : ""}</LogoDesc>
             <MintContent num={num} setNum={setNum} />
           </MainWrapper>
         </MainCol>
-      </MainRow>
+      </MainRow> */}
+
+      <HomeSection>
+        <div>
+        <img src={img1} className="img1"/>
+        </div>
+
+        <Title>
+          Total Price
+        </Title>
+
+        <InputField className="modelInput">
+        <input  placeholder="Enter amount" type="number"  id="amount" min='0' onKeyPress={preventMinus}  />
+        </InputField>
+
+
+        
+      </HomeSection>
     </div>
   );
 };

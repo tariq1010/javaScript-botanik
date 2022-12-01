@@ -38,8 +38,8 @@ const SetPhaseModal = () => {
       setLoading(true);
       const price = +(value?.price)
       const values = {
-        newPrice: (price*10**18).toFixed(0).toString(),
-        updatedSupply: +value?.supply,
+       // newPrice: (price*10**18).toFixed(0).toString(),
+        updatedSupply: Number(value?.supply),
       };
       console.log(values);
       const receipt = await setPhaseSupplyAndPrice(
@@ -70,7 +70,7 @@ const SetPhaseModal = () => {
         <TransferModelContent>
           <TransferCenterDiv>
             <Forms onFinish={handleSetPhase}>
-              <Forms.Item
+              {/* <Forms.Item
                 name="price"
                 rules={[
                   { required: true, message: "Enter minting price!" },
@@ -81,11 +81,11 @@ const SetPhaseModal = () => {
                   placeholder="Enter Mint Price"
                   type="number"
                 />
-              </Forms.Item>
+              </Forms.Item> */}
               <Forms.Item
                 name="supply"
                 rules={[
-                  { required: true, message: "Enter total supply!" },
+                  { required: true, message: "Enter new phase supply!" },
                   {pattern:/^[1-9]+[0-9]*$/, message:"Invalid value" }
               ]}
               >
