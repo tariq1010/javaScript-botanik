@@ -59,10 +59,10 @@ const ContractFunctions: React.FC<Props> = () => {
   };
   const setPhaseModal = () => {
     try {
-      if (count?.phaseMintedCount != count?.phaseLimit) {
-        throw "Current phase is stil incomplete!";
-      } else if (count.totalSupply != count.offChainCount)
-        throw "Please first reveal previous phase NFTs";
+      // if (count?.phaseMintedCount != count?.phaseLimit) {
+      //   throw "Current phase is stil incomplete!";
+      // } else if (count.totalSupply != count.offChainCount)
+      //   throw "Please first reveal previous phase NFTs";
       setTransferModel(false);
       setWithDrawModel(false);
       setPhaseModel(true);
@@ -165,9 +165,9 @@ const ContractFunctions: React.FC<Props> = () => {
           <MainDiv>
             {web3 ? (
               <div style={{ color: "white" }}>
-                <p>Current Mint Fee: {fee}</p>
-                {count?.phaseLimit > 0 ? (
-                  <p>Current Mint Limit: {count?.phaseLimit}</p>
+                <p>Current Mint Fee: {botanikData?.mintFee}</p>
+                {botanikData?.phaseLimit > 0 ? (
+                  <p>Current Mint Limit: {botanikData?.phaseLimit}</p>
                 ) : (
                   "Current Phase Finished"
                 )}
@@ -191,13 +191,13 @@ const ContractFunctions: React.FC<Props> = () => {
                 {statusLoading ? "Loading..." : "  Pause Minting"}
               </Button>
             )}
-            <Button onClick={toogleWhiteList}>
+            {/* <Button onClick={toogleWhiteList}>
               {statusLoading
                 ? "Loading..."
                 : whitelistStatus
                 ? "Pause Whitlist Minting"
                 : "Continue Whitelist Minting"}
-            </Button>
+            </Button> */}
           </MainDiv>
         ) : (
           <div>
