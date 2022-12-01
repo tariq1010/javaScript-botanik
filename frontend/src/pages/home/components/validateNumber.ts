@@ -13,11 +13,11 @@ const validate = (value: any) => {
     errors.num = 'Number cannot be less than 1';
   }
   else if (value.num > 10) {
-    errors.num = 'Number cannot be greater than 20'
+    errors.num = 'Number cannot be greater than 10'
   }
-  else if (value.num > value.nftleft) {
-    errors.num = 'Number is greater than nfts left in phase'
-  }
+  // else if (value.num > value.nftleft) {
+  //   errors.num = 'Number is greater than nfts left in phase'
+  // }
 
   return errors;
 }

@@ -19,7 +19,8 @@ class Botanik {
           mintFee: null,
           phaseLimit: null,
           isPaused: null,
-          totalSupply: null
+          totalSupply: null,
+          maxSupply: null
         };
 
         config.name = await this.name(web3);
@@ -30,6 +31,7 @@ class Botanik {
         config.phaseLimit = Number(await this.phaseLimit(web3));
         config.isPaused = await this.isPaused(web3);
         config.totalSupply =Number(await this.totalSupply(web3));
+        config.maxSupply = Number(await this.maxSupply(web3));
         return (config);
       }
     } catch (error) {

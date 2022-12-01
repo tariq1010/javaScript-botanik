@@ -108,7 +108,7 @@ const validateFunc = async() => {
     validate,
     {
       num: num,
-      nftleft: count?.remainingInPhase,
+      nftleft: botanikData?.totalSupply -  botanikData?.phaseLimit,
       balance: userBalance,
     }
   );
@@ -122,7 +122,7 @@ const validateFunc = async() => {
     <>
       
       <SimpleBackdrop loading={mintLoading || feeLoading} />
-      <p style={{ color: "white" }}>Total Price: {(num * botanikData?.mintFee)}</p>
+      <p style={{ color: "white" }}>Total Price: {(num * botanikData?.mintFee || 0)}</p>
       <InputNumbers
         setIsSubmitting={setIsSubmitting}
         validate={validate}
@@ -136,9 +136,9 @@ const validateFunc = async() => {
         status ={status}
       />
       <br />
-      {count && count.phaseLimit > 0 ? (
+      {botanikData && botanikData?.phaseLimit > 0 ? (
         <p style={{ color: "white" }}>
-          Remaining in phase : {count.remainingInPhase}/{count.phaseLimit}
+          Remaining in phase : {botanikData?.totalSupply}/{botanikData?.phaseLimit}
         </p>
       ) : (
         ""
@@ -151,13 +151,13 @@ const validateFunc = async() => {
           className={!mintPauseStatus ? "mintedBtn" : ""}
           src={mintBtn }
           onClick={(event) => {
-            if (count.remainingInPhase === 0) {
+            if (botanikData?.totalSupply === botanikData?.phaseLimit) {
               openNotification(
                 "Phase Completed",
                 "Current phase of minting in finished",
                 "warning"
               );
-            } else if (mintPauseStatus) {
+            } else if ( botanikData?.isPaused) {
               openNotification("Paused", "Minting paused", "warning");
             } else {
               handleSubmit(event);
