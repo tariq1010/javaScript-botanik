@@ -57,6 +57,7 @@ import { btkData, mainModel } from "store/redux/slices/helperSlices/modelSlice";
 import validate from "./components/validateNumber";
 import { GetMintStatusHook } from "hooks/web3Hooks";
 import InputNumbers from "./components/inputNumbers";
+import SimpleBackdrop from "../../components/backdrop/backdrop";
 
 type Props = {
   battleDesc?: boolean;
@@ -78,6 +79,7 @@ const Home: React.FC<Props> = ({
   const dispatch = useAppDispatch();
   const [mintLoading, setMintLoading] = useState(false);
   const [status, setStatus] = useState(false);
+  const { fee, feeLoading } = useAppSelector((state) => state.getFee);
 
   useEffect(() => {
     if (web3 && accounts) {
@@ -182,15 +184,6 @@ const Home: React.FC<Props> = ({
   return (
     <div style={{ overflow: "hidden" }}>
       <Backdrop loading={loading} />
-      {/* <MainRow>
-        <MainCol>
-          <MainWrapper>
-            <LogoTitle src={logo} width={500}></LogoTitle>
-            <LogoDesc>{botanikData?`${botanikData?.totalSupply}/${botanikData?.maxSupply}` : ""}</LogoDesc>
-            <MintContent num={num} setNum={setNum} />
-          </MainWrapper>
-        </MainCol>
-      </MainRow> */}
 
       <HeroSection>
         <div className="mainImage">
@@ -245,10 +238,10 @@ const Home: React.FC<Props> = ({
           )}
 
           <Text>
-            Mint Price: 0.0001
+            Mint Price: {(((num * botanikData?.mintFee)/10 **18) || 0)}
             <br />
             <br />
-            <span>NFTS Left: 6647</span>
+            <span>NFTS Left: {botanikData?.totalSupply}/{botanikData?.phaseLimit}</span>
           </Text>
         </HeaderSection>
 
@@ -379,6 +372,8 @@ const Home: React.FC<Props> = ({
         </GallerySection>
       </HeroSection>
       <MainModel connectModel={connectModel} />
+      <SimpleBackdrop loading={mintLoading || feeLoading} />
+
     </div>
   );
 };
