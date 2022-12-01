@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { UploadNftHook } from "hooks/uploadNftHooks";
 import styled from "styled-components";
+import { openNotification } from "components/common";
 
 const UploadWrapper = styled.div`
   display: flex;
@@ -14,7 +15,9 @@ const UploadWrapper = styled.div`
 
 const UploadNft = () => {
   const [files, setFiles] = useState<any>("");
-  const { result, uploadHandle } = UploadNftHook();
+  const { data, uploadHandle } = UploadNftHook();
+
+  console.log("upload", data?.data?.message);
 
   const handleChange = (e: any) => {
     const fileReader = new FileReader();
@@ -31,10 +34,11 @@ const UploadNft = () => {
   }, [files]);
 
   useEffect(() => {
-    if (result) {
+    if (data) {
+      openNotification(data.data.message, "", "success");
       setFiles("");
     }
-  }, [result]);
+  }, [data]);
 
   return (
     <UploadWrapper>
