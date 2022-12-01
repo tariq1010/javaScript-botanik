@@ -37,8 +37,7 @@ const AdminLogin = () => {
     (state) => state.web3Connect
   );
 
-  console.log("owner", web3, accounts);
-
+ 
   const { botanikData } = useAppSelector((state) => state.model);
   console.log("BTK NFT admin", botanikData);
 
@@ -60,6 +59,7 @@ const AdminLogin = () => {
   }, [web3, accounts, botanikData]);
 
   const [connectModel, setConnectModel] = useState(false);
+
 
   useEffect(() => {
     setConnectModel(true);

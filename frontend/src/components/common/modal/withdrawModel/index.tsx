@@ -32,7 +32,7 @@ const WithDrawModel = () => {
       const to = value?.amount;
 
       setLoading(true);
-      const receipt = await BotanikService.withdraw(web3,to,accounts[0]);
+      const receipt = await BotanikService.withdraw(web3,to,accounts);
       console.log(receipt);
       setLoading(false);
     } catch (error) {

@@ -81,7 +81,7 @@ const validateFunc = async() => {
       }
       else {
       setMintLoading(true);
-      const txn = await BotanikService.mint(web3, accounts[0], num)
+      const txn = await BotanikService.mint(web3, accounts, num)
       if(txn && txn.status) {
         ToastMessage("Success","Transaction Successfull","success")
       }
@@ -122,7 +122,7 @@ const validateFunc = async() => {
     <>
       
       <SimpleBackdrop loading={mintLoading || feeLoading} />
-      <p style={{ color: "white" }}>Total Price: {(num * botanikData?.mintFee || 0)}</p>
+      <p style={{ color: "white" }}>Total Price: {(((num * botanikData?.mintFee)/10 **18) || 0)}</p>
       <InputNumbers
         setIsSubmitting={setIsSubmitting}
         validate={validate}
@@ -130,7 +130,7 @@ const validateFunc = async() => {
         error={errors.num}
         num={num}
         setNum={setNum}
-        remaingNftLength={count?.remainingInPhase}
+        remaingNftLength={botanikData?.phaseLimit - botanikData?.totalSupply}
         setStatus={setStatus}
         botanikConfig={botanikData}
         status ={status}

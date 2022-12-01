@@ -8,13 +8,15 @@ import { RootStateType, useAppDispatch } from "../../store";
 import { stateClear } from "./mintNftSlice";
 import { setTransaction } from "./mintNftSlice";
 import NFTService from "services/nftServices";
+import { ContractUtility } from "utility/contract-utility";
 
 
 export type StateType = {
   web3: null | Web3;
   contract: null | EthContract.Contract;
   address: null;
-  accounts: string[];
+  chainId:number;
+  accounts: string;
   transaction: boolean,
   web3LoadingErrorMessage: string;
   web3Loading: boolean;
@@ -27,7 +29,7 @@ export type StateType = {
 
 type Web3ConnectPayloadType = {
   web3: Web3;
-  accounts: string[];
+  accounts: string;
   web3Loading: boolean;
   ownerAddress: string;
   userBalance: number;
@@ -42,8 +44,9 @@ export const initialState: StateType = {
   web3: null,
   contract: null,
   address: null,
+  chainId:null,
   ownerAddress: "",
-  accounts: [],
+  accounts: "",
   userBalance: 0,
   transaction: false,
   web3LoadingErrorMessage: "",
@@ -62,7 +65,14 @@ export const loadBlockchain: any = createAsyncThunk(
       if (Web3.givenProvider) {
         await Web3.givenProvider.enable();
         const web3 = new Web3(Web3.givenProvider);
-        const accounts = await web3.eth.getAccounts();
+        let accounts:any = await web3.eth.getAccounts();
+        accounts = accounts[0];
+        let chainId: number = await web3.eth.getChainId();
+        await web3.givenProvider.request({
+          method: "wallet_switchEthereumChain",
+          // params: [{ chainId: Protocols.bsc.chainId.mainnet }],
+          params: [{ chainId:"0x5" }],
+        });
         const marketPlaceContract: EthContract.Contract = new web3.eth.Contract(
           CONTRACT_ABI as AbiItem[],
           CONTRACT_ADDRESS
@@ -70,6 +80,7 @@ export const loadBlockchain: any = createAsyncThunk(
         return {
           web3,
           accounts,
+          chainId,
           marketPlaceContract,
         };
       } else {
@@ -190,7 +201,7 @@ export const mintNftAsync: any = async(contract,accounts, web3, data: Data)=> {
       let result = await contract?.methods
         .mint(quantity, merkleHash)
         .send({
-          from: accounts[0],
+          from: accounts,
           value: nftFeesDecimals,
         }, async (err: any, transactionHash: any) => {
 
@@ -261,7 +272,7 @@ export const setMerkleRootAsync = createAsyncThunk("setPreSaleWhiteListAddress",
   console.log(_merkle, contract, accounts, "dataaaaaaaaa")
   try {
     let result = await contract?.methods.setMerkleRoot(_merkle).send({
-      from: accounts[0],
+      from: accounts,
     }, async (err: any, transactionHash: any) => {
 
     });
@@ -294,7 +305,7 @@ export const userBalanceAsync: any = createAsyncThunk("userBalanceAsync", async 
   const state = thunkAPI.getState() as RootStateType;
   const { contract, accounts, web3 } = state.web3Connect;
   try {
-    let result = await contract?.methods.balanceOf(accounts[0]).call();
+    let result = await contract?.methods.balanceOf(accounts).call();
     console.log(result, "user balance")
     const userBalance = result
     return {
@@ -306,12 +317,60 @@ export const userBalanceAsync: any = createAsyncThunk("userBalanceAsync", async 
   }
 });
 
+export const switchNetwork = async (web3, network) => {
+  try {
+    console.log(
+      ContractUtility.getChainId(network),
+      ContractUtility.getNetworkText(network),
+      ContractUtility.getSymbol(network),
+      ContractUtility.getNetworkExplorer(
+        network,
+      ),
+      ContractUtility.getNetworkRpc(network),
+      network,
+      "configss"
 
+    )
+    await web3.currentProvider.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: ContractUtility.getChainId(network) }]
+    })
+  }
+  catch (error) {
+    if (error.code == 4902) {
+      await (window as any).ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainId: ContractUtility.getChainId(network),
+            chainName: ContractUtility.getNetworkText(network),
+            nativeCurrency: {
+              name: network,
+              symbol: ContractUtility.getSymbol(network),
+              decimals: 18
+            },
+            blockExplorerUrls: [
+              ContractUtility.getNetworkExplorer(
+                network,
+              ),
+            ],
+            rpcUrls: [ContractUtility.getNetworkRpc(network)]
+          }
+        ]
+      })
+    }
+    console.log("error", error)
+  }
+}
 
 const web3ConnectSlice = createSlice({
   name: "Web3Connect",
   initialState,
-  reducers: {},
+  reducers: {
+    updateAccount: (state, { payload }) => {
+      state.accounts = payload?.accounts;
+    },
+  },
   extraReducers: {
     [loadWalletConnect.fulfilled.toString()]: (
       state,
@@ -353,3 +412,4 @@ const web3ConnectSlice = createSlice({
 });
 
 export const web3Reducer = web3ConnectSlice.reducer;
+export const { updateAccount } = web3ConnectSlice.actions;
