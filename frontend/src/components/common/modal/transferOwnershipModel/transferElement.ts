@@ -13,7 +13,8 @@ export const TransferModelContent = styled.div`
   width: 400px;
   height: 300px;
 
-  background: ${(p) => p.theme.transferModelBg && p.theme.transferModelBg};
+  /* background: ${(p) => p.theme.transferModelBg && p.theme.transferModelBg}; */
+  background:#295F3F;
 
   border: "2px solid #000";
   text-align: center;
@@ -54,6 +55,14 @@ export const TransferButton = styled.button`
   border: none;
   padding: 0.5rem 2rem;
   border-radius: 20px;
-  background: #2b2b2b;
-  color: white;
+  background: white;
+  color: #295F3F;
+  border: 0.5px solid #295F3F;
+box-shadow: 2px 0px 10px rgba(255, 249, 249, 0.15), 0px 2px 10px rgba(255, 255, 255, 0.15);
+
+  &:hover
+  {
+    transform: scale(1.1);
+    transition: all 0.3s linear;
+  }
 `;
