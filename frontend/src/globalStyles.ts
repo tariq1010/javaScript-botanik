@@ -75,7 +75,10 @@ iframe
     background: gray !important;
     cursor: not-allowed !important;
   }
-
+  .ant-table-pagination.ant-pagination
+  {
+    justify-content: center !important;
+  }
 `;
 
 export default GlobalStyle;

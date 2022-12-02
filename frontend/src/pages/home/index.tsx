@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../store/store";
 import { getTokenRequest } from "../../store/redux/slices/tokenSlice";
 import MintContent from "./components/mintContent";
-import { ownerAsync, userBalanceAsync } from "../../store/redux/slices/web3ConnectSlice";
+import {
+  ownerAsync,
+  userBalanceAsync,
+} from "../../store/redux/slices/web3ConnectSlice";
 import { getFeeRequest } from "../../store/redux/slices/getFeeSlice";
 import env from "../../enviornment";
 import s1 from "../../assets/images/s1.png";
 // import img from '../../assets/images/nextArrow.svg'
-import img from '../../assets/images/prevArrow.svg'
+import img from "../../assets/images/prevArrow.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ConnectWallet from "components/connect wallet/connectWallet";
 import { MainModel, openNotification } from "components/common";
@@ -24,7 +27,7 @@ import { BotanikService } from "web3Functions/botanik";
 import ToastMessage from "components/toast Message/toastMessage";
 
 // import required modules
-import { EffectCoverflow, Pagination,Navigation } from "swiper";
+import { EffectCoverflow, Pagination, Navigation } from "swiper";
 
 import { MainRow, MainCol, MainContainer } from "components/common";
 import {
@@ -46,7 +49,7 @@ import {
   ContactSection,
   ContactTitle,
   ContactButton,
-  FooterText
+  FooterText,
 } from "./components/homeElement";
 import img1 from "../../assets/images/img1.png";
 
@@ -72,7 +75,9 @@ const Home: React.FC<Props> = ({
   isRevealMain?: boolean;
 }) => {
   const { count } = useAppSelector((state) => state.mintNft);
-  const { web3, accounts,userBalance } = useAppSelector((state) => state.web3Connect);
+  const { web3, accounts, userBalance } = useAppSelector(
+    (state) => state.web3Connect
+  );
   const { loading } = useAppSelector((state) => state.getToken);
   const [num, setNum] = useState(0);
   const { botanikData } = useAppSelector((state) => state.model);
@@ -109,58 +114,60 @@ const Home: React.FC<Props> = ({
   }, []);
   const [connectModel, setConnectModel] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const { web3LoadingErrorMessage } = useAppSelector((state) => state.web3Connect);
+  const { web3LoadingErrorMessage } = useAppSelector(
+    (state) => state.web3Connect
+  );
 
   useEffect(() => {
-      if (web3LoadingErrorMessage) {
-          setShowToast(true);
-      }
-      setTimeout(() => {
-          setShowToast(false);
-      }, 6000);
+    if (web3LoadingErrorMessage) {
+      setShowToast(true);
+    }
+    setTimeout(() => {
+      setShowToast(false);
+    }, 6000);
   }, [web3LoadingErrorMessage]);
 
   const connectModelFn = () => {
-      setConnectModel(true);
-      dispatch(mainModel(true));
+    setConnectModel(true);
+    dispatch(mainModel(true));
   };
 
   // custom hook.
 
-  const validateFunc = async() => {
-    if(botanikData?.isPaused || botanikData?.totalSupply >= botanikData?.phaseLimit){
-     setStatus(true);
-     console.log("Status", status);
+  const validateFunc = async () => {
+    if (
+      botanikData?.isPaused ||
+      botanikData?.totalSupply >= botanikData?.phaseLimit
+    ) {
+      setStatus(true);
+      console.log("Status", status);
+    } else {
+      setStatus(false);
+      console.log("Status", status);
     }
-    else {
-     setStatus(false);
-     console.log("Status", status);
-    }
-   }
+  };
 
   const mint = async () => {
     try {
-      if(status) {
-        alert("error")
-      }
-      else {
-      setMintLoading(true);
-      const txn = await BotanikService.mint(web3, accounts, num)
-      if(txn && txn.status) {
-        ToastMessage("Success","Transaction Successfull","success")
-      }
-      if(txn && txn.code) {
-        ToastMessage(" ", "Transaction Rejected by User", "error");
-      }
-      dispatch(btkData());
-      console.log(txn);
-      validateFunc();
-      setMintLoading(false);
+      if (status) {
+        alert("error");
+      } else {
+        setMintLoading(true);
+        const txn = await BotanikService.mint(web3, accounts, num);
+        if (txn && txn.status) {
+          ToastMessage("Success", "Transaction Successfull", "success");
+        }
+        if (txn && txn.code) {
+          ToastMessage(" ", "Transaction Rejected by User", "error");
+        }
+        dispatch(btkData());
+        console.log(txn);
+        validateFunc();
+        setMintLoading(false);
       }
     } catch (error) {
       console.log(error);
       setMintLoading(false);
-    
     }
   };
 
@@ -171,10 +178,12 @@ const Home: React.FC<Props> = ({
     validate,
     {
       num: num,
-      nftleft: botanikData?.totalSupply -  botanikData?.phaseLimit,
+      nftleft: botanikData?.totalSupply - botanikData?.phaseLimit,
       balance: userBalance,
     }
   );
+
+  console.log("errors", errors);
 
   //useEffects
   useEffect(() => {
@@ -213,6 +222,14 @@ const Home: React.FC<Props> = ({
               status={status}
             />
           </InputField>
+          {errors && errors.num && (
+            <p
+              className="help   text-center mt-1"
+              style={{ color: "white", fontSize: "0.9rem" }}
+            >
+              *{errors.num}
+            </p>
+          )}
           {web3 ? (
             <Button
               onClick={(event) => {
@@ -238,10 +255,12 @@ const Home: React.FC<Props> = ({
           )}
 
           <Text>
-            Mint Price: {(((num * botanikData?.mintFee)/10 **18) || 0)}
+            Mint Price: {(num * botanikData?.mintFee) / 10 ** 18 || 0}
             <br />
             <br />
-            <span>NFTS Left: {botanikData?.totalSupply}/{botanikData?.phaseLimit}</span>
+            <span>
+              NFTS Left: {botanikData?.totalSupply}/{botanikData?.phaseLimit}
+            </span>
           </Text>
         </HeaderSection>
 
@@ -373,7 +392,6 @@ const Home: React.FC<Props> = ({
       </HeroSection>
       <MainModel connectModel={connectModel} />
       <SimpleBackdrop loading={mintLoading || feeLoading} />
-
     </div>
   );
 };
