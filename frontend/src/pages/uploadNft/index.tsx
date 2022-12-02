@@ -6,6 +6,8 @@ import { openNotification } from "components/common";
 import img from "../../assets/images/bgimage.jpeg";
 import upload from "../../assets/images/upload.png";
 import { FaUpload } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/store";
 
 import MainNavbar from "components/navbar";
 const UploadSection = styled.div`
@@ -53,8 +55,13 @@ const Button = styled.div`
 const UploadNft = () => {
   const [files, setFiles] = useState<any>("");
   const { data, uploadHandle } = UploadNftHook();
+  const navigate = useNavigate();
 
   console.log("upload", data?.data?.message);
+
+  const { web3, userBalance, contract, accounts } = useAppSelector(
+    (state) => state.web3Connect
+  );
 
   const handleChange = (e: any) => {
     const fileReader = new FileReader();
@@ -63,6 +70,7 @@ const UploadNft = () => {
       setFiles(e.target.result);
     };
   };
+  const { botanikData } = useAppSelector((state) => state.model);
 
   useEffect(() => {
     if (files) {
@@ -82,6 +90,16 @@ const UploadNft = () => {
   const handleClick = () => {
     hiddenFileInput.current.click();
   };
+
+  useEffect(() => {
+    //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
+    if (accounts && botanikData?.owner) {
+      (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
+        navigate("/upload-nft");
+    } else {
+      navigate("/admin-login");
+    }
+  }, [accounts, botanikData]);
 
   return (
     <>

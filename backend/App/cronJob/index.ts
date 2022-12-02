@@ -12,7 +12,7 @@ const web3CronJob = async () => {
     let nftCountFromBlockchain = await contract.methods.totalSupply().call();
 
     let nftCountFromOffChain = await mintedNfts();
-
+    nftCountFromOffChain = nftCountFromOffChain.length
     if (Number(nftCountFromBlockchain) > nftCountFromOffChain) {
       let difference = Number(nftCountFromBlockchain) - nftCountFromOffChain;
       const res = await offChainMint(difference);
