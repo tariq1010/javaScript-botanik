@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { openNotification } from "components/common";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-
+import Backdrop from "../../components/backdrop/backdrop";
 import MainNavbar from "components/navbar";
 const UploadWrapper = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const UploadWrapper = styled.div`
 
 const UploadNft = () => {
   const [files, setFiles] = useState<any>("");
-  const { data, uploadHandle } = UploadNftHook();
+  const { data, uploadHandle, loading } = UploadNftHook();
   const navigate = useNavigate();
 
   console.log("upload", data?.data?.message);
@@ -31,7 +31,13 @@ const UploadNft = () => {
     const fileReader = new FileReader();
     fileReader.readAsText(e.target.files[0], "UTF-8");
     fileReader.onload = (e) => {
-      setFiles(e.target.result);
+      let data: any = e.target.result;
+
+      if (Array.isArray(JSON.parse(data))) {
+        setFiles(e.target.result);
+      } else {
+        openNotification("Invalid File", "", "error");
+      }
     };
   };
   const { botanikData } = useAppSelector((state) => state.model);
@@ -61,12 +67,17 @@ const UploadNft = () => {
 
   return (
     <>
+      <Backdrop loading={loading} />
       <MainNavbar />
       <UploadWrapper>
         <Container>
           <Row>
             <Col>
-              <input type="file" onChange={handleChange} accept="*json" />
+              <input
+                type="file"
+                onChange={handleChange}
+                accept="application/JSON"
+              />
             </Col>
           </Row>
         </Container>

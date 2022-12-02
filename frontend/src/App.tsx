@@ -19,19 +19,18 @@ import { btkData } from "store/redux/slices/helperSlices/modelSlice";
 import UploadNft from "pages/uploadNft";
 import { updateAccount } from "store/redux/slices/web3ConnectSlice";
 
-
 let socket: any;
 const ENDPOINT = env.BACKEND_BASE_URL;
 
 const App = () => {
   const dispatch = useAppDispatch();
   const { web3 } = useAppSelector((state) => state.web3Connect);
- 
+
   //account switch
   useEffect(() => {
     web3 &&
       (window as any).ethereum.on("accountsChanged", async (data) => {
-        console.log("DAta",data)
+        console.log("DAta", data);
         dispatch(updateAccount({ accounts: data[0] }));
       });
   }, [web3]);
@@ -52,16 +51,16 @@ const App = () => {
 
   const { botanikData } = useAppSelector((state) => state.model);
   console.log("BTK NFT", botanikData);
-  useEffect(() => {
-    if (web3) {
-      const getBTKData = async () => {
-        try {
-          dispatch(btkData());
-        } catch (error) {}
-      };
-      getBTKData();
-    }
-  }, [web3]);
+  // useEffect(() => {
+  //   if (web3) {
+  //     const getBTKData = async () => {
+  //       try {
+  //         dispatch(btkData());
+  //       } catch (error) {}
+  //     };
+  //     getBTKData();
+  //   }
+  // }, [web3]);
 
   return (
     <div>

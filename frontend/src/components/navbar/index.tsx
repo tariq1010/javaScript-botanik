@@ -4,9 +4,8 @@ import { MainContainer } from "components/common";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { LogoutHook } from "hooks/adminhooks";
-
 const Navbar = () => {
-  const { logout, logoutLoading } = LogoutHook();
+  const { logout } = LogoutHook();
 
   return (
     <div>
@@ -27,11 +26,16 @@ const Navbar = () => {
               </MainNav.Link>
 
               <MainNav.Link href="upload-nft" as={Link} to="/upload-nft">
-                upload NFTs
+                Upload NFTs
               </MainNav.Link>
 
-              <MainNav.Link disabled={logoutLoading} onClick={() => logout()}>
-                logout
+              <MainNav.Link
+                href="/admin-login"
+                as={Link}
+                to="/admin-login"
+                onClick={() => logout()}
+              >
+                Logout
               </MainNav.Link>
             </MainNav>
           </MainNavbar.Collapse>
