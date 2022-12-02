@@ -181,7 +181,7 @@ const ContractFunctions: React.FC<Props> = () => {
 
   useEffect(() => {
     //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if ((accounts || []).length !== 0 && botanikData?.owner) {
+    if (accounts && botanikData?.owner) {
       (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
         navigate("/contract-functions");
     } else {
