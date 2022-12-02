@@ -30,9 +30,11 @@ const MintedNfts = () => {
   console.log("owner", isOwner, accounts);
   useEffect(() => {
     //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if ((accounts || []).length !== 0 && botanikData?.owner) {
-      let owner = (botanikData?.owner).toLowerCase() === accounts.toLowerCase();
-      !owner && navigate("/admin-login");
+    if (accounts && botanikData?.owner) {
+      (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
+        navigate("/minted");
+    } else {
+      navigate("/admin-login");
     }
   }, [accounts, botanikData]);
 
