@@ -4,7 +4,6 @@ import Backdrop from "../../components/backdrop/backdrop";
 import ErrorPage from "../../components/error page/errorPage";
 import { getMintedNftsRequest } from "../../store/redux/slices/getNftSlice";
 import { useNavigate } from "react-router-dom";
-
 import MainNavbar from "components/navbar";
 import { MintedNftHook } from "hooks/nftHooks";
 import { MintedNftWrapper } from "./mintendElement";
@@ -27,15 +26,17 @@ const MintedNfts = () => {
 
   const [isOwner, setIsOwner] = useState(false);
 
-  console.log("data", data, accounts, web3);
 
   const { botanikData } = useAppSelector((state) => state.model);
-  console.log("BTK NFT admin", botanikData);
   useEffect(() => {
-    if (!botanikData?.owner) {
+    //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
+    if ((accounts || []).length !== 0 && botanikData?.owner) {
+      (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
+        navigate("/contract-functions");
+    } else {
       navigate("/admin-login");
     }
-  }, [botanikData]);
+  }, [accounts, botanikData]);
 
   return (
     <MintedNftWrapper>

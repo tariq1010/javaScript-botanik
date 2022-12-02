@@ -173,19 +173,6 @@ const ContractFunctions: React.FC<Props> = () => {
     }
   };
 
-  // const toogleWhiteList = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const receipt = await toggleWhitelistStatus(contract, accounts);
-  //     setLoading(false);
-  //     await getMintStatus();
-  //     console.log(receipt);
-  //   } catch (error) {
-  //     setLoading(false);
-  //     console.log("error", error);
-  //   }
-  // };
-
   //useEffects
   useEffect(() => {
     dispatch(mainModel(true));
