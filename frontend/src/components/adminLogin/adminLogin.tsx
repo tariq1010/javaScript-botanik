@@ -38,13 +38,12 @@ const AdminLogin = () => {
   );
 
   const { botanikData } = useAppSelector((state) => state.model);
-  console.log("BTK NFT admin", botanikData);
+  const [connectModel, setConnectModel] = useState(false);
 
   //custom hooks
 
   const { loading: authLoading, auth } = CheckAuthHook();
   const [loader, setLoader] = useState(false);
-  console.log("loader", loader);
   useEffect(() => {
     //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
 
@@ -53,10 +52,13 @@ const AdminLogin = () => {
       let owner = (botanikData?.owner).toLowerCase() === accounts.toLowerCase();
       setLoader(false);
       owner && navigate("/contract-functions");
-    }
+      if(!owner) {
+        alert("You are not Owner!");
+        window.location.reload();
+      }
+      }
   }, [web3, accounts, botanikData]);
 
-  const [connectModel, setConnectModel] = useState(false);
 
   useEffect(() => {
     setConnectModel(true);
@@ -67,7 +69,7 @@ const AdminLogin = () => {
     <Content>
       <SimpleBackdrop loading={loader} />
       <MainModel connectModel={connectModel} />
-      <p className="text-white">Wallet Connecting...</p>
+      <p className="text-white">Only Admin Can Access.</p>
     </Content>
   );
 };
