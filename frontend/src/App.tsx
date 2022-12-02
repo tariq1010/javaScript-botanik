@@ -69,9 +69,6 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/minted" element={<MintedNfts />} />
-
-          {web3 ? <Route path="/collection" element={<Collection />} /> : ""}
-
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/*" element={<Error404 />} />
           <Route path="/contract-functions" element={<ContractFunctions />} />
