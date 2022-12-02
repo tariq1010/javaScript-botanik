@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector, useAppDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
-import connectBtn from "assets/images/connectBtn.png";
+// import connectBtn from "assets/images/connectBtn.png";
 import { MainModel, ConnectBtnImg, openNotification } from "components/common";
 // redux Slice
 import { btkData, mainModel } from "store/redux/slices/helperSlices/modelSlice";
@@ -236,7 +236,7 @@ const ContractFunctions: React.FC<Props> = () => {
             <div>
               <ConnectBtnImg
                 contractConnectBtn
-                src={connectBtn}
+                // src={connectBtn}
                 onClick={connectModelFn}
               />
             </div>

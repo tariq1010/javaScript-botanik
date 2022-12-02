@@ -3,16 +3,13 @@ import Backdrop from "../../components/backdrop/backdrop";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../store/store";
 import { getTokenRequest } from "../../store/redux/slices/tokenSlice";
-import MintContent from "./components/mintContent";
 import {
   ownerAsync,
   userBalanceAsync,
 } from "../../store/redux/slices/web3ConnectSlice";
 import { getFeeRequest } from "../../store/redux/slices/getFeeSlice";
 import env from "../../enviornment";
-import s1 from "../../assets/images/s1.png";
-// import img from '../../assets/images/nextArrow.svg'
-import img from "../../assets/images/prevArrow.svg";
+import swiperimg1 from "../../assets/images/swiper-img1.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ConnectWallet from "components/connect wallet/connectWallet";
 import { MainModel, openNotification } from "components/common";
@@ -51,7 +48,7 @@ import {
   ContactButton,
   FooterText,
 } from "./components/homeElement";
-import img1 from "../../assets/images/img1.png";
+import topimage from "../../assets/images/topimage.png";
 
 // logo
 import logo from "assets/images/mainlogo1.svg";
@@ -196,7 +193,7 @@ const Home: React.FC<Props> = ({
 
       <HeroSection>
         <div className="mainImage">
-          <img src={img1} />
+          <img src={topimage} />
         </div>
 
         <HeaderSection>
@@ -358,23 +355,23 @@ const Home: React.FC<Props> = ({
               className="mySwiper"
             >
               <SwiperSlide>
-                <img src={s1} />
+                <img src={swiperimg1} />
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={s1} />
+                <img src={swiperimg1} />
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={s1} />
+                <img src={swiperimg1} />
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={s1} />
+                <img src={swiperimg1} />
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={s1} />
+                <img src={swiperimg1} />
               </SwiperSlide>
             </Swiper>
           </GallerySwiper>

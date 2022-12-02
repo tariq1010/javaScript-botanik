@@ -1,6 +1,6 @@
 import React from "react"
 import logo from "../../assets/icons/logo2.gif"
-import owlOnFire from "../../assets/images/iaall_owl.gif"
+// import owlOnFire from "../../assets/images/iaall_owl.gif"
 import "./header.css"
 import { Link } from "react-scroll"
 import { NavLink } from "react-router-dom"
@@ -31,7 +31,7 @@ const Header = () => {
                     <NavLink to="/"> <img src={logo} /></NavLink>  
                 </div>
                 <div className="div-gif">
-                        <img src={owlOnFire} />
+                        {/* <img src={owlOnFire} /> */}
                     </div>
                 <button className="navbar-toggler header-col-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
