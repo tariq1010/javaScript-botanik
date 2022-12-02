@@ -23,8 +23,9 @@ import { Button } from "react-bootstrap";
 import { btkData } from "store/redux/slices/helperSlices/modelSlice";
 import { mainModel } from "store/redux/slices/helperSlices/modelSlice";
 import { MainModel } from "components/common";
-
+import { OwnerHook } from "hooks/adminhooks";
 const AdminLogin = () => {
+  const { checkOwner, loader } = OwnerHook();
   //decalartions
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -37,28 +38,16 @@ const AdminLogin = () => {
     (state) => state.web3Connect
   );
 
-  const { botanikData } = useAppSelector((state) => state.model);
+  const { botanikData, botanikLoader } = useAppSelector((state) => state.model);
   const [connectModel, setConnectModel] = useState(false);
 
   //custom hooks
 
-  const { loading: authLoading, auth } = CheckAuthHook();
-  const [loader, setLoader] = useState(false);
   useEffect(() => {
-    //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-
-    if (accounts && botanikData?.owner) {
-      setLoader(true);
-      let owner = (botanikData?.owner).toLowerCase() === accounts.toLowerCase();
-      setLoader(false);
-      owner && navigate("/contract-functions");
-      if(!owner) {
-        alert("You are not Owner!");
-        window.location.reload();
-      }
-      }
-  }, [web3, accounts, botanikData]);
-
+    if (web3 && accounts) {
+      checkOwner();
+    }
+  }, [web3, accounts]);
 
   useEffect(() => {
     setConnectModel(true);
@@ -67,7 +56,7 @@ const AdminLogin = () => {
 
   return (
     <Content>
-      <SimpleBackdrop loading={loader} />
+      <SimpleBackdrop loading={botanikLoader} />
       <MainModel connectModel={connectModel} />
       <p className="text-white">Only Admin Can Access.</p>
     </Content>

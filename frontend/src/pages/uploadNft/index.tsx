@@ -3,11 +3,12 @@ import { Container, Row, Col } from "react-bootstrap";
 import { UploadNftHook } from "hooks/uploadNftHooks";
 import styled from "styled-components";
 import { openNotification } from "components/common";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import Backdrop from "../../components/backdrop/backdrop";
 import img from "../../assets/images/bgimage.jpeg";
 import upload from "../../assets/images/upload.png";
 import { FaUpload } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../store/store";
 
 import MainNavbar from "components/navbar";
 const UploadSection = styled.div`
@@ -54,7 +55,7 @@ const Button = styled.div`
 
 const UploadNft = () => {
   const [files, setFiles] = useState<any>("");
-  const { data, uploadHandle } = UploadNftHook();
+  const { data, uploadHandle, loading } = UploadNftHook();
   const navigate = useNavigate();
 
   console.log("upload", data?.data?.message);
@@ -67,7 +68,13 @@ const UploadNft = () => {
     const fileReader = new FileReader();
     fileReader.readAsText(e.target.files[0], "UTF-8");
     fileReader.onload = (e) => {
-      setFiles(e.target.result);
+      let data: any = e.target.result;
+
+      if (Array.isArray(JSON.parse(data))) {
+        setFiles(e.target.result);
+      } else {
+        openNotification("Invalid File", "", "error");
+      }
     };
   };
   const { botanikData } = useAppSelector((state) => state.model);
@@ -84,7 +91,7 @@ const UploadNft = () => {
       setFiles("");
     }
   }, [data]);
-  
+
   const hiddenFileInput = React.useRef(null);
 
   const handleClick = () => {
@@ -103,6 +110,7 @@ const UploadNft = () => {
 
   return (
     <>
+      <Backdrop loading={loading} />
       <MainNavbar />
 
       <UploadSection>
@@ -122,7 +130,7 @@ const UploadNft = () => {
                         hidden
                         ref={hiddenFileInput}
                         onChange={handleChange}
-                        accept="*json"
+                        accept="application/JSON"
                       />
                       <span>
                         <FaUpload />

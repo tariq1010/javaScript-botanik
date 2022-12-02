@@ -5,16 +5,17 @@ import { BotanikService } from "web3Functions/botanik";
 export const initialState = {
   collapsed: null,
   modelOpen: null,
-  botanikData:null
+  botanikData: null,
+  botanikLoader: false,
 };
 export const btkData: any = createAsyncThunk(
   "btkData",
   async (web3: any, thunkAPI) => {
     try {
-     
-    const data = await BotanikService.getBTKData()
-    console.log("DATA BTK", data);
-    return data
+      const data = await BotanikService.getBTKData();
+      console.log("DATA BTK", data);
+
+      return data;
     } catch (error) {
       console.log("Error");
       return error;
@@ -50,7 +51,14 @@ export const mainModel: any = createAsyncThunk(
 const modelSlice = createSlice({
   name: "ModalSlide",
   initialState,
-  reducers: {},
+  reducers: {
+    bootanikDataLoading: (state, { payload }) => {
+      state.botanikLoader = payload;
+    },
+    resetBotanikData: (state) => {
+      state.botanikData = null;
+    },
+  },
   extraReducers: {
     [collapsedDashboard.fulfilled.toString()]: (
       state,
@@ -61,13 +69,11 @@ const modelSlice = createSlice({
     [mainModel.fulfilled.toString()]: (state, { payload }: PayloadAction) => {
       state.modelOpen = payload;
     },
-    [btkData.fulfilled.toString()]: (
-      state,
-      { payload }: PayloadAction
-    ) => {
+    [btkData.fulfilled.toString()]: (state, { payload }: PayloadAction) => {
       state.botanikData = payload;
     },
   },
 });
+export const { bootanikDataLoading, resetBotanikData } = modelSlice.actions;
 
 export const modelReducer = modelSlice.reducer;

@@ -8,10 +8,13 @@ import env from "enviornment";
 
 export const MintedNftHook = () => {
   const [data, setData] = useState(null);
+  const [loader, setLoader] = useState(false);
 
   const getMinted = async () => {
+    setLoader(true);
     let result = await axios.get(`${env.BACKEND_BASE_URL}/nfts_minted`);
     setData(result);
+    setLoader(false);
   };
 
   useEffect(() => {
@@ -21,5 +24,6 @@ export const MintedNftHook = () => {
   return {
     data,
     getMinted,
+    loader,
   };
 };

@@ -18,7 +18,7 @@ const MintedNfts = () => {
   const { mintedNfts, mintedLoading, mintedError, mintedErrorMessage } =
     useAppSelector((state) => state.getNfts);
 
-  const { data, getMinted } = MintedNftHook();
+  const { data, getMinted, loader } = MintedNftHook();
 
   const { web3, userBalance, contract, accounts } = useAppSelector(
     (state) => state.web3Connect
@@ -43,7 +43,7 @@ const MintedNfts = () => {
       <MainNavbar />
 <div className="overlayBg">
       <div className="attributeTable">
-        <Backdrop loading={mintedLoading} />
+        <Backdrop loading={loader} />
 
         <Table dataSource={data?.data}>
           <Column title="Token Id" dataIndex="token_id" key="token_id" />
