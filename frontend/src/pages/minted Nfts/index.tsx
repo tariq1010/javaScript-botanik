@@ -41,7 +41,7 @@ const MintedNfts = () => {
   return (
     <MintedNftWrapper>
       <MainNavbar />
-
+<div className="overlayBg">
       <div className="attributeTable">
         <Backdrop loading={mintedLoading} />
 
@@ -68,6 +68,7 @@ const MintedNfts = () => {
             )}
           />
         </Table>
+      </div>
       </div>
     </MintedNftWrapper>
   );
