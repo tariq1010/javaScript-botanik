@@ -27,11 +27,11 @@ const Navbar = () => {
               </MainNav.Link>
 
               <MainNav.Link href="upload-nft" as={Link} to="/upload-nft">
-                upload NFTs
+                Upload NFTs
               </MainNav.Link>
 
               <MainNav.Link disabled={logoutLoading} onClick={() => logout()}>
-                logout
+                Logout
               </MainNav.Link>
             </MainNav>
           </MainNavbar.Collapse>

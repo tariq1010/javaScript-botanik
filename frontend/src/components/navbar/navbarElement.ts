@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { Navbar, Nav } from "react-bootstrap";
 
 export const MainNavbar = styled(Navbar)`
-  background: #df6b6b !important;
+background:#295F3F !important ;
+  /* background: #df6b6b !important; */
   /* background: #b42221 !important; */
   /* background: rgba(180, 34, 33, 0.7) !important; */
 `;

@@ -61,7 +61,7 @@ const ContractFunctions: React.FC<Props> = () => {
     try {
       if (botanikData?.totalSupply != botanikData?.phaseLimit) {
         throw "Current phase is still incomplete!";
-      } 
+      }
       //else if (count.totalSupply != count.offChainCount)
       //   throw "Please first reveal previous phase NFTs";
       setTransferModel(false);
@@ -84,44 +84,40 @@ const ContractFunctions: React.FC<Props> = () => {
     dispatch(mainModel(true));
   };
 
-
-  const withdrawHandle = async() => {
+  const withdrawHandle = async () => {
     try {
-      setLoading(true)
-      const receipt =  await BotanikService.withdraw(web3, botanikData?.owner, accounts);
-      if(receipt.status){
+      setLoading(true);
+      const receipt = await BotanikService.withdraw(
+        web3,
+        botanikData?.owner,
+        accounts
+      );
+      if (receipt.status) {
         dispatch(btkData());
-         setLoading(false);
-         openNotification('Successfull', 'Transaction successful', 'success')
-       }
-     
-       else{
-         setLoading(false);
-         openNotification('Error', 'User denied transaction', 'error')
-       }
+        setLoading(false);
+        openNotification("Successfull", "Transaction successful", "success");
+      } else {
+        setLoading(false);
+        openNotification("Error", "User denied transaction", "error");
+      }
       console.log(receipt);
-
-    }
-    catch (error) {
+    } catch (error) {
       console.log("error", error);
     }
-
-  }
+  };
 
   const handleRenounceOwnership = async () => {
     try {
       setLoading(true);
       const receipt = await BotanikService.renounceOwnership(web3, accounts);
-      if(receipt.status){
+      if (receipt.status) {
         dispatch(btkData());
-         setLoading(false);
-         openNotification('Successfull', 'Transaction successful', 'success')
-       }
-     
-       else{
-         setLoading(false);
-         openNotification('Error', 'User denied transaction', 'error')
-       }
+        setLoading(false);
+        openNotification("Successfull", "Transaction successful", "success");
+      } else {
+        setLoading(false);
+        openNotification("Error", "User denied transaction", "error");
+      }
       console.log(receipt);
     } catch (error) {
       console.log("error", error);
@@ -132,19 +128,16 @@ const ContractFunctions: React.FC<Props> = () => {
     try {
       setLoading(true);
       const receipt = await BotanikService.pause(web3, accounts);
-      if(receipt.status){
+      if (receipt.status) {
         dispatch(btkData());
-         setLoading(false);
-         openNotification('Successfull', 'Minting Paused', 'success')
-       }
-     
-       else{
-         setLoading(false);
-         openNotification('Error', 'User denied transaction', 'error')
-       }
+        setLoading(false);
+        openNotification("Successfull", "Minting Paused", "success");
+      } else {
+        setLoading(false);
+        openNotification("Error", "User denied transaction", "error");
+      }
 
       console.log(receipt);
-     
     } catch (error) {
       setLoading(false);
       console.log("error", error);
@@ -155,18 +148,15 @@ const ContractFunctions: React.FC<Props> = () => {
     try {
       setLoading(true);
       const receipt = await BotanikService.unpause(web3, accounts);
-      if(receipt.status){
+      if (receipt.status) {
         dispatch(btkData());
         setLoading(false);
-        openNotification('Successfull', 'Minting UnPaused', 'success')
-      }
-    
-      else{
+        openNotification("Successfull", "Minting UnPaused", "success");
+      } else {
         setLoading(false);
-        openNotification('Error', 'User denied transaction', 'error')
+        openNotification("Error", "User denied transaction", "error");
       }
       console.log(receipt);
-     
     } catch (error) {
       setLoading(false);
       console.log("error", error);
@@ -194,60 +184,64 @@ const ContractFunctions: React.FC<Props> = () => {
       <MainNavbar />
       <SimpleBackdrop loading={loading} />
       <Wrapper>
-        <MainModel
-          connectModel={connectModel}
-          transferModel={transferModel}
-          withDrawModel={withDrawModel}
-          setPhaseModal={phaseModel}
-        />
+        <div className="overlaybg">
+          <MainModel
+            connectModel={connectModel}
+            transferModel={transferModel}
+            withDrawModel={withDrawModel}
+            setPhaseModal={phaseModel}
+          />
 
-        {web3 ? (
-          <MainDiv>
-            {web3 ? (
-              <div style={{ color: "white" }}>
-                <p>Current Mint Fee: {(botanikData?.mintFee / 10 **18)}</p>
-                {botanikData?.phaseLimit > 0 ? (
-                  <p>Current Mint Limit: {botanikData?.phaseLimit}</p>
-                ) : (
-                  "Current Phase Finished"
-                )}
-              </div>
-            ) : (
-              ""
-            )}
+          {web3 ? (
+            <MainDiv>
+              {web3 ? (
+                <div style={{ color: "white" }}>
+                  <p>Current Mint Fee: {botanikData?.mintFee / 10 ** 18}</p>
+                  {botanikData?.phaseLimit > 0 ? (
+                    <p>Current Mint Limit: {botanikData?.phaseLimit}</p>
+                  ) : (
+                    "Current Phase Finished"
+                  )}
+                </div>
+              ) : (
+                ""
+              )}
 
-            <Button onClick={transferOwnerShipModel}>Transfer Ownership</Button>
-            <Button onClick={setPhaseModal}>Update Phase</Button>
-            <Button onClick={handleRenounceOwnership}>
-              Renounce Ownership
-            </Button>
-            <Button onClick={withdrawHandle}>Withdraw</Button>
-            {botanikData?.isPaused ? (
-              <Button aria-disabled={statusLoading} onClick={unpauseWeb3Fn}>
-                {statusLoading ? "Loading..." : "Continue Minting"}
+              <Button onClick={transferOwnerShipModel}>
+                Transfer Ownership
               </Button>
-            ) : (
-              <Button aria-disabled={statusLoading} onClick={pauseWeb3Fn}>
-                {statusLoading ? "Loading..." : "  Pause Minting"}
+              <Button onClick={setPhaseModal}>Update Phase</Button>
+              <Button onClick={handleRenounceOwnership}>
+                Renounce Ownership
               </Button>
-            )}
-            {/* <Button onClick={toogleWhiteList}>
+              <Button onClick={withdrawHandle}>Withdraw</Button>
+              {botanikData?.isPaused ? (
+                <Button aria-disabled={statusLoading} onClick={unpauseWeb3Fn}>
+                  {statusLoading ? "Loading..." : "Continue Minting"}
+                </Button>
+              ) : (
+                <Button aria-disabled={statusLoading} onClick={pauseWeb3Fn}>
+                  {statusLoading ? "Loading..." : "  Pause Minting"}
+                </Button>
+              )}
+              {/* <Button onClick={toogleWhiteList}>
               {statusLoading
                 ? "Loading..."
                 : whitelistStatus
                 ? "Pause Whitlist Minting"
                 : "Continue Whitelist Minting"}
             </Button> */}
-          </MainDiv>
-        ) : (
-          <div>
-            <ConnectBtnImg
-              contractConnectBtn
-              src={connectBtn}
-              onClick={connectModelFn}
-            />
-          </div>
-        )}
+            </MainDiv>
+          ) : (
+            <div>
+              <ConnectBtnImg
+                contractConnectBtn
+                src={connectBtn}
+                onClick={connectModelFn}
+              />
+            </div>
+          )}
+        </div>
       </Wrapper>
     </>
   );
