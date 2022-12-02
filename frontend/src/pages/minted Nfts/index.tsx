@@ -26,8 +26,8 @@ const MintedNfts = () => {
 
   const [isOwner, setIsOwner] = useState(false);
 
-
   const { botanikData } = useAppSelector((state) => state.model);
+  console.log("owner", isOwner, accounts);
   useEffect(() => {
     //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
     if (accounts && botanikData?.owner) {

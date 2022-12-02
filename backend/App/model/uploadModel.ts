@@ -25,7 +25,7 @@ const uploadNftModel = async (file: any) => {
       data: saveData,
     };
   } catch (error) {
-    return { error: error };
+    return { status: false, message: error };
   }
 };
 

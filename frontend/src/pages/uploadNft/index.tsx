@@ -48,7 +48,7 @@ const UploadNft = () => {
         <Container>
           <Row>
             <Col>
-              <input type="file" onChange={handleChange} />
+              <input type="file" onChange={handleChange} accept="*json" />
             </Col>
           </Row>
         </Container>
