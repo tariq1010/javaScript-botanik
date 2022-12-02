@@ -306,6 +306,16 @@ export const GallerySwiper = styled.div`
     &::after {
       display: none;
     }
+
+    @media (max-width: 1480px)
+    {
+      margin-right: 0;
+    }
+
+    @media (max-width: 756px)
+    {
+      display: none;
+    }
   }
 
   .swiper-button-prev {
@@ -319,6 +329,16 @@ export const GallerySwiper = styled.div`
     width: 100% !important;
 
     &::after {
+      display: none;
+    }
+
+    @media (max-width: 1480px)
+    {
+      margin-left: 0;
+    }
+
+    @media (max-width: 756px)
+    {
       display: none;
     }
   }
@@ -386,4 +406,10 @@ export const FooterText = styled.p`
   /* identical to box height, or 150% */
 
   color: #ffffff;
+
+  @media (max-width: 990px)
+  {
+    text-align: center;
+    padding-right: 0;
+  }
 `;
