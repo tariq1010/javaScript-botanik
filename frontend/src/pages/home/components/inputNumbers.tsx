@@ -66,11 +66,8 @@ const InputNumbers = ({
           value={num}
           name="num"
           onChange={(e) => {
-            if (Number(e.target.value) <= 200) {
+            if (Number(e.target.value) <= 200 && Number(e.target.value) > 0) {
               setNum(Number(e.target.value));
-              setErrors(validate({ num: Number(e.target.value) }));
-            } else {
-              setErrors(validate({ num: Number(e.target.value) }));
             }
           }}
         />

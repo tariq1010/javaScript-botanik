@@ -159,23 +159,24 @@ const Home: React.FC<Props> = ({
       if (status) {
         alert("error");
       } else {
-        if (accountBalance > num * botanikData?.mintFee) {
-          setMintLoading(true);
-          const txn = await BotanikService.mint(web3, accounts, num);
-          if (txn && txn.status) {
-            ToastMessage("Success", "Transaction Successfull", "success");
-          }
-          if (txn && txn.code) {
-            ToastMessage(" ", "Transaction Rejected by User", "error");
-            ///////
-          }
-          dispatch(btkData());
-          console.log(txn);
-          validateFunc();
-          setMintLoading(false);
-        } else {
-          ToastMessage(" ", "Not enough Eth Balance", "error");
+        // if (accountBalance > num * botanikData?.mintFee) {
+        setMintLoading(true);
+        const txn = await BotanikService.mint(web3, accounts, num);
+        if (txn && txn.status) {
+          ToastMessage("Success", "Transaction Successfull", "success");
         }
+        if (txn && txn.code) {
+          ToastMessage(" ", "Transaction Rejected by User", "error");
+          ///////
+        }
+        dispatch(btkData());
+        console.log(txn);
+        validateFunc();
+        setMintLoading(false);
+        // }
+        // else {
+        //   ToastMessage(" ", "Not enough Eth Balance", "error");
+        // }
       }
     } catch (error) {
       console.log(error);
@@ -191,7 +192,8 @@ const Home: React.FC<Props> = ({
     {
       num: num,
       nftleft: botanikData?.totalSupply - botanikData?.phaseLimit,
-      balance: userBalance,
+      balance: accountBalance,
+      nftFee: botanikData?.mintFee,
     }
   );
 
@@ -212,10 +214,9 @@ const Home: React.FC<Props> = ({
         </div>
 
         <HeaderSection>
-          <Title>Price per Nft
-            {botanikData
-              ? ` :: ${botanikData?.mintFee / 10 ** 18} ETH`
-              : " "}
+          <Title>
+            Price per Nft
+            {botanikData ? ` :: ${botanikData?.mintFee / 10 ** 18} ETH` : " "}
           </Title>
 
           <InputField className="modelInput">
