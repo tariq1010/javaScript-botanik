@@ -5,6 +5,7 @@ import {
   TransferModel,
   WithDrawModel,
   SetPhaseModal,
+  UpdateFeeModel
 } from "components/common/modal";
 
 import { Modal } from "antd";
@@ -17,14 +18,16 @@ const MainModel = ({
   transferModel,
   withDrawModel,
   setPhaseModal,
-
+  feeModel
 }: {
   connectModel?: any;
   transferModel?: any;
   withDrawModel?: any;
   setPhaseModal?: any;
+  feeModel?:any
 
 }) => {
+   console.log(" feeModa",feeModel)
   const [modal1Visible, setModal1Visible] = useState(false);
 
   const { web3 } = useAppSelector((state) => state.web3Connect);
@@ -91,6 +94,19 @@ const MainModel = ({
           <SetPhaseModal />
         </Modal>
       ) : null}
+
+{web3 && feeModel ? (
+        <Modal
+          destroyOnClose={true}
+          style={{ top: 20 }}
+          visible={modal1Visible}
+          centered
+          onCancel={closeModel}
+        >
+          < UpdateFeeModel />
+        </Modal>
+      ) : null}
+
     </div>
   );
 };

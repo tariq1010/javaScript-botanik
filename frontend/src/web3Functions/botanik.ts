@@ -163,7 +163,7 @@ class Botanik {
 
 
 
-  async setMintFee(web3: any, account: string,amount:Number) {
+  async setMintFee(web3: any, account: string,amount:string) {
     try {
       const contract = CommonUtility.contract(web3, CONTRACT_ABI, CONTRACT_ADDRESS);
       const txn = await contract.methods.setMintFee(amount).send({ from: account });

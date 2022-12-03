@@ -83,6 +83,7 @@ const Home: React.FC<Props> = ({
   const { botanikData } = useAppSelector((state) => state.model);
   const dispatch = useAppDispatch();
   const [mintLoading, setMintLoading] = useState(false);
+  const [accountBalance, setAccountBalance] = useState(Number);
   const [status, setStatus] = useState(false);
   const { fee, feeLoading } = useAppSelector((state) => state.getFee);
 
@@ -95,7 +96,13 @@ const Home: React.FC<Props> = ({
       web3 && dispatch(ownerAsync());
     }
   }, [web3, accounts]);
-
+  useEffect(() => {
+    const getUserEthBalance = async () => {
+      if (accounts)
+        setAccountBalance(Number(await web3.eth.getBalance(accounts)));
+    };
+    getUserEthBalance();
+  }, [accounts]);
   useEffect(() => {
     dispatch(getFeeRequest());
     dispatch(mainModel(true));
@@ -152,18 +159,23 @@ const Home: React.FC<Props> = ({
       if (status) {
         alert("error");
       } else {
-        setMintLoading(true);
-        const txn = await BotanikService.mint(web3, accounts, num);
-        if (txn && txn.status) {
-          ToastMessage("Success", "Transaction Successfull", "success");
+        if (accountBalance > num * botanikData?.mintFee) {
+          setMintLoading(true);
+          const txn = await BotanikService.mint(web3, accounts, num);
+          if (txn && txn.status) {
+            ToastMessage("Success", "Transaction Successfull", "success");
+          }
+          if (txn && txn.code) {
+            ToastMessage(" ", "Transaction Rejected by User", "error");
+            ///////
+          }
+          dispatch(btkData());
+          console.log(txn);
+          validateFunc();
+          setMintLoading(false);
+        } else {
+          ToastMessage(" ", "Not enough Eth Balance", "error");
         }
-        if (txn && txn.code) {
-          ToastMessage(" ", "Transaction Rejected by User", "error");
-        }
-        dispatch(btkData());
-        console.log(txn);
-        validateFunc();
-        setMintLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -200,10 +212,10 @@ const Home: React.FC<Props> = ({
         </div>
 
         <HeaderSection>
-          <Title>
+          <Title>Price per Nft
             {botanikData
-              ? `${botanikData?.totalSupply}/${botanikData?.maxSupply}`
-              : ""}
+              ? ` :: ${botanikData?.mintFee / 10 ** 18} ETH`
+              : " "}
           </Title>
 
           <InputField className="modelInput">
@@ -255,11 +267,11 @@ const Home: React.FC<Props> = ({
           )}
 
           <Text>
-            Mint Price: {(num * botanikData?.mintFee) / 10 ** 18 || 0}
+            Total Mint Price: {(num * botanikData?.mintFee) / 10 ** 18 || 0}
             <br />
             <br />
             <span>
-              NFTS Left: {botanikData?.totalSupply}/{botanikData?.phaseLimit}
+              NFTS Left: {botanikData?.totalSupply}/{botanikData?.maxSupply}
             </span>
           </Text>
         </HeaderSection>

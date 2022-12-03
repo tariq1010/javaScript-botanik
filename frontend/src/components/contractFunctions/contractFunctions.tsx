@@ -41,6 +41,7 @@ const ContractFunctions: React.FC<Props> = () => {
   const [connectModel, setConnectModel] = useState(false);
   const [transferModel, setTransferModel] = useState(false);
   const [withDrawModel, setWithDrawModel] = useState(false);
+  const [feeModel, setFeeModel] = useState(false);
   const [phaseModel, setPhaseModel] = useState(false);
   const [config, setBotanikConfig] = useState(null);
 
@@ -78,6 +79,15 @@ const ContractFunctions: React.FC<Props> = () => {
   //   setPhaseModel(false);
   //   dispatch(mainModel(true));
   // };
+
+    const updateFeeModel = () => {
+    
+    setTransferModel(false);
+    setWithDrawModel(false);
+    setPhaseModel(false);
+    setFeeModel(true)
+    dispatch(mainModel(true));
+  };
 
   const connectModelFn = () => {
     setConnectModel(true);
@@ -190,13 +200,15 @@ const ContractFunctions: React.FC<Props> = () => {
             transferModel={transferModel}
             withDrawModel={withDrawModel}
             setPhaseModal={phaseModel}
+            feeModel = {feeModel}
+         
           />
 
           {web3 ? (
             <MainDiv>
               {web3 ? (
                 <div style={{ color: "white" }}>
-                  <p>Current Mint Fee: {botanikData?.mintFee / 10 ** 18}</p>
+                  <p>Current Mint Fee: {botanikData?.mintFee / 10 ** 18}  ETH</p>
                   {botanikData?.phaseLimit > 0 ? (
                     <p>Current Mint Limit: {botanikData?.phaseLimit}</p>
                   ) : (
@@ -215,6 +227,7 @@ const ContractFunctions: React.FC<Props> = () => {
                 Renounce Ownership
               </Button>
               <Button onClick={withdrawHandle}>Withdraw</Button>
+              <Button onClick={updateFeeModel} >Update Fee</Button>
               {botanikData?.isPaused ? (
                 <Button aria-disabled={statusLoading} onClick={unpauseWeb3Fn}>
                   {statusLoading ? "Loading..." : "Continue Minting"}
