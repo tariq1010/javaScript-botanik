@@ -44,13 +44,12 @@ const ContractFunctions: React.FC<Props> = () => {
   const [feeModel, setFeeModel] = useState(false);
   const [phaseModel, setPhaseModel] = useState(false);
   const [config, setBotanikConfig] = useState(null);
-
+  console.log("acconts", accounts);
   //custom hooks
-  const { whitelistStatus, mintPauseStatus, getMintStatus, statusLoading } =
-    GetMintStatusHook();
+  const { statusLoading } = GetMintStatusHook();
   const { loading: authLoading, error, auth } = CheckAuthHook();
   const { botanikData } = useAppSelector((state) => state.model);
-  console.log("BTK NFT admin", botanikData);
+  console.log("contraBota", botanikData, accounts);
   //component functions
   const transferOwnerShipModel = () => {
     setTransferModel(true);
@@ -58,34 +57,12 @@ const ContractFunctions: React.FC<Props> = () => {
     setPhaseModel(false);
     dispatch(mainModel(true));
   };
-  const setPhaseModal = () => {
-    try {
-      if (botanikData?.totalSupply != botanikData?.phaseLimit) {
-        throw "Current phase is still incomplete!";
-      }
-      //else if (count.totalSupply != count.offChainCount)
-      //   throw "Please first reveal previous phase NFTs";
-      setTransferModel(false);
-      setWithDrawModel(false);
-      setPhaseModel(true);
-      dispatch(mainModel(true));
-    } catch (error) {
-      openNotification("Cannot update Phase", error, "error");
-    }
-  };
-  // const withDrawShipModel = () => {
-  //   setTransferModel(false);
-  //   setWithDrawModel(true);
-  //   setPhaseModel(false);
-  //   dispatch(mainModel(true));
-  // };
 
-    const updateFeeModel = () => {
-    
+  const updateFeeModel = () => {
     setTransferModel(false);
     setWithDrawModel(false);
     setPhaseModel(false);
-    setFeeModel(true)
+    setFeeModel(true);
     dispatch(mainModel(true));
   };
 
@@ -180,14 +157,14 @@ const ContractFunctions: React.FC<Props> = () => {
   }, []);
 
   useEffect(() => {
-    //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if (accounts && botanikData?.owner) {
-      (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
-        navigate("/contract-functions");
-    } else {
-      navigate("/admin-login");
+    if (accounts) {
+      console.log("userEff", accounts);
+      let owner = (botanikData?.owner).toLowerCase() === accounts.toLowerCase();
+      owner && navigate("/contract-functions");
+
+      !owner && navigate("/admin-login");
     }
-  }, [accounts, botanikData]);
+  }, [accounts]);
 
   return (
     <>
@@ -200,20 +177,16 @@ const ContractFunctions: React.FC<Props> = () => {
             transferModel={transferModel}
             withDrawModel={withDrawModel}
             setPhaseModal={phaseModel}
-            feeModel = {feeModel}
-         
+            feeModel={feeModel}
           />
 
           {web3 ? (
             <MainDiv>
               {web3 ? (
                 <div style={{ color: "white" }}>
-                  <p>Current Mint Fee: {botanikData?.mintFee / 10 ** 18}  ETH</p>
-                  {botanikData?.phaseLimit > 0 ? (
-                    <p>Current Mint Limit: {botanikData?.phaseLimit}</p>
-                  ) : (
-                    "Current Phase Finished"
-                  )}
+                  <p>Current Mint Fee: {botanikData?.mintFee / 10 ** 18} ETH</p>
+
+                  <p>Total Minted Nfts: {botanikData?.totalSupply}</p>
                 </div>
               ) : (
                 ""
@@ -222,12 +195,11 @@ const ContractFunctions: React.FC<Props> = () => {
               <Button onClick={transferOwnerShipModel}>
                 Transfer Ownership
               </Button>
-              <Button onClick={setPhaseModal}>Update Phase</Button>
               <Button onClick={handleRenounceOwnership}>
                 Renounce Ownership
               </Button>
               <Button onClick={withdrawHandle}>Withdraw</Button>
-              <Button onClick={updateFeeModel} >Update Fee</Button>
+              <Button onClick={updateFeeModel}>Update Fee</Button>
               {botanikData?.isPaused ? (
                 <Button aria-disabled={statusLoading} onClick={unpauseWeb3Fn}>
                   {statusLoading ? "Loading..." : "Continue Minting"}
@@ -237,13 +209,6 @@ const ContractFunctions: React.FC<Props> = () => {
                   {statusLoading ? "Loading..." : "  Pause Minting"}
                 </Button>
               )}
-              {/* <Button onClick={toogleWhiteList}>
-              {statusLoading
-                ? "Loading..."
-                : whitelistStatus
-                ? "Pause Whitlist Minting"
-                : "Continue Whitelist Minting"}
-            </Button> */}
             </MainDiv>
           ) : (
             <div>

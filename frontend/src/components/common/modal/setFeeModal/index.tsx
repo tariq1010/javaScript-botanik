@@ -7,12 +7,6 @@ import {
   TransferButton,
   TransferCenterDiv,
 } from "../transferOwnershipModel/transferElement";
-import wallet from "assets/images/wallet.png";
-import metamask from "assets/images/metamask.png";
-import {
-  loadBlockchain,
-  loadWalletConnect,
-} from "store/redux/slices/web3ConnectSlice";
 import { useAppDispatch, useAppSelector } from "store/store";
 import { withdrawEthWeb3 } from "store/redux/slices/contractFunctions/write";
 import SimpleBackdrop from "components/backdrop/backdrop";
@@ -29,26 +23,25 @@ const UpdateFeeModel = () => {
     (state) => state.web3Connect
   );
 
-  const handleSetFee= async (value) => {
+  const handleSetFee = async (value) => {
     try {
       let amount = value?.amount;
       setLoading(true);
-      const receipt = await BotanikService.setMintFee(web3, accounts,web3.utils.toWei(String(amount), 'ether'))
+      const receipt = await BotanikService.setMintFee(
+        web3,
+        accounts,
+        web3.utils.toWei(String(amount), "ether")
+      );
       if (receipt.status) {
         dispatch(btkData());
         setLoading(false);
-        openNotification(
-          "Successfull",
-          "Mint price updated!",
-          "success"
-        );
+        openNotification("Successfull", "Mint price updated!", "success");
       } else {
         setLoading(false);
         openNotification("Error", "User denied transaction", "error");
       }
       console.log(receipt);
-      setLoading(false); 
-    
+      setLoading(false);
     } catch (error) {
       console.log("error", error);
     }
@@ -66,10 +59,21 @@ const UpdateFeeModel = () => {
                 name="amount"
                 rules={[
                   { required: true, message: "Enter Amount in Eth!" },
-              
+                  {
+                    message: " Fee Cannot  be negative",
+                    validator: (_, value) => {
+                      console.log("amount", value);
+                      if (Number(value) < 0) {
+                        return Promise.reject("Some message here");
+                      } else {
+                        return Promise.resolve();
+                      }
+                    },
+                  },
                 ]}
               >
-                <InputField   onKeyDown={(e) => {
+                <InputField
+                  onKeyDown={(e) => {
                     console.log(e.code);
                     if (
                       e.code === "Minus" ||
@@ -80,7 +84,10 @@ const UpdateFeeModel = () => {
                     ) {
                       e.preventDefault();
                     }
-                  }} placeholder="Enter Amount in Eth!" type="number" />
+                  }}
+                  placeholder="Enter Amount in Eth!"
+                  type="number"
+                />
               </Forms.Item>
 
               <TransferButton>Set fee</TransferButton>

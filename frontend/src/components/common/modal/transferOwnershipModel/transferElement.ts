@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
-import { Form, Input ,Button} from "antd";
+import { Form, Input, Button } from "antd";
 
 export const TransferMainModel = styled.div``;
 
@@ -13,8 +13,9 @@ export const TransferModelContent = styled.div`
   width: 400px;
   height: 300px;
 
-  /* background: ${(p) => p.theme.transferModelBg && p.theme.transferModelBg}; */
-  background:#295F3F;
+  /* background: ${(p) =>
+    p.theme.transferModelBg && p.theme.transferModelBg}; */
+  background: #295f3f;
 
   border: "2px solid #000";
   text-align: center;
@@ -39,15 +40,26 @@ export const TransferCenterDiv = styled.div`
   padding: 6rem 0;
 `;
 
- 
 export const Forms = styled(Form)``;
-
 
 export const InputField = styled(Input)`
   border: none;
   padding: 0.5rem 4rem;
   color: black;
   border-radius: 20px;
+
+  input[type="number"],
+  input[type="password"],
+  input[type="text"],
+  textarea {
+    padding-right: 1rem;
+  }
+
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 export const TransferButton = styled.button`
@@ -56,12 +68,12 @@ export const TransferButton = styled.button`
   padding: 0.5rem 2rem;
   border-radius: 20px;
   background: white;
-  color: #295F3F;
-  border: 0.5px solid #295F3F;
-box-shadow: 2px 0px 10px rgba(255, 249, 249, 0.15), 0px 2px 10px rgba(255, 255, 255, 0.15);
+  color: #295f3f;
+  border: 0.5px solid #295f3f;
+  box-shadow: 2px 0px 10px rgba(255, 249, 249, 0.15),
+    0px 2px 10px rgba(255, 255, 255, 0.15);
 
-  &:hover
-  {
+  &:hover {
     transform: scale(1.1);
     transition: all 0.3s linear;
   }

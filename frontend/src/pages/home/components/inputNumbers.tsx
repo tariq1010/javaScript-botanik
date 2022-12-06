@@ -32,9 +32,10 @@ const InputNumbers = ({
     botanikConfig?.phaseLimit
   );
   const onChange = (type) => {
+     console.log("type",type,num)
     if (
       type === "increment" &&
-      botanikConfig?.totalSupply + num < botanikConfig?.phaseLimit
+      botanikConfig?.totalSupply + num < botanikConfig?.maxSupply
     ) {
       console.log("abc", botanikConfig.totalSupply + num);
       if (Number(num) <= 199) {
@@ -66,7 +67,7 @@ const InputNumbers = ({
           value={num}
           name="num"
           onChange={(e) => {
-            if (Number(e.target.value) <= 200 && Number(e.target.value) > 0) {
+            if (Number(e.target.value) <= 200 && Number(e.target.value) >=0) {
               setNum(Number(e.target.value));
             }
           }}

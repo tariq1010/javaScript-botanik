@@ -191,7 +191,7 @@ const Home: React.FC<Props> = ({
     validate,
     {
       num: num,
-      nftleft: botanikData?.totalSupply - botanikData?.phaseLimit,
+      nftleft: botanikData?.totalSupply - botanikData?.maxSupply,
       balance: accountBalance,
       nftFee: botanikData?.mintFee,
     }
@@ -228,7 +228,7 @@ const Home: React.FC<Props> = ({
               num={num}
               setNum={setNum}
               remaingNftLength={
-                botanikData?.phaseLimit - botanikData?.totalSupply
+                botanikData?.maxSupply - botanikData?.totalSupply
               }
               setStatus={setStatus}
               botanikConfig={botanikData}
@@ -244,23 +244,25 @@ const Home: React.FC<Props> = ({
             </p>
           )}
           {web3 ? (
-            <Button
-              onClick={(event) => {
-                if (botanikData?.totalSupply === botanikData?.phaseLimit) {
-                  openNotification(
-                    "Phase Completed",
-                    "Current phase of minting in finished",
-                    "warning"
-                  );
-                } else if (botanikData?.isPaused) {
-                  openNotification("Paused", "Minting paused", "warning");
-                } else {
-                  handleSubmit(event);
-                }
-              }}
-            >
-              <button>Mint NFT</button>
-            </Button>
+            <div className="mintBtn">
+              <Button
+                onClick={(event) => {
+                  if (botanikData?.totalSupply === botanikData?.maxSupply) {
+                    openNotification(
+                      "Supply Completed",
+                      "Limit Reached",
+                      "warning"
+                    );
+                  } else if (botanikData?.isPaused) {
+                    openNotification("Paused", "Minting paused", "warning");
+                  } else {
+                    handleSubmit(event);
+                  }
+                }}
+              >
+                <button> Mint NFT</button>
+              </Button>
+            </div>
           ) : (
             <Button onClick={() => connectModelFn()}>
               <button>Connect Wallet</button>
