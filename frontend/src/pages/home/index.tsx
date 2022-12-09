@@ -274,7 +274,7 @@ const Home: React.FC<Props> = ({
             <br />
             <br />
             <span>
-              NFTS Left: {botanikData?.totalSupply}/{botanikData?.maxSupply}
+              NFTS Left: {botanikData?.maxSupply - botanikData?.totalSupply}/{botanikData?.maxSupply}
             </span>
           </Text>
         </HeaderSection>
