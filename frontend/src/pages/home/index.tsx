@@ -215,8 +215,8 @@ const Home: React.FC<Props> = ({
 
         <HeaderSection>
           <Title>
-            Price per Nft
-            {botanikData ? ` :: ${botanikData?.mintFee / 10 ** 18} ETH` : " "}
+            Price per NFT
+            {botanikData ? `: ${botanikData?.mintFee / 10 ** 18} ETH` : " "}
           </Title>
 
           <InputField className="modelInput">
