@@ -222,6 +222,7 @@ export const JungleTitle = styled.h5`
   font-weight: 500;
   font-size: 40px;
   line-height: 24px;
+  text-align: center;
   /* identical to box height, or 60% */
 
   color: white;
@@ -231,7 +232,7 @@ export const JungleDescription = styled.p`
   font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 24px;
   /* or 150% */
   padding-top: 1rem;
