@@ -60,6 +60,16 @@ export const MainDiv = styled.div`
   align-items: center;
   height: 100vh;
 
+  p 
+  {
+    padding-left: 3rem;
+  }
+
+  span 
+  {
+    padding-left: 2rem;
+  }
+
   
 `;
 

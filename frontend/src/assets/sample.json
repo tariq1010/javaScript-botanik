@@ -1,0 +1,40 @@
+[
+    {
+      "dna": "2f34c440fa3c36448d3f7cc9170db8aaa62c1ef1",
+      "name": "#5",
+      "description": "Tapera Forest Trees Collection is a collection of 8000 unique trees NFT's - unique digital collectibles living on the  Ethereum blockchain. Your Tapera Forest Tree doucles as your ownership of carbon credit and biodiversity of a piece of 1 Ha of the Tapera Forest, located in Urucara, Amazonas. Your Tapera Forest Tree grants to members-only, a special access and partnership for events and activities linked to conservation of TAPERA forest. Visit www.taperaforesturucara.com",
+      "image": "ipfs://QmbFbYaCPwFBFGbH1qPfEjR5UoUTTjkEZTN5sGbpPFkwxs/1.png",
+      "edition": 2,
+      "date": 1663919191587,
+      "attributes": [
+        {
+          "trait_type": "Background",
+          "value": "Copiuba Trees"
+        },
+        {
+          "trait_type": "Soil",
+          "value": "Stilt House Acai Palm Grass And Water"
+        },
+        {
+          "trait_type": "Tree Trunks",
+          "value": "Rubber Tree Trunk"
+        },
+        {
+          "trait_type": "Crown",
+          "value": "Trapia Crown"
+        },
+        {
+          "trait_type": "Branch Left",
+          "value": "Carambola Branch With Fruits"
+        },
+        {
+          "trait_type": "Branch Right",
+          "value": "Branch Of Sapodilla Tree With Fruits"
+        },
+        {
+          "trait_type": "Animals",
+          "value": "Red And Green Macaws"
+        }
+      ]
+    }
+  ]

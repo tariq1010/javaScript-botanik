@@ -174,7 +174,9 @@ const ContractFunctions: React.FC<Props> = () => {
               <div style={{ color: "white" }}>
                 <p>Current Mint Fee: {botanikData?.mintFee / 10 ** 18} ETH</p>
 
-                <p>Total Minted Nfts: {botanikData?.totalSupply}</p>
+                <p>
+                  <span>Total Minted Nfts: {botanikData?.totalSupply}</span>
+                </p>
               </div>
               <Button onClick={transferOwnerShipModel}>
                 Transfer Ownership
