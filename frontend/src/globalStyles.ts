@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import mainBg from "./assets/images/mintingBg.png";
+// import mainBg from "./assets/images/mintingBg.png";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
 
  body
 {
-  /* background: url(${mainBg}) no-repeat ;
+  /* background: url($) no-repeat ;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

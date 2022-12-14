@@ -1,9 +1,7 @@
 import { style } from "@mui/system";
 import styled, { css } from "styled-components";
 import wirefram from "../../../assets/images/Wireframe.png";
-import img3 from "../../../assets/images/img3.png";
-import img4 from "../../../assets/images/img4.svg";
-import arrow from "../../../assets/images/Arrow.svg";
+import aboutimg from "../../../assets/images/about.svg";
 import nextArrow from "../../../assets/images/nextArrow.svg";
 import prevArrow from "../../../assets/images/prevArrow.svg";
 
@@ -84,19 +82,16 @@ export const CounterBtn = styled.button<Props>`
 export const CounterValue = styled.h5`
   margin-top: 0.5rem;
 `;
-/* home section start */
+/* hero section start */
 
 export const Title = styled.h5`
   text-align: center;
-  /* margin-top: -1rem; */
   padding-top: 10rem;
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-  /* identical to box height, or 120% */
-
   color: #ffffff;
 `;
 
@@ -108,17 +103,11 @@ export const InputField = styled.div`
   margin-top: 1.5rem;
   input {
     width: 100%;
-    /* height: 42px; */
     background: rgba(255, 255, 255, 0.85);
     border: none;
     text-align: center;
-    /* padding-left: 1rem; */
   }
 
-  /* input::placeholder
-{
-  padding-left: 1rem;
-} */
 
   textarea:focus,
   input:focus {
@@ -149,11 +138,8 @@ export const Button = styled.div`
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
-    /* identical to box height */
-
     text-align: center;
     text-transform: capitalize;
-
     color: #ffffff;
   }
 `;
@@ -166,8 +152,6 @@ export const Text = styled.p`
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
-  /* identical to box height, or 120% */
-
   color: #ffffff;
 
   span {
@@ -176,10 +160,7 @@ export const Text = styled.p`
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
-    /* identical to box height, or 120% */
-
     text-transform: capitalize;
-
     color: #ffffff;
   }
 `;
@@ -190,7 +171,7 @@ export const HeroSection = styled.div`
   background-image: url(${wirefram});
   background-repeat: no-repeat;
   background-size: cover;
-  /* background-image: url(${img3}); */
+
 
   .mainImage img {
     width: 100%;
@@ -206,14 +187,11 @@ export const HeaderSection = styled.div`
 export const JungleSection = styled.div`
   padding-top: 13rem;
   padding-bottom: 5rem;
-  /* background-image: url(${img4}); */
-  background-image: url(${img4});
+  background-image: url(${aboutimg});
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-repeat: no-repeat;
-  /* transform: matrix(1, 0.08, -0.09, 1, 0, 0); */
 `;
 
 export const JungleTitle = styled.h5`
@@ -307,6 +285,21 @@ export const GallerySwiper = styled.div`
     &::after {
       display: none;
     }
+
+    @media (max-width: 1660px)
+    {
+      margin-right: -2px;
+    }
+
+    @media (max-width: 1480px)
+    {
+      margin-right: 0;
+    }
+
+    @media (max-width: 756px)
+    {
+      display: none;
+    }
   }
 
   .swiper-button-prev {
@@ -320,6 +313,21 @@ export const GallerySwiper = styled.div`
     width: 100% !important;
 
     &::after {
+      display: none;
+    }
+
+    @media (max-width: 1660px)
+    {
+      margin-left: -2px;
+    }
+
+    @media (max-width: 1480px)
+    {
+      margin-left: 0;
+    }
+
+    @media (max-width: 756px)
+    {
       display: none;
     }
   }
@@ -387,4 +395,10 @@ export const FooterText = styled.p`
   /* identical to box height, or 150% */
 
   color: #ffffff;
+
+  @media (max-width: 990px)
+  {
+    text-align: center;
+    padding-right: 0;
+  }
 `;

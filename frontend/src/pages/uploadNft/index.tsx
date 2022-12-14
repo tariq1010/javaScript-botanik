@@ -27,7 +27,7 @@ const UploadWrapper = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  margin-left: 48rem;
+  /* margin-left: 48rem; */
   color: white;
 `;
 
@@ -115,7 +115,7 @@ const UploadNft = () => {
       <UploadSection>
         <div className="overlayBg">
           <UploadWrapper>
-            <Container>
+         
               <Row>
                 {/* <Col>
               <input type="file" onChange={handleChange} accept="*json" />
@@ -139,7 +139,7 @@ const UploadNft = () => {
                   </Col>
                 </Button>
               </Row>
-            </Container>
+          
           </UploadWrapper>
         </div>
       </UploadSection>
