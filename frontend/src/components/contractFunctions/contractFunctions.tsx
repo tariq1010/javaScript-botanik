@@ -30,11 +30,9 @@ const ContractFunctions: React.FC<Props> = () => {
   const token = localStorage.getItem("access_token");
 
   //useAppSelector
-  const { web3, contract, accounts } = useAppSelector(
+  const { web3, accounts } = useAppSelector(
     (state) => state.web3Connect
   );
-  const { fee } = useAppSelector((state) => state.getFee);
-  const { count } = useAppSelector((state) => state.mintNft);
 
   //useState
   const [loading, setLoading] = useState(false);
@@ -165,6 +163,11 @@ const ContractFunctions: React.FC<Props> = () => {
       !owner && navigate("/admin-login");
     }
   }, [accounts]);
+  useEffect(() => {
+    if (!web3) {
+      navigate("/admin-login");
+    }
+  }, []);
 
   return (
     <>

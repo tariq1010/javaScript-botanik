@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   TransferMainModel,
   TransferModelContent,
@@ -25,23 +25,25 @@ const TransferOwnershipModel = () => {
   const transferOwnerShipFn = async () => {
     try {
       setLoading(true);
+      if(owner?.length !== 42) throw "Invalid Address"
+
       console.log(owner);
       const receipt = await BotanikService.transferOwnership(
         web3,
         owner,
         accounts
       );
-      if (receipt.status) {
-        dispatch(btkData());
-        setLoading(false);
-        openNotification("Successfull", "Transaction successful", "success");
-      } else {
-        setLoading(false);
-        openNotification("Error", "User denied transaction", "error");
-      }
-      console.log(receipt);
+      if (receipt && !receipt.status) throw "User denied transaction" 
+      setLoading(false);
+      dispatch(btkData());
+
     } catch (error) {
       console.log("error", error);
+      dispatch(btkData());
+      setLoading(false);
+
+      openNotification("Error", error, "error");
+
     }
   };
 

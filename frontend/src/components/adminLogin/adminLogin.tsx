@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useForm from "hooks/useForm";
 import dotenv from "dotenv";
-import ConnectWallet from "components/connect wallet/connectWallet";
 import {
   Content,
   EmailInputField,
@@ -12,7 +10,6 @@ import {
   PasswordInputField,
   LoginMain,
 } from "./adminLoginElements";
-import { credentialsValidate } from "./validate";
 import { useAppDispatch, useAppSelector } from "store/store";
 import { setCredentials } from "store/redux/slices/adminSlices/loginSlices";
 import { CheckAuthHook, LoginHook } from "hooks/adminhooks";
@@ -28,7 +25,6 @@ const AdminLogin = () => {
   const { checkOwner, loader } = OwnerHook();
   //decalartions
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [config, setBotanikConfig] = useState(null);
   //useAppSelector
   const { credentials, loading, errorMessage, error } = useAppSelector(
