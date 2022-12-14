@@ -39,19 +39,9 @@ export const unMintNftSlice = createSlice({
                 unMintederror: true,
                 unMintederrorMessage: action.payload
             }
-        },
-        stateClear: (state) => {
-            return {
-                ...state,
-                unMintedNft: null,
-                unMintedloading: false,
-                unMintedsuccess: false,
-                unMintederror: false,
-                unMintederrorMessage: ""
-            }
         }
     }
 });
 
-export const { unMintNftRequest, unMintNftRequestSuccess,unMintNftRequestFailure, stateClear } = unMintNftSlice.actions;
+export const { unMintNftRequest, unMintNftRequestSuccess,unMintNftRequestFailure } = unMintNftSlice.actions;
 export const unMintReducer = unMintNftSlice.reducer;

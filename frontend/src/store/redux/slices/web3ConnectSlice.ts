@@ -4,9 +4,7 @@ import { AbiItem } from "web3-utils";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import EthContract from "web3-eth-contract";
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../../../contract/index";
-import { RootStateType, useAppDispatch } from "../../store";
-import { stateClear } from "./mintNftSlice";
-import { setTransaction } from "./mintNftSlice";
+import { RootStateType } from "../../store";
 import NFTService from "services/nftServices";
 import { ContractUtility } from "utility/contract-utility";
 

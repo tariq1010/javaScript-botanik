@@ -499,10 +499,7 @@ export class ContractUtility {
       name: "Ethereum",
       value: "ethereum",
     },
-    // {
-    //     name: 'Polygon',
-    //     value: 'polygon',
-    // },
+
   ];
 
   static marketplacePaymentList = (chainId) => {

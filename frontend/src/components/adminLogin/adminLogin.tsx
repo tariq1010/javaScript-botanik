@@ -4,9 +4,7 @@ import {
 } from "./adminLoginElements";
 import { useAppDispatch, useAppSelector } from "store/store";
 import SimpleBackdrop from "components/backdrop/backdrop";
-import { BotanikService } from "web3Functions/botanik";
 import { Button } from "react-bootstrap";
-import { btkData } from "store/redux/slices/helperSlices/modelSlice";
 import { mainModel } from "store/redux/slices/helperSlices/modelSlice";
 import { MainModel } from "components/common";
 import { OwnerHook } from "hooks/adminhooks";
@@ -23,7 +21,7 @@ const AdminLogin = () => {
     (state) => state.web3Connect
   );
 
-  const { botanikData, botanikLoader } = useAppSelector((state) => state.model);
+  const { botanikLoader } = useAppSelector((state) => state.model);
   const [connectModel, setConnectModel] = useState(false);
 
   //custom hooks

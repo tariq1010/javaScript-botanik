@@ -59,18 +59,9 @@ export const mintNftSlice = createSlice({
                 errorMessage: action.payload
             }
         },
-        stateClear: (state) => {
-            return {
-                ...state,
-                mintedNft: null,
-                mintLoading: false,
-                success: false,
-                error: false,
-                errorMessage: ""
-            }
-        }
+        
     }
 });
 
-export const { mintNftRequest, mintNftRequestFailure,setCount, setTransaction, stateClear, mintNftRequestSuccess } = mintNftSlice.actions;
+export const { mintNftRequest, mintNftRequestFailure,setCount, setTransaction, mintNftRequestSuccess } = mintNftSlice.actions;
 export const mintNftReducer = mintNftSlice.reducer;
