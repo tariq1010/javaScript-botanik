@@ -153,7 +153,7 @@ const UploadNft = () => {
                     )}`}
                     download="sample.json"
                   >
-                    Download Simple
+                    Download Sample
                   </a>
                 </DownloadLink>
               </BtnContainer>
