@@ -4,10 +4,9 @@ import { UploadNftHook } from "hooks/uploadNftHooks";
 import styled from "styled-components";
 import { openNotification } from "components/common";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../store/store";
+import {  useAppSelector } from "../../store/store";
 import Backdrop from "../../components/backdrop/backdrop";
 import img from "../../assets/images/bgimage.jpeg";
-import upload from "../../assets/images/upload.png";
 import { FaUpload } from "react-icons/fa";
 
 import MainNavbar from "components/navbar";

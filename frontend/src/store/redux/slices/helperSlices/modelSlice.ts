@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { useState } from "react";
 import { BotanikService } from "web3Functions/botanik";
-//const [botanikConfig, setBotanikConfig] = useState(null)
+
 export const initialState = {
   collapsed: null,
   modelOpen: null,
   botanikData: null,
   botanikLoader: false,
 };
+
 export const btkData: any = createAsyncThunk(
   "btkData",
   async (web3: any, thunkAPI) => {

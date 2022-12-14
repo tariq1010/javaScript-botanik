@@ -1,10 +1,10 @@
 import { all, takeLatest, put, takeEvery } from "redux-saga/effects"
 import NFTService from "../../services/nftServices"
-import { getMintedNftsRequest, getMintedNftsRequestFailure, getMintedNftsRequestSuccess, getRemainingNftRequest, getNftsRequestFailure, getNftsRequestSuccess } from "../redux/slices/getNftSlice"
+import { getMintedNftsRequest, getMintedNftsRequestFailure, getMintedNftsRequestSuccess, getRemainingNftRequest, getNftsRequestSuccess } from "../redux/slices/getNftSlice"
 import { mintNftRequest, mintNftRequestFailure, mintNftRequestSuccess } from "../redux/slices/mintNftSlice"
 import { getRandomNftRequest, getRandomNftRequestFailure, getRandomNftRequestSuccess } from "../redux/slices/getRandomNftSlice"
 import { getNftsForUnMintRequest, getNftsForUnMintRequestFailure, getNftsForUnMintRequestSuccess } from "../redux/slices/getNftForUnMint"
-import { unMintNftRequest, unMintNftRequestSuccess, unMintNftRequestFailure } from "../redux/slices/unMintNftSlice"
+import { unMintNftRequest, unMintNftRequestSuccess } from "../redux/slices/unMintNftSlice"
 import { getFeeRequest, getFeeRequestSuccess, getFeeRequestFailure } from "../redux/slices/getFeeSlice"
 import { getNftRequest, getNftRequestSuccess, getNftRequestFailure } from "../redux/slices/getNftByTokenIdSlice"
 
@@ -23,7 +23,6 @@ function* getMintedNftsSaga(action: any): any {
     }
 
 }
-
 
 function* getRandomNftSaga(action: any): any {
     try {

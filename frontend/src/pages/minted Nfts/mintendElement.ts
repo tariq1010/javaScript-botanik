@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Card } from "react-bootstrap";
 import img from "../../assets/images/bgimage.jpeg";
 export const MintedNftWrapper = styled.div`
 

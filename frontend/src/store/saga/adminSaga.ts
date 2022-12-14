@@ -1,11 +1,10 @@
 import { all, takeLatest, put } from "redux-saga/effects"
 import AdminService from "services/adminService"
 import { checkAuthRequest, checkAuthRequestFailure, checkAuthRequestSuccess, resetcheckAuth } from "store/redux/slices/adminSlices/checkAuthSlice";
-import { loginRequest, loginRequestFailure, loginRequestSuccess, resetLogin } from "store/redux/slices/adminSlices/loginSlices";
+import { loginRequest, loginRequestFailure, loginRequestSuccess } from "store/redux/slices/adminSlices/loginSlices";
 import { logoutRequest, logoutRequestFailure, logoutRequestSuccess } from "store/redux/slices/adminSlices/logoutSlice";
 
  
-
 function* loginSaga(action: any): any {
     try {
       

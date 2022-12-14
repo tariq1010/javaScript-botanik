@@ -1,40 +1,27 @@
 import { useEffect, useState } from "react";
-import useForm from "hooks/useForm";
-import dotenv from "dotenv";
 import {
   Content,
-  EmailInputField,
-  Heading,
-  LoginButton,
-  LoginContainer,
-  PasswordInputField,
-  LoginMain,
 } from "./adminLoginElements";
 import { useAppDispatch, useAppSelector } from "store/store";
-import { setCredentials } from "store/redux/slices/adminSlices/loginSlices";
-import { CheckAuthHook, LoginHook } from "hooks/adminhooks";
-import { resetcheckAuth } from "store/redux/slices/adminSlices/checkAuthSlice";
 import SimpleBackdrop from "components/backdrop/backdrop";
-import { BotanikService } from "web3Functions/botanik";
 import { Button } from "react-bootstrap";
-import { btkData } from "store/redux/slices/helperSlices/modelSlice";
 import { mainModel } from "store/redux/slices/helperSlices/modelSlice";
 import { MainModel } from "components/common";
 import { OwnerHook } from "hooks/adminhooks";
+
 const AdminLogin = () => {
-  const { checkOwner, loader } = OwnerHook();
+  const { checkOwner } = OwnerHook();
   //decalartions
   const dispatch = useAppDispatch();
-  const [config, setBotanikConfig] = useState(null);
   //useAppSelector
   const { credentials, loading, errorMessage, error } = useAppSelector(
     (state) => state.login
   );
-  const { web3, userBalance, contract, accounts } = useAppSelector(
+  const { web3, contract, accounts } = useAppSelector(
     (state) => state.web3Connect
   );
 
-  const { botanikData, botanikLoader } = useAppSelector((state) => state.model);
+  const { botanikLoader } = useAppSelector((state) => state.model);
   const [connectModel, setConnectModel] = useState(false);
 
   //custom hooks

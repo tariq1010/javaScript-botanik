@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Backdrop from "../../components/backdrop/backdrop";
-import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../store/store";
 import { getTokenRequest } from "../../store/redux/slices/tokenSlice";
 import {
@@ -8,10 +7,9 @@ import {
   userBalanceAsync,
 } from "../../store/redux/slices/web3ConnectSlice";
 import { getFeeRequest } from "../../store/redux/slices/getFeeSlice";
-import env from "../../enviornment";
-import swiperimg1 from "../../assets/images/swiper-img1.png";
+import s1 from "../../assets/images/s1.png";
+// import img from '../../assets/images/nextArrow.svg'
 import { Swiper, SwiperSlide } from "swiper/react";
-import ConnectWallet from "components/connect wallet/connectWallet";
 import { MainModel, openNotification } from "components/common";
 import { GetProofHook } from "hooks/whiteListAddressHooks";
 import useForm from "hooks/useForm";
@@ -26,7 +24,7 @@ import ToastMessage from "components/toast Message/toastMessage";
 // import required modules
 import { EffectCoverflow, Pagination, Navigation } from "swiper";
 
-import { MainRow, MainCol, MainContainer } from "components/common";
+import { MainContainer } from "components/common";
 import {
   LogoTitle,
   LogoDesc,
@@ -48,10 +46,9 @@ import {
   ContactButton,
   FooterText,
 } from "./components/homeElement";
-import topimage from "../../assets/images/topimage.png";
+import img1 from "../../assets/images/img1.png";
 
 // logo
-import logo from "assets/images/mainlogo1.svg";
 // redux Slice
 import { btkData, mainModel } from "store/redux/slices/helperSlices/modelSlice";
 import validate from "./components/validateNumber";
@@ -207,7 +204,7 @@ const Home: React.FC<Props> = ({
 
       <HeroSection>
         <div className="mainImage">
-          <img src={topimage} />
+          <img src={img1} />
         </div>
 
         <HeaderSection>
@@ -271,7 +268,8 @@ const Home: React.FC<Props> = ({
             <br />
             <br />
             <span>
-              NFTS Left: {botanikData?.maxSupply - botanikData?.totalSupply}/{botanikData?.maxSupply}
+              NFTS Left: {botanikData?.maxSupply - botanikData?.totalSupply}/
+              {botanikData?.maxSupply}
             </span>
           </Text>
         </HeaderSection>
@@ -370,23 +368,23 @@ const Home: React.FC<Props> = ({
               className="mySwiper"
             >
               <SwiperSlide>
-                <img src={swiperimg1} />
+                <img src={s1} />
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={swiperimg1} />
+                <img src={s1} />
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={swiperimg1} />
+                <img src={s1} />
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={swiperimg1} />
+                <img src={s1} />
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={swiperimg1} />
+                <img src={s1} />
               </SwiperSlide>
             </Swiper>
           </GallerySwiper>
