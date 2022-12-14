@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Wrapper, MainDiv } from "./contractFunctionsElements";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector, useAppDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
-import connectBtn from "assets/images/connectBtn.png";
-import { MainModel, ConnectBtnImg, openNotification } from "components/common";
+import { MainModel, openNotification } from "components/common";
 // redux Slice
 import { btkData, mainModel } from "store/redux/slices/helperSlices/modelSlice";
 
 import SimpleBackdrop from "components/backdrop/backdrop";
-import { toggleWhitelistStatus } from "store/redux/slices/contractFunctions/write";
 
 import MainNavbar from "components/navbar";
 import { GetMintStatusHook, PhaseCountHook } from "hooks/web3Hooks";
@@ -30,9 +28,7 @@ const ContractFunctions: React.FC<Props> = () => {
   const token = localStorage.getItem("access_token");
 
   //useAppSelector
-  const { web3, accounts } = useAppSelector(
-    (state) => state.web3Connect
-  );
+  const { web3, accounts } = useAppSelector((state) => state.web3Connect);
 
   //useState
   const [loading, setLoading] = useState(false);
@@ -42,12 +38,10 @@ const ContractFunctions: React.FC<Props> = () => {
   const [feeModel, setFeeModel] = useState(false);
   const [phaseModel, setPhaseModel] = useState(false);
   const [config, setBotanikConfig] = useState(null);
-  console.log("acconts", accounts);
   //custom hooks
   const { statusLoading } = GetMintStatusHook();
   const { loading: authLoading, error, auth } = CheckAuthHook();
   const { botanikData } = useAppSelector((state) => state.model);
-  console.log("contraBota", botanikData, accounts);
   //component functions
   const transferOwnerShipModel = () => {
     setTransferModel(true);
@@ -61,11 +55,6 @@ const ContractFunctions: React.FC<Props> = () => {
     setWithDrawModel(false);
     setPhaseModel(false);
     setFeeModel(true);
-    dispatch(mainModel(true));
-  };
-
-  const connectModelFn = () => {
-    setConnectModel(true);
     dispatch(mainModel(true));
   };
 
@@ -159,15 +148,12 @@ const ContractFunctions: React.FC<Props> = () => {
       console.log("userEff", accounts);
       let owner = (botanikData?.owner).toLowerCase() === accounts.toLowerCase();
       owner && navigate("/contract-functions");
-
       !owner && navigate("/admin-login");
     }
-  }, [accounts]);
-  useEffect(() => {
     if (!web3) {
       navigate("/admin-login");
     }
-  }, []);
+  }, [accounts]);
 
   return (
     <>
@@ -183,18 +169,13 @@ const ContractFunctions: React.FC<Props> = () => {
             feeModel={feeModel}
           />
 
-          {web3 ? (
+          {web3 && (
             <MainDiv>
-              {web3 ? (
-                <div style={{ color: "white" }}>
-                  <p>Current Mint Fee: {botanikData?.mintFee / 10 ** 18} ETH</p>
+              <div style={{ color: "white" }}>
+                <p>Current Mint Fee: {botanikData?.mintFee / 10 ** 18} ETH</p>
 
-                  <p>Total Minted Nfts: {botanikData?.totalSupply}</p>
-                </div>
-              ) : (
-                ""
-              )}
-
+                <p>Total Minted Nfts: {botanikData?.totalSupply}</p>
+              </div>
               <Button onClick={transferOwnerShipModel}>
                 Transfer Ownership
               </Button>
@@ -213,14 +194,6 @@ const ContractFunctions: React.FC<Props> = () => {
                 </Button>
               )}
             </MainDiv>
-          ) : (
-            <div>
-              <ConnectBtnImg
-                contractConnectBtn
-                src={connectBtn}
-                onClick={connectModelFn}
-              />
-            </div>
           )}
         </div>
       </Wrapper>
