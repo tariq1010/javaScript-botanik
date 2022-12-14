@@ -35,41 +35,41 @@ const SetPhaseModal = () => {
   );
   const { botanikData } = useAppSelector((state) => state.model);
 
-  const handleSetPhase = async (value) => {
-    try {
-      setLoading(true);
-      if (
-        botanikData?.totalSupply + Number(value?.supply) <=
-        botanikData?.maxSupply
-      ) {
-        const receipt = await BotanikService.setPhaseLimit(
-          web3,
-          accounts,
-          Number(value?.supply)
-        );
-        if (receipt.status) {
-          dispatch(btkData());
-          setLoading(false);
-          openNotification(
-            "Successfull",
-            "Minting Phase has been set!",
-            "success"
-          );
-        } else {
-          setLoading(false);
-          openNotification("Error", "User denied transaction", "error");
-        }
-        console.log(receipt);
-      } else {
-        setLoading(false);
-        openNotification("Error", "Invalid Phase Limit ", "error");
-      }
-    } catch (error) {
-      setLoading(false);
-      openNotification("Error", "Transaction failed", "error");
-      console.log("error", error);
-    }
-  };
+  // const handleSetPhase = async (value) => {
+  //   try {
+  //     setLoading(true);
+  //     if (
+  //       botanikData?.totalSupply + Number(value?.supply) <=
+  //       botanikData?.maxSupply
+  //     ) {
+  //       const receipt = await BotanikService.setPhaseLimit(
+  //         web3,
+  //         accounts,
+  //         Number(value?.supply)
+  //       );
+  //       if (receipt.status) {
+  //         dispatch(btkData());
+  //         setLoading(false);
+  //         openNotification(
+  //           "Successfull",
+  //           "Minting Phase has been set!",
+  //           "success"
+  //         );
+  //       } else {
+  //         setLoading(false);
+  //         openNotification("Error", "User denied transaction", "error");
+  //       }
+  //       console.log(receipt);
+  //     } else {
+  //       setLoading(false);
+  //       openNotification("Error", "Invalid Phase Limit ", "error");
+  //     }
+  //   } catch (error) {
+  //     setLoading(false);
+  //     openNotification("Error", "Transaction failed", "error");
+  //     console.log("error", error);
+  //   }
+  // };
 
   return (
     <>
@@ -78,7 +78,7 @@ const SetPhaseModal = () => {
       <TransferMainModel>
         <TransferModelContent>
           <TransferCenterDiv>
-            <Forms onFinish={handleSetPhase}>
+            <Forms >
               <Forms.Item
                 name="supply"
                 rules={[

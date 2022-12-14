@@ -5,6 +5,8 @@ const useVerification = (callback: any, validate: any, values: object) => {
     const [errors, setErrors] = useState<any>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    console.log("formErr",errors,values)
+
     useEffect(() => {
         if (Object.keys(errors).length === 0 && isSubmitting) {
             callback();

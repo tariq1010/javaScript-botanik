@@ -80,6 +80,7 @@ const Home: React.FC<Props> = ({
   const { botanikData } = useAppSelector((state) => state.model);
   const dispatch = useAppDispatch();
   const [mintLoading, setMintLoading] = useState(false);
+  const [accountBalance, setAccountBalance] = useState(Number);
   const [status, setStatus] = useState(false);
   const { fee, feeLoading } = useAppSelector((state) => state.getFee);
 
@@ -92,7 +93,13 @@ const Home: React.FC<Props> = ({
       web3 && dispatch(ownerAsync());
     }
   }, [web3, accounts]);
-
+  useEffect(() => {
+    const getUserEthBalance = async () => {
+      if (accounts)
+        setAccountBalance(Number(await web3.eth.getBalance(accounts)));
+    };
+    getUserEthBalance();
+  }, [accounts]);
   useEffect(() => {
     dispatch(getFeeRequest());
     dispatch(mainModel(true));
@@ -149,6 +156,7 @@ const Home: React.FC<Props> = ({
       if (status) {
         alert("error");
       } else {
+        // if (accountBalance > num * botanikData?.mintFee) {
         setMintLoading(true);
         const txn = await BotanikService.mint(web3, accounts, num);
         if (txn && txn.status) {
@@ -156,11 +164,16 @@ const Home: React.FC<Props> = ({
         }
         if (txn && txn.code) {
           ToastMessage(" ", "Transaction Rejected by User", "error");
+          ///////
         }
         dispatch(btkData());
         console.log(txn);
         validateFunc();
         setMintLoading(false);
+        // }
+        // else {
+        //   ToastMessage(" ", "Not enough Eth Balance", "error");
+        // }
       }
     } catch (error) {
       console.log(error);
@@ -175,8 +188,9 @@ const Home: React.FC<Props> = ({
     validate,
     {
       num: num,
-      nftleft: botanikData?.totalSupply - botanikData?.phaseLimit,
-      balance: userBalance,
+      nftleft: botanikData?.totalSupply - botanikData?.maxSupply,
+      balance: accountBalance,
+      nftFee: botanikData?.mintFee,
     }
   );
 
@@ -198,9 +212,8 @@ const Home: React.FC<Props> = ({
 
         <HeaderSection>
           <Title>
-            {botanikData
-              ? `${botanikData?.totalSupply}/${botanikData?.maxSupply}`
-              : ""}
+            Price per NFT
+            {botanikData ? `: ${botanikData?.mintFee / 10 ** 18} ETH` : " "}
           </Title>
 
           <InputField className="modelInput">
@@ -212,7 +225,7 @@ const Home: React.FC<Props> = ({
               num={num}
               setNum={setNum}
               remaingNftLength={
-                botanikData?.phaseLimit - botanikData?.totalSupply
+                botanikData?.maxSupply - botanikData?.totalSupply
               }
               setStatus={setStatus}
               botanikConfig={botanikData}
@@ -228,23 +241,25 @@ const Home: React.FC<Props> = ({
             </p>
           )}
           {web3 ? (
-            <Button
-              onClick={(event) => {
-                if (botanikData?.totalSupply === botanikData?.phaseLimit) {
-                  openNotification(
-                    "Phase Completed",
-                    "Current phase of minting in finished",
-                    "warning"
-                  );
-                } else if (botanikData?.isPaused) {
-                  openNotification("Paused", "Minting paused", "warning");
-                } else {
-                  handleSubmit(event);
-                }
-              }}
-            >
-              <button>Mint NFT</button>
-            </Button>
+            <div className="mintBtn">
+              <Button
+                onClick={(event) => {
+                  if (botanikData?.totalSupply === botanikData?.maxSupply) {
+                    openNotification(
+                      "Supply Completed",
+                      "Limit Reached",
+                      "warning"
+                    );
+                  } else if (botanikData?.isPaused) {
+                    openNotification("Paused", "Minting paused", "warning");
+                  } else {
+                    handleSubmit(event);
+                  }
+                }}
+              >
+                <button> Mint NFT</button>
+              </Button>
+            </div>
           ) : (
             <Button onClick={() => connectModelFn()}>
               <button>Connect Wallet</button>
@@ -252,11 +267,11 @@ const Home: React.FC<Props> = ({
           )}
 
           <Text>
-            Mint Price: {(num * botanikData?.mintFee) / 10 ** 18 || 0}
+            Total Mint Price: {(num * botanikData?.mintFee) / 10 ** 18 || 0}
             <br />
             <br />
             <span>
-              NFTS Left: {botanikData?.totalSupply}/{botanikData?.phaseLimit}
+              NFTS Left: {botanikData?.maxSupply - botanikData?.totalSupply}/{botanikData?.maxSupply}
             </span>
           </Text>
         </HeaderSection>

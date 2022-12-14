@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppSelector, useAppDispatch } from "../../store/store";
 import { useNavigate } from "react-router-dom";
-// import connectBtn from "assets/images/connectBtn.png";
+import connectBtn from "assets/images/connectBtn.png";
 import { MainModel, ConnectBtnImg, openNotification } from "components/common";
 // redux Slice
 import { btkData, mainModel } from "store/redux/slices/helperSlices/modelSlice";
@@ -30,26 +30,24 @@ const ContractFunctions: React.FC<Props> = () => {
   const token = localStorage.getItem("access_token");
 
   //useAppSelector
-  const { web3, contract, accounts } = useAppSelector(
+  const { web3, accounts } = useAppSelector(
     (state) => state.web3Connect
   );
-  const { fee } = useAppSelector((state) => state.getFee);
-  const { count } = useAppSelector((state) => state.mintNft);
 
   //useState
   const [loading, setLoading] = useState(false);
   const [connectModel, setConnectModel] = useState(false);
   const [transferModel, setTransferModel] = useState(false);
   const [withDrawModel, setWithDrawModel] = useState(false);
+  const [feeModel, setFeeModel] = useState(false);
   const [phaseModel, setPhaseModel] = useState(false);
   const [config, setBotanikConfig] = useState(null);
-
+  console.log("acconts", accounts);
   //custom hooks
-  const { whitelistStatus, mintPauseStatus, getMintStatus, statusLoading } =
-    GetMintStatusHook();
+  const { statusLoading } = GetMintStatusHook();
   const { loading: authLoading, error, auth } = CheckAuthHook();
   const { botanikData } = useAppSelector((state) => state.model);
-  console.log("BTK NFT admin", botanikData);
+  console.log("contraBota", botanikData, accounts);
   //component functions
   const transferOwnerShipModel = () => {
     setTransferModel(true);
@@ -57,27 +55,14 @@ const ContractFunctions: React.FC<Props> = () => {
     setPhaseModel(false);
     dispatch(mainModel(true));
   };
-  const setPhaseModal = () => {
-    try {
-      if (botanikData?.totalSupply != botanikData?.phaseLimit) {
-        throw "Current phase is still incomplete!";
-      }
-      //else if (count.totalSupply != count.offChainCount)
-      //   throw "Please first reveal previous phase NFTs";
-      setTransferModel(false);
-      setWithDrawModel(false);
-      setPhaseModel(true);
-      dispatch(mainModel(true));
-    } catch (error) {
-      openNotification("Cannot update Phase", error, "error");
-    }
+
+  const updateFeeModel = () => {
+    setTransferModel(false);
+    setWithDrawModel(false);
+    setPhaseModel(false);
+    setFeeModel(true);
+    dispatch(mainModel(true));
   };
-  // const withDrawShipModel = () => {
-  //   setTransferModel(false);
-  //   setWithDrawModel(true);
-  //   setPhaseModel(false);
-  //   dispatch(mainModel(true));
-  // };
 
   const connectModelFn = () => {
     setConnectModel(true);
@@ -170,14 +155,19 @@ const ContractFunctions: React.FC<Props> = () => {
   }, []);
 
   useEffect(() => {
-    //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if (accounts && botanikData?.owner) {
-      (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
-        navigate("/contract-functions");
-    } else {
+    if (accounts) {
+      console.log("userEff", accounts);
+      let owner = (botanikData?.owner).toLowerCase() === accounts.toLowerCase();
+      owner && navigate("/contract-functions");
+
+      !owner && navigate("/admin-login");
+    }
+  }, [accounts]);
+  useEffect(() => {
+    if (!web3) {
       navigate("/admin-login");
     }
-  }, [accounts, botanikData]);
+  }, []);
 
   return (
     <>
@@ -190,18 +180,16 @@ const ContractFunctions: React.FC<Props> = () => {
             transferModel={transferModel}
             withDrawModel={withDrawModel}
             setPhaseModal={phaseModel}
+            feeModel={feeModel}
           />
 
           {web3 ? (
             <MainDiv>
               {web3 ? (
-                <div style={{ color: "white", fontSize:"16px", fontWeight:"bold", paddingLeft:"20px" }}>
-                  <p>Current Mint Fee: {botanikData?.mintFee / 10 ** 18}</p>
-                  {botanikData?.phaseLimit > 0 ? (
-                    <p>Current Mint Limit: {botanikData?.phaseLimit}</p>
-                  ) : (
-                    "Current Phase Finished"
-                  )}
+                <div style={{ color: "white" }}>
+                  <p>Current Mint Fee: {botanikData?.mintFee / 10 ** 18} ETH</p>
+
+                  <p>Total Minted Nfts: {botanikData?.totalSupply}</p>
                 </div>
               ) : (
                 ""
@@ -210,11 +198,11 @@ const ContractFunctions: React.FC<Props> = () => {
               <Button onClick={transferOwnerShipModel}>
                 Transfer Ownership
               </Button>
-              <Button onClick={setPhaseModal}>Update Phase</Button>
               <Button onClick={handleRenounceOwnership}>
                 Renounce Ownership
               </Button>
               <Button onClick={withdrawHandle}>Withdraw</Button>
+              <Button onClick={updateFeeModel}>Update Fee</Button>
               {botanikData?.isPaused ? (
                 <Button aria-disabled={statusLoading} onClick={unpauseWeb3Fn}>
                   {statusLoading ? "Loading..." : "Continue Minting"}
@@ -224,19 +212,12 @@ const ContractFunctions: React.FC<Props> = () => {
                   {statusLoading ? "Loading..." : "  Pause Minting"}
                 </Button>
               )}
-              {/* <Button onClick={toogleWhiteList}>
-              {statusLoading
-                ? "Loading..."
-                : whitelistStatus
-                ? "Pause Whitlist Minting"
-                : "Continue Whitelist Minting"}
-            </Button> */}
             </MainDiv>
           ) : (
             <div>
               <ConnectBtnImg
                 contractConnectBtn
-                // src={connectBtn}
+                src={connectBtn}
                 onClick={connectModelFn}
               />
             </div>
