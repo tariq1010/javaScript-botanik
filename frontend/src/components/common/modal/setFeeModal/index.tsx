@@ -58,7 +58,7 @@ const UpdateFeeModel = () => {
               <Forms.Item
                 name="amount"
                 rules={[
-                  { required: true, message: "Enter Amount in Eth!" },
+                  { required: true, message: "Enter Amount in ETH!" },
                   {
                     message: " Fee Cannot  be negative",
                     validator: (_, value) => {
@@ -85,7 +85,7 @@ const UpdateFeeModel = () => {
                       e.preventDefault();
                     }
                   }}
-                  placeholder="Enter Amount in Eth!"
+                  placeholder="Enter Amount in ETH!"
                   type="number"
                 />
               </Forms.Item>
