@@ -4,11 +4,11 @@ import { UploadNftHook } from "hooks/uploadNftHooks";
 import styled from "styled-components";
 import { openNotification } from "components/common";
 import { useNavigate } from "react-router-dom";
-import {  useAppSelector } from "../../store/store";
+import { useAppSelector } from "../../store/store";
 import Backdrop from "../../components/backdrop/backdrop";
 import img from "../../assets/images/bgimage.jpeg";
 import { FaUpload } from "react-icons/fa";
-
+import samplejson from "../../assets/sample.json";
 import MainNavbar from "components/navbar";
 const UploadSection = styled.div`
   background-image: url(${img});
@@ -31,7 +31,7 @@ const UploadWrapper = styled.div`
   color: white;
 `;
 
-const Button = styled.div`
+const BtnContainer = styled.div`
   button {
     background-color: #295f3f;
     display: flex;
@@ -49,6 +49,16 @@ const Button = styled.div`
     box-shadow: 2px 0px 10px rgba(255, 249, 249, 0.15),
       0px 2px 10px rgba(255, 255, 255, 0.15);
     transition: all 0.5s;
+  }
+`;
+
+const DownloadLink = styled.div`
+  text-align: center;
+  padding-left: 4rem;
+  padding-top: 1rem;
+
+  a {
+    color: white;
   }
 `;
 
@@ -115,31 +125,39 @@ const UploadNft = () => {
       <UploadSection>
         <div className="overlayBg">
           <UploadWrapper>
-         
-              <Row>
-                {/* <Col>
+            <Row>
+              {/* <Col>
               <input type="file" onChange={handleChange} accept="*json" />
             </Col> */}
 
-                <Button>
-                  <Col>
-                    <button onClick={handleClick}>
-                      <input
-                        type="file"
-                        hidden
-                        ref={hiddenFileInput}
-                        onChange={handleChange}
-                        accept="application/JSON"
-                      />
-                      <span>
-                        <FaUpload />
-                      </span>
-                      Upload
-                    </button>
-                  </Col>
-                </Button>
-              </Row>
-          
+              <BtnContainer>
+                <Col>
+                  <button onClick={handleClick}>
+                    <input
+                      type="file"
+                      hidden
+                      ref={hiddenFileInput}
+                      onChange={handleChange}
+                      accept="application/JSON"
+                    />
+                    <span>
+                      <FaUpload />
+                    </span>
+                    Upload
+                  </button>
+                </Col>
+                <DownloadLink>
+                  <a
+                    href={`data:text/json;charset=utf-8,${encodeURIComponent(
+                      JSON.stringify(samplejson)
+                    )}`}
+                    download="sample.json"
+                  >
+                    Download Sample
+                  </a>
+                </DownloadLink>
+              </BtnContainer>
+            </Row>
           </UploadWrapper>
         </div>
       </UploadSection>
