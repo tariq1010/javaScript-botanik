@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require('dotenv').config(); 
 const {environment}= require("../../environment")
 
-let url = environment.MONGOOSE_URL
+let url = process.env.MONGOOSE_URL
 
 let connectDB = async () =>
 { 
@@ -10,8 +10,8 @@ let connectDB = async () =>
   {
     const conn = await mongoose.connect(
       url,
-      { useNewUrlParser: true, useUnifiedTopology: true },
-      { useCreateIndex: true }
+      // { useNewUrlParser: true, useUnifiedTopology: true },
+      // { useCreateIndex: true }
     );
     console.log(`Mongoose Connected ${conn.connection.host}`);
   } catch (error:any) 

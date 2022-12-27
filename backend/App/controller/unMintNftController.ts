@@ -1,6 +1,7 @@
 const { unMintNft } = require("../model/nftModel");
 const conn = require("../../index");
 const { nftCount } = require("./nftCount");
+const {environment} =require("../../environment");
 export {};
 const nftUnMint = async (ctx: any) => {
   try {
