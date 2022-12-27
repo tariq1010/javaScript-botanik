@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 
-import Home from "./pages/home";
+import Minting from "./pages/mintingNft";
 import MintedNfts from "./pages/minted Nfts";
 import { useAppDispatch, useAppSelector } from "./store/store";
 import Collection from "./pages/collection";
@@ -52,7 +52,9 @@ const App = () => {
       <BrowserRouter>
         <GlobalStyle />
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* add home and blog routes here */}
+          
+          <Route path="/minting-nft" element={<Minting />} />
           <Route path="/minted" element={<MintedNfts />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/*" element={<Error404 />} />

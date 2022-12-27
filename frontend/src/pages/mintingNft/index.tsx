@@ -63,7 +63,7 @@ type Props = {
   isRevealMain?: boolean;
 };
 
-const Home: React.FC<Props> = ({
+const Minting: React.FC<Props> = ({
   isRevealMain,
 }: {
   isRevealMain?: boolean;
@@ -406,4 +406,4 @@ const Home: React.FC<Props> = ({
   );
 };
 
-export default Home;
+export default Minting;

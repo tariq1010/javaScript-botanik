@@ -5,7 +5,7 @@ import ConnectWallet from "components/connect wallet/connectWallet";
 import { app } from "utility/constants";
 import Toast from "components/toast Message/toastMessage";
 import { revealCheck } from "utility/conditionals";
-import { MainWrapper } from "../../home/components/homeElement";
+import { MainWrapper } from "../../mintingNft/components/homeElement";
 import { useNavigate } from "react-router-dom";
 import MainNavbar from "components/navbar";
 import { PhaseCountHook } from "hooks/web3Hooks";
