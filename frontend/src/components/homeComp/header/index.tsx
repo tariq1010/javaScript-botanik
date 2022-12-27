@@ -52,7 +52,7 @@ function Header() {
                 </WrapperText>
               </WrapperContainer>
             </MainCol>
-            <MainCol lg={6} className="d-flex justify-content-center">
+            <MainCol lg={6}>
               <ImageContainer>
                 <img
                   src={sectionimg1}
@@ -63,7 +63,7 @@ function Header() {
             </MainCol>
           </MainRow>
           <MainRow>
-            <MainCol lg={6} className="d-flex justify-content-center">
+            <MainCol lg={6}>
               <SecondImageContainer>
                 <img
                   src={sectionimg2}

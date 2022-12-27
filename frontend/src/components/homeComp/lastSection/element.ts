@@ -195,6 +195,10 @@ export const ContainerText = styled.div`
 
 export const BlogSection = styled.div`
   margin-top: 6rem;
+
+  @media (max-width: 991.98px) {
+    margin-top: 2rem;
+  }
 `;
 
 export const BlogHeader = styled.div`
@@ -209,6 +213,10 @@ export const BlogHeader = styled.div`
 
 export const SwiperContainer = styled.div`
   margin-top: 6rem;
+
+  @media (max-width: 991.98px) {
+    margin-top: 2rem;
+  }
 
   .swiperImg {
     height: 263px;

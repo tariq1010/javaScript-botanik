@@ -88,7 +88,7 @@ function MiddleSection() {
         </Wrapper>
         <img className="img-fluid mapImg" src={map} />
 
-        {/* <SwiperContainer>
+        <SwiperContainer>
           <Swiper
             slidesPerView={3}
             spaceBetween={30}
@@ -120,7 +120,7 @@ function MiddleSection() {
               </SwiperSlide>
             ))}
           </Swiper>
-        </SwiperContainer> */}
+        </SwiperContainer>
       </MainContainer>
     </MiddleSectionWrapper>
   );

@@ -164,6 +164,9 @@ export const WrapperText = styled.p`
 `;
 
 export const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .sectionImg {
     height: 375px;
 
@@ -173,6 +176,9 @@ export const ImageContainer = styled.div`
   }
 `;
 export const SecondImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 5rem;
 
   @media (max-width: 991.98px) {
@@ -184,6 +190,7 @@ export const SecondImageContainer = styled.div`
 
     @media (max-width: 991.98px) {
       height: 100%;
+      width: 100%;
     }
   }
 `;

@@ -92,37 +92,39 @@ function LastSection() {
         </Wrapper>
         <BlogSection>
           <BlogHeader>Our Blog</BlogHeader>
-          {/* <SwiperContainer>
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={30}
-            grabCursor={true}
-            navigation={true}
-            modules={[Navigation]}
-            className="mySwiper"
-            breakpoints={{
-              100: {
-                slidesPerView: 1,
-              },
-              500: {
-                slidesPerView: 1.5,
-              },
-              768: {
-                slidesPerView: 2,
-              },
-              1024: {
-                slidesPerView: 3,
-              },
-              1400: {
-                slidesPerView: 3,
-              },
-            }}
-          >
-            <SwiperSlide>
-              <img className="img-fluid swiperImg" src={swiperimg1} />
-            </SwiperSlide>
-          </Swiper>
-          </SwiperContainer> */}
+          <SwiperContainer>
+            <Swiper
+              slidesPerView={3}
+              spaceBetween={30}
+              grabCursor={true}
+              navigation={true}
+              modules={[Navigation]}
+              className="mySwiper"
+              breakpoints={{
+                100: {
+                  slidesPerView: 1,
+                },
+                500: {
+                  slidesPerView: 1.5,
+                },
+                768: {
+                  slidesPerView: 2,
+                },
+                1024: {
+                  slidesPerView: 3,
+                },
+                1400: {
+                  slidesPerView: 3,
+                },
+              }}
+            >
+              {swiperData.map((item) => (
+                <SwiperSlide>
+                  <img className="img-fluid swiperImg" src={item.image} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </SwiperContainer>
           <SeeAllBtn>See All</SeeAllBtn>
         </BlogSection>
       </MainContainer>

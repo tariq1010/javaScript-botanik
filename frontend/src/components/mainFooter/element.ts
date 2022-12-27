@@ -6,7 +6,7 @@ export const MainFooterWrapper = styled.div`
 
   .container {
     margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 `;
 

@@ -7,6 +7,7 @@ import {
   MainFooterWrapper,
 } from "./element";
 import footerlogo from "../../assets/images/footerlogo.png";
+import { Link } from "react-router-dom";
 
 function MainFooter() {
   return (
@@ -20,8 +21,12 @@ function MainFooter() {
           </MainCol>
           <MainCol lg={6}>
             <LinksWrapper>
-              <Links>Blog</Links>
-              <Links>Home</Links>
+              <Link to="/blogs">
+                <Links>Blog</Links>
+              </Link>
+              <Link to="/">
+                <Links>Home</Links>
+              </Link>
             </LinksWrapper>
           </MainCol>
         </MainRow>
