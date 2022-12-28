@@ -16,6 +16,7 @@ import env from "./enviornment";
 import { setCount } from "store/redux/slices/mintNftSlice";
 import UploadNft from "pages/uploadNft";
 import { updateAccount } from "store/redux/slices/web3ConnectSlice";
+import { Blogs, Home } from "pages";
 
 let socket: any;
 const ENDPOINT = env.BACKEND_BASE_URL;
@@ -46,14 +47,14 @@ const App = () => {
       });
   }, [socket]);
 
-
   return (
     <div>
       <BrowserRouter>
         <GlobalStyle />
         <Routes>
-          {/* add home and blog routes here */}
-          
+          <Route path="/" element={<Home />} />
+          <Route path="/blogs" element={<Blogs />} />
+
           <Route path="/minting-nft" element={<Minting />} />
           <Route path="/minted" element={<MintedNfts />} />
           <Route path="/admin-login" element={<AdminLogin />} />
