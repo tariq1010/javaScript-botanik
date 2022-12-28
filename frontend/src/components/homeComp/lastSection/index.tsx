@@ -21,8 +21,13 @@ import { GetSectionNineHook } from "hooks/sectionNineHook";
 import { useEffect } from "react";
 import { GetSectionTenHook } from "hooks/sectionTenHook";
 import { GetBlogHook } from "hooks/blogHook";
+import { useNavigate } from "react-router-dom";
 
 function LastSection() {
+const navigate=useNavigate()
+
+
+
   const {data,loading,getSectionNine}=GetSectionNineHook()
    const {data:sectionTen, getSectionTen} = GetSectionTenHook()
    const {data:blogs, getBlog} = GetBlogHook()
@@ -95,7 +100,9 @@ function LastSection() {
             >
               {blogs?.map((item) => (
                 <SwiperSlide>
-                  <img key={item._id}  className="img-fluid swiperImg" src={item.image} />
+                  <img key={item._id}  className="img-fluid swiperImg" src={item.image}
+                  onClick={()=>navigate("/blogs/"+item._id)}
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>
