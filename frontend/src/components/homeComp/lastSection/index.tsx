@@ -69,7 +69,7 @@ function LastSection() {
               take part in the extraordinary <br /> Amazonian biodiversity
               conservation project.
             </TextNote>
-            <BuyBtn>Buy TaperaJungle NTF</BuyBtn>
+            <BuyBtn>Buy Tapera Jungle NFT</BuyBtn>
           </TextContainer>
         </ImageWrapper>
         <Wrapper>

@@ -22,7 +22,7 @@ function NavbarCom() {
               <Link to="/blogs">
                 <BlogBtn>Blogs</BlogBtn>
               </Link>
-              <BuyNFTbtn>Buy TaperaJungle NTF</BuyNFTbtn>
+              <BuyNFTbtn>Buy Tapera Jungle NFT</BuyNFTbtn>
             </IconContainer>
           </Navbar.Collapse>
         </MainContainer>
