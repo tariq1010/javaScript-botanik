@@ -18,18 +18,24 @@ import {
 import headerbg from "../../../assets/images/headerbg.png";
 import sectionimg1 from "../../../assets/images/sectionimg1.png";
 import sectionimg2 from "../../../assets/images/sectionimg2.png";
+import { GetSectionOneHook } from "hooks/sectionOneHook";
+import { useEffect } from "react";
 
 function Header() {
+  const {data,getSectionOne,loading}=GetSectionOneHook()
+
+  useEffect(()=>{
+    getSectionOne()
+  },[])
   return (
     <HeaderWrapper>
       <MainContainer>
         <ImageWrapper>
-          <img className="img-fluid" src={headerbg} />
+          <img className="img-fluid" src={data && data[0]?.image} />
         </ImageWrapper>
         <TextContainer>
           <p>
-            The Tapera jungle project aims to preserve <br /> and give value to
-            the Tapera forest <br /> in the Amazon, in the village of Urucara
+          {data && data[0]?.text}
           </p>
         </TextContainer>
         <BottomWrapper>

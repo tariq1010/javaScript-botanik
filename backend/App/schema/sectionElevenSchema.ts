@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 let sectionElevenSchema = mongoose.Schema(
     {
         heading: {type: String},
-        paragraph: {type: String},
+        content: [String],
         image: { type: String,},
     },
     { timestamps: true,}

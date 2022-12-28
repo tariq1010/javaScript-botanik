@@ -1,12 +1,10 @@
 const {SectionEleven} =require("../schema/sectionElevenSchema");
-
-// const {SectionEleven} =require("../schema/sectionNineSchema");
 const fs = require("fs");
 const SaveSectionEleven = async (obj: any) => {
   try {
     const data = await SectionEleven.create({
         heading: obj.heading,
-        paragraph: obj.paragraph,
+        content: obj.content,
         image: obj.image_path,
     });
     if (!data) throw "not inserted";
@@ -36,7 +34,7 @@ const EditSectionEleven = async (id: any, obj: any) => {
 
     const update = {
         heading: obj.heading,
-        paragraph: obj.paragraph,
+        content: obj.content,
         image: obj.image_path,
     };
    
