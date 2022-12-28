@@ -16,7 +16,7 @@ import env from "./enviornment";
 import { setCount } from "store/redux/slices/mintNftSlice";
 import UploadNft from "pages/uploadNft";
 import { updateAccount } from "store/redux/slices/web3ConnectSlice";
-import { Blogs, Home } from "./pages";
+import { Blogs, Home, AdminDashboard } from "./pages";
 
 let socket: any;
 const ENDPOINT = env.BACKEND_BASE_URL;
@@ -61,6 +61,9 @@ const App = () => {
           <Route path="/contract-functions" element={<ContractFunctions />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/upload-nft" element={<UploadNft />} />
+
+          {/* adminDashboard */}
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Routes>
       </BrowserRouter>
     </div>
