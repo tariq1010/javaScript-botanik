@@ -12,7 +12,11 @@ import {
   BlogSection,
   BlogHeader,
   SwiperContainer,
+  NextButton,
+  PreviousButton,
   SeeAllBtn,
+  SwiperHeader,
+  SwiperText,
 } from "./element";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -22,10 +26,13 @@ import { useEffect } from "react";
 import { GetSectionTenHook } from "hooks/sectionTenHook";
 import { GetBlogHook } from "hooks/blogHook";
 import { useNavigate } from "react-router-dom";
-
+import { useState,useRef } from "react";
+import { Swiper as SwiperCore } from "swiper/types";
+import back from "../../../assets/images/back.png";
+import next from "../../../assets/images/next.png";
 function LastSection() {
 const navigate=useNavigate()
-
+const swiperRef = useRef<SwiperCore>();
 
 
   const {data,loading,getSectionNine}=GetSectionNineHook()
@@ -77,7 +84,10 @@ const navigate=useNavigate()
               slidesPerView={3}
               spaceBetween={30}
               grabCursor={true}
-              navigation={true}
+              navigation={false}
+              onBeforeInit={(swiper) => {
+                swiperRef.current = swiper;
+              }}
               modules={[Navigation]}
               className="mySwiper"
               breakpoints={{
@@ -106,6 +116,20 @@ const navigate=useNavigate()
                 </SwiperSlide>
               ))}
             </Swiper>
+            <div className="btnWrapper">
+              <PreviousButton
+                className="swiper-button image-swiper-button-next"
+                onClick={() => swiperRef.current?.slidePrev()}
+              >
+                <img className="img-fluid" src={back} />
+              </PreviousButton>
+              <NextButton
+                className="swiper-button image-swiper-button-prev"
+                onClick={() => swiperRef.current?.slideNext()}
+              >
+                <img className="img-fluid" src={next} />
+              </NextButton>
+            </div>
           </SwiperContainer>
           <SeeAllBtn>See All</SeeAllBtn>
         </BlogSection>

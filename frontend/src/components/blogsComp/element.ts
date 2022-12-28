@@ -28,6 +28,12 @@ export const PostContainer = styled.div`
   @media (max-width: 991.98px) {
     margin-top: 2rem;
   }
+
+  .postWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const PostHeader = styled.h2`
@@ -37,23 +43,62 @@ export const PostHeader = styled.h2`
   line-height: 46px;
   text-transform: uppercase;
   color: #090a00;
-  text-align: center;
+  text-align: start;
+  text-align-last: center;
   font-family: "Gotham", sans-serif !important;
+  width: 70%;
+
+  display: block;
+  margin-left: auto;
+  margin-right: 60px;
+
+  @media (max-width: 1199.98px) {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  @media (max-width: 575.98px) {
+    font-size: 30px;
+    text-align: justify;
+    text-align-last: center;
+  }
 `;
 
-export const PostText = styled.p`
+export const PostTextFirst = styled.p`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
   color: #003333;
   text-align: justify;
-  text-align-last: center;
   margin-top: 20px;
-  width: 90%;
+  display: block;
+  margin-left: auto;
+  width: 70%;
+  transform: translateX(140px);
 
-  @media (max-width: 991.98px) {
+  @media (max-width: 1199.98px) {
+    transform: translateX(0px);
     width: 100%;
+    margin-left: 0;
+  }
+`;
+export const PostTextSecond = styled.p`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #003333;
+  text-align: justify;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  width: 70%;
+
+  @media (max-width: 1199.98px) {
+    width: 100%;
+    margin-left: 0;
   }
 `;
 
@@ -82,6 +127,13 @@ export const SwiperContainer = styled.div`
   .swiperImg {
     height: 263px;
     width: 100%;
+  }
+
+  .btnWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
   }
 
   .swiper-button-next {
@@ -256,4 +308,14 @@ export const BuyBtn = styled.button`
   width: 230px;
   height: 42px;
   margin-top: 2rem;
+`;
+
+export const NextButton = styled.button`
+  background-color: transparent;
+  border: none;
+`;
+
+export const PreviousButton = styled.button`
+  background-color: transparent;
+  border: none;
 `;

@@ -9,6 +9,8 @@ import {
   Text,
   TextContainer,
   Wrapper,
+  PreviousButton,
+  NextButton,
 } from "./element";
 
 
@@ -19,9 +21,13 @@ import {  useEffect } from "react";
 import { GetSectionSixHook } from "hooks/sectionSixHook";
 import { GetSectionEightHook } from "hooks/sectionEightHook";
 import { GetSectionSevenHook } from "hooks/sectionSevenHook";
+import { Swiper as SwiperCore } from "swiper/types";
+import back from "../../../assets/images/back.png";
+import next from "../../../assets/images/next.png";
+import { useRef } from "react";
 
 function MiddleSection() {
-
+  const swiperRef = useRef<SwiperCore>();
  const {data,loading,getSectionFive} =GetSectionFiveHook()
  const {data:sectionSix,getSectionSix} =GetSectionSixHook()
  const {data:carousel,getSectionEight} =GetSectionEightHook()
@@ -74,8 +80,11 @@ function MiddleSection() {
             slidesPerView={3}
             spaceBetween={30}
             grabCursor={true}
-            navigation={true}
+            navigation={false}
             modules={[Navigation]}
+            onBeforeInit={(swiper) => {
+              swiperRef.current = swiper;
+            }}
             className="mySwiper"
             breakpoints={{
               100: {
@@ -101,6 +110,20 @@ function MiddleSection() {
               </SwiperSlide>
             ))}
           </Swiper>
+          <div className="btnWrapper">
+            <PreviousButton
+              className="swiper-button image-swiper-button-next"
+              onClick={() => swiperRef.current?.slidePrev()}
+            >
+              <img className="img-fluid" src={back} />
+            </PreviousButton>
+            <NextButton
+              className="swiper-button image-swiper-button-prev"
+              onClick={() => swiperRef.current?.slideNext()}
+            >
+              <img className="img-fluid" src={next} />
+            </NextButton>
+          </div>
         </SwiperContainer>
       </MainContainer>
     </MiddleSectionWrapper>
