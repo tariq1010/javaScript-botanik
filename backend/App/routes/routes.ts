@@ -1,6 +1,8 @@
-import koaBody from "koa-body";
-const { editSectionEight, getSectionEight } =require("../controller/sectionEightController");
+// const koaBody =require("koa-body");
+const { deleteSectionEleven, editSectionEleven, getSectionEleven, saveSectionEleven,getByIdSectionEleven }=require("../controller/sectionElevenController");
+const { editSectionEight, getSectionEight,saveSectionEight,deleteSectionEight } =require("../controller/sectionEightController");
 const  { editSectionSix, getSectionSix } =require("../controller/sectionSixController");
+const  { editSectionTen, getSectionTen } =require("../controller/sectionTenController");
 const  { editSectionNine, getSectionNine } =require("../controller/sectionNineController");
 
 const  { editSectionSeven, getSectionSeven } =require("../controller/sectionSevenController");
@@ -10,7 +12,7 @@ const { editSectionFour, getSectionFour } =require( "../controller/sectionFourCo
 const multer = require('@koa/multer');
 
 const koabody = require("koa-body")({multipart:true,urlencoded:true});
-
+const Joi = require('joi');
 const koaRouter = require("koa-router");
 const bodyValidate = require('koa-joi-validate');
 const{editSectionThree,getSectionThree} =require ("../controller/sectionThreeController");
@@ -35,7 +37,6 @@ const { uploadNFt } = require("../controller/uploadNFtController");
 
 const sectionFourValition = bodyValidate({ body: sectionFourSchema })
 const sectionOneValition = bodyValidate({ body: sectionOneSchema })
-
 const {
   validate,
   validateWallet,
@@ -130,12 +131,24 @@ router.put("/edit-section-seven/:id",upload.single('section_seven_image'),editSe
 router.get("/get-section-seven",getSectionSeven);
 
 // section 8
-router.put("/edit-section-eight/:id",upload.single('section_eight_image'),editSectionEight);
+router.post("/save-section-eight",upload.single('section_eight_image'),saveSectionEight);
 router.get("/get-section-eight",getSectionEight);
+router.put("/edit-section-eight/:id",upload.single('section_eight_image'),editSectionEight);
+router.delete("/delete-section-eight/:id",deleteSectionEight);
 
 // section 9
 router.put("/edit-section-nine/:id",upload.single('section_nine_image'),editSectionNine);
 router.get("/get-section-nine",getSectionNine);
 
+// section 10
+router.put("/edit-section-ten/:id",upload.fields([{name:"image_one"},{name:"image_two"}]),editSectionTen);
+router.get("/get-section-ten",getSectionTen);
+
+// section 8
+router.post("/save-section-eleven" ,upload.single('section_eleven_image'), saveSectionEleven);
+router.get("/get-section-eleven",getSectionEleven);
+router.get("/get-section-eleven/:id",getByIdSectionEleven);
+router.put("/edit-section-eleven/:id",upload.single('section_eleven_image'),editSectionEleven);
+router.delete("/delete-section-eleven/:id",deleteSectionEleven);
 
 export { router };

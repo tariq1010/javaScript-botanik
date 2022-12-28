@@ -1,10 +1,13 @@
-import { SectionEight } from "../schema/sectionEightSchema";
-const fs = require("fs");
+const {SectionEleven} =require("../schema/sectionElevenSchema");
 
-const SaveSectionEight = async (obj: any) => {
+// const {SectionEleven} =require("../schema/sectionNineSchema");
+const fs = require("fs");
+const SaveSectionEleven = async (obj: any) => {
   try {
-    const data = await SectionEight.create({
-      image: obj.image_path,
+    const data = await SectionEleven.create({
+        heading: obj.heading,
+        paragraph: obj.paragraph,
+        image: obj.image_path,
     });
     if (!data) throw "not inserted";
     return data;
@@ -13,10 +16,10 @@ const SaveSectionEight = async (obj: any) => {
   }
 };
 
-const EditSectionEight = async (id: any, obj: any) => {
+const EditSectionEleven = async (id: any, obj: any) => {
   try {
     if (obj.image_path) {
-      const previous_data = await SectionEight.findById({ _id: id });
+      const previous_data = await SectionEleven.findById({ _id: id });
       const url = String(process.env.BACKEND_URL);
       const subStr = previous_data?.image.slice(url.length + 1);
       fs.unlink(
@@ -32,10 +35,12 @@ const EditSectionEight = async (id: any, obj: any) => {
     }
 
     const update = {
-      image: obj.image_path,
+        heading: obj.heading,
+        paragraph: obj.paragraph,
+        image: obj.image_path,
     };
    
-    const data = await SectionEight.findByIdAndUpdate({ _id: id }, update, {
+    const data = await SectionEleven.findByIdAndUpdate({ _id: id }, update, {
       new: true,
     });
 
@@ -46,9 +51,9 @@ const EditSectionEight = async (id: any, obj: any) => {
   }
 };
 
-const GetSectionEight = async () => {
+const GetSectionEleven = async () => {
   try {
-    const data = await SectionEight.find({});
+    const data = await SectionEleven.find({});
     if (!data) throw "some think went wrong";
     return data;
   } catch (error) {
@@ -56,9 +61,19 @@ const GetSectionEight = async () => {
   }
 };
 
-const DeleteSectionEight = async (id: any) => {
+const GetByIdSectionEleven = async (id: any) => {
+    try {
+      const data = await SectionEleven.findById({ _id: id });
+      if (!data) throw "not found";
+      return data;
+    } catch (error) {
+      return { error: error };
+    }
+  };
+
+const DeleteSectionEleven = async (id: any) => {
   try {
-    const data = await SectionEight.findByIdAndDelete({ _id: id });
+    const data = await SectionEleven.findByIdAndDelete({ _id: id });
     if (!data) throw "not inserted";
     const url = String(process.env.BACKEND_URL);
     const subStr = data?.image.slice(url.length + 1);
@@ -80,8 +95,9 @@ const DeleteSectionEight = async (id: any) => {
 };
 
 export = {
-  EditSectionEight,
-  GetSectionEight,
-  SaveSectionEight,
-  DeleteSectionEight,
+  EditSectionEleven,
+  GetSectionEleven,
+  SaveSectionEleven,
+  DeleteSectionEleven,
+  GetByIdSectionEleven
 };

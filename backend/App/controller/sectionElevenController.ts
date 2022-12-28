@@ -1,14 +1,13 @@
 
-const {EditSectionEight,GetSectionEight,DeleteSectionEight,SaveSectionEight} =require("../model/sectionEightModel");
+const {EditSectionEleven,GetSectionEleven,DeleteSectionEleven,SaveSectionEleven,GetByIdSectionEleven} =require("../model/sectionElevenModel");
 
-const saveSectionEight = async (ctx: any) => {
+const saveSectionEleven = async (ctx: any) => {
   try {
-
     const body = ctx.request.body;
     if (ctx.file) {
       body.image_path = `${process.env.BACKEND_URL}/${ctx.file.filename}`;
     }
-    const data = await SaveSectionEight(body);
+    const data = await SaveSectionEleven(body);
     if (data.error) throw data.error;
     ctx.body = {
       response: "success",
@@ -23,7 +22,7 @@ const saveSectionEight = async (ctx: any) => {
   }
 };
 
-const editSectionEight = async (ctx: any) => {
+const editSectionEleven = async (ctx: any) => {
   try {
 
     const body = ctx.request.body;
@@ -32,7 +31,7 @@ const editSectionEight = async (ctx: any) => {
       body.image_path = `${process.env.BACKEND_URL}/${ctx.file.filename}`;
     }
 
-    const data = await EditSectionEight(id, body);
+    const data = await EditSectionEleven(id, body);
     if (data.error) throw data.error;
     ctx.body = {
       response: "success",
@@ -47,9 +46,9 @@ const editSectionEight = async (ctx: any) => {
   }
 };
 
-const getSectionEight = async (ctx: any) => {
+const getSectionEleven = async (ctx: any) => {
   try {
-    const data = await GetSectionEight();
+    const data = await GetSectionEleven();
     if (data.error) throw data.error;
     ctx.body = {
       response: "success",
@@ -64,10 +63,10 @@ const getSectionEight = async (ctx: any) => {
   }
 };
 
-const deleteSectionEight = async (ctx: any) => {
+const deleteSectionEleven = async (ctx: any) => {
   try {
     const id=ctx.params.id;
-    const data = await DeleteSectionEight(id);
+    const data = await DeleteSectionEleven(id);
     if (data.error) throw data.error;
     ctx.body = {
       response: "success",
@@ -81,4 +80,21 @@ const deleteSectionEight = async (ctx: any) => {
     };
   }
 };
-export = { editSectionEight, getSectionEight,saveSectionEight,deleteSectionEight };
+const getByIdSectionEleven = async (ctx: any) => {
+    try {
+      const id=ctx.params.id;
+      const data = await GetByIdSectionEleven(id);
+      if (data.error) throw data.error;
+      ctx.body = {
+        response: "success",
+        data: data,
+      };
+    } catch (error) {
+      ctx.status = 500;
+      ctx.body = {
+        response: "failure",
+        error: error,
+      };
+    }
+  };
+export = { editSectionEleven, getSectionEleven,saveSectionEleven,deleteSectionEleven,getByIdSectionEleven };
