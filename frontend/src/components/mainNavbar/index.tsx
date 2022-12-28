@@ -19,7 +19,7 @@ function NavbarCom() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
             <IconContainer>
-              <Link to="/blogs/new">
+              <Link to="/blogs">
                 <BlogBtn>Blogs</BlogBtn>
               </Link>
               <BuyNFTbtn>Buy Tapera Jungle NFT</BuyNFTbtn>
