@@ -218,6 +218,13 @@ export const SwiperContainer = styled.div`
     margin-top: 2rem;
   }
 
+  .btnWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+
   .swiperImg {
     height: 263px;
     width: 100%;
@@ -269,4 +276,33 @@ export const SeeAllBtn = styled.button`
   display: block;
   margin: 2rem auto 0 auto;
   border: none;
+`;
+
+export const NextButton = styled.button`
+  background-color: transparent;
+  border: none;
+`;
+
+export const PreviousButton = styled.button`
+  background-color: transparent;
+  border: none;
+`;
+
+export const SwiperHeader = styled.h2`
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 28px;
+  color: #003333;
+  font-family: "Gotham", sans-serif !important;
+  margin-top: 10px;
+`;
+
+export const SwiperText = styled.p`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #003333;
+  width: 90%;
 `;

@@ -12,7 +12,11 @@ import {
   BlogSection,
   BlogHeader,
   SwiperContainer,
+  NextButton,
+  PreviousButton,
   SeeAllBtn,
+  SwiperHeader,
+  SwiperText,
 } from "./element";
 import forest from "../../../assets/images/forest.png";
 import animatedjungle from "../../../assets/images/animatedjungle.png";
@@ -22,8 +26,14 @@ import swiperimg2 from "../../../assets/images/swiperimg2.png";
 import swiperimg3 from "../../../assets/images/swiperimg3.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
+import { useState, useEffect, useRef } from "react";
+import { Swiper as SwiperCore } from "swiper/types";
+import back from "../../../assets/images/back.png";
+import next from "../../../assets/images/next.png";
 
 function LastSection() {
+  const swiperRef = useRef<SwiperCore>();
+
   const swiperData = [
     {
       image: swiperimg1,
@@ -53,6 +63,7 @@ function LastSection() {
       image: swiperimg3,
     },
   ];
+
   return (
     <LastSectionWrapper>
       <MainContainer>
@@ -69,7 +80,7 @@ function LastSection() {
               take part in the extraordinary <br /> Amazonian biodiversity
               conservation project.
             </TextNote>
-            <BuyBtn>Buy TaperaJungle NTF</BuyBtn>
+            <BuyBtn>Buy Tapera Jungle NFT</BuyBtn>
           </TextContainer>
         </ImageWrapper>
         <Wrapper>
@@ -97,7 +108,10 @@ function LastSection() {
               slidesPerView={3}
               spaceBetween={30}
               grabCursor={true}
-              navigation={true}
+              navigation={false}
+              onBeforeInit={(swiper) => {
+                swiperRef.current = swiper;
+              }}
               modules={[Navigation]}
               className="mySwiper"
               breakpoints={{
@@ -121,9 +135,28 @@ function LastSection() {
               {swiperData.map((item) => (
                 <SwiperSlide>
                   <img className="img-fluid swiperImg" src={item.image} />
+                  <SwiperHeader>Post title post title Post title</SwiperHeader>
+                  <SwiperText>
+                    You will have access to all information and activities
+                    related to the project, as well as the...
+                  </SwiperText>
                 </SwiperSlide>
               ))}
             </Swiper>
+            <div className="btnWrapper">
+              <PreviousButton
+                className="swiper-button image-swiper-button-next"
+                onClick={() => swiperRef.current?.slidePrev()}
+              >
+                <img className="img-fluid" src={back} />
+              </PreviousButton>
+              <NextButton
+                className="swiper-button image-swiper-button-prev"
+                onClick={() => swiperRef.current?.slideNext()}
+              >
+                <img className="img-fluid" src={next} />
+              </NextButton>
+            </div>
           </SwiperContainer>
           <SeeAllBtn>See All</SeeAllBtn>
         </BlogSection>

@@ -9,6 +9,8 @@ import {
   Text,
   TextContainer,
   Wrapper,
+  PreviousButton,
+  NextButton,
 } from "./element";
 import menstanding from "../../../assets/images/menstanding.png";
 import meninwoods from "../../../assets/images/meninwoods.png";
@@ -18,8 +20,14 @@ import swiperimg2 from "../../../assets/images/swiperimg2.png";
 import swiperimg3 from "../../../assets/images/swiperimg3.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
+import { Swiper as SwiperCore } from "swiper/types";
+import back from "../../../assets/images/back.png";
+import next from "../../../assets/images/next.png";
+import { useRef } from "react";
 
 function MiddleSection() {
+  const swiperRef = useRef<SwiperCore>();
+
   const swiperData = [
     {
       image: swiperimg1,
@@ -93,8 +101,11 @@ function MiddleSection() {
             slidesPerView={3}
             spaceBetween={30}
             grabCursor={true}
-            navigation={true}
+            navigation={false}
             modules={[Navigation]}
+            onBeforeInit={(swiper) => {
+              swiperRef.current = swiper;
+            }}
             className="mySwiper"
             breakpoints={{
               100: {
@@ -120,6 +131,20 @@ function MiddleSection() {
               </SwiperSlide>
             ))}
           </Swiper>
+          <div className="btnWrapper">
+            <PreviousButton
+              className="swiper-button image-swiper-button-next"
+              onClick={() => swiperRef.current?.slidePrev()}
+            >
+              <img className="img-fluid" src={back} />
+            </PreviousButton>
+            <NextButton
+              className="swiper-button image-swiper-button-prev"
+              onClick={() => swiperRef.current?.slideNext()}
+            >
+              <img className="img-fluid" src={next} />
+            </NextButton>
+          </div>
         </SwiperContainer>
       </MainContainer>
     </MiddleSectionWrapper>

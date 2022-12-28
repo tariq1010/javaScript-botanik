@@ -169,6 +169,13 @@ export const SwiperContainer = styled.div`
     width: 100%;
   }
 
+  .btnWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+
   .swiper-button-next {
     background-image: url(${next});
     background-position: center;
@@ -200,4 +207,14 @@ export const SwiperContainer = styled.div`
   .swiper-button-prev::after {
     content: "";
   }
+`;
+
+export const NextButton = styled.button`
+  background-color: transparent;
+  border: none;
+`;
+
+export const PreviousButton = styled.button`
+  background-color: transparent;
+  border: none;
 `;
