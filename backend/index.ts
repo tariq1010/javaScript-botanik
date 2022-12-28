@@ -19,6 +19,7 @@ const PORT = "8080";
 
 const app = new koa();
 app.use(cors());
+// app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
 app.use(serve("./public/uploads"))

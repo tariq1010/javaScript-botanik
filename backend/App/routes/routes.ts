@@ -1,4 +1,4 @@
-// const koaBody =require("koa-body");
+
 const { deleteSectionEleven, editSectionEleven, getSectionEleven, saveSectionEleven,getByIdSectionEleven }=require("../controller/sectionElevenController");
 const { editSectionEight, getSectionEight,saveSectionEight,deleteSectionEight } =require("../controller/sectionEightController");
 const  { editSectionSix, getSectionSix } =require("../controller/sectionSixController");
@@ -10,9 +10,7 @@ const { sectionFourSchema ,sectionOneSchema} =require("../utils/validation/valid
 const { editSectionFive, getSectionFive }=require("../controller/sectionFiveController");
 const { editSectionFour, getSectionFour } =require( "../controller/sectionFourController");
 const multer = require('@koa/multer');
-
-const koabody = require("koa-body")({multipart:true,urlencoded:true});
-const Joi = require('joi');
+const koabody=require("koa-body")
 const koaRouter = require("koa-router");
 const bodyValidate = require('koa-joi-validate');
 const{editSectionThree,getSectionThree} =require ("../controller/sectionThreeController");
@@ -98,7 +96,14 @@ router.delete("/delete", deleteNft);
 router.get("/updated-route", getUpdatedCount);
 router.post("/upload-nft", uploadNFt);
 
+// app.use(async ctx => {
+//   const body = ctx.request.body;
 
+//   // Validate the request body using Joi
+//   const schema = Joi.object().keys({
+//     name: Joi.string().required(),
+//     age: Joi.number().integer().min(18).max(65).required()
+//   });
 
 
 // section 1

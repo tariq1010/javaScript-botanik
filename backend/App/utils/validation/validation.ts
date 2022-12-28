@@ -16,8 +16,8 @@ const sectionFourSchema = Joi.object().keys({
     // text: Joi.string().required("text1 is required"),
     text: Joi.string().required()
   }).options({
-    abortEarly: false,
-    allowUnknown: true,
+    abortEarly: true,
+    allowUnknown: false,
   });
 
 
