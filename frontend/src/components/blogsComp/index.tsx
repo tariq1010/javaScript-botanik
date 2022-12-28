@@ -36,33 +36,36 @@ import { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { GetSectionNineHook } from "hooks/sectionNineHook";
 function BlogsCom() {
-const {id}=useParams()
-const [selectBlog,setSelectBlog]=useState();
-const {data:sectionNine,getSectionNine}=GetSectionNineHook()
-const {data:blogById,getBlogById,loading:load,setData}=GetBlogByIdHook()
-const {data,getBlog,loading}=GetBlogHook()
+  const { id } = useParams();
+  const [selectBlog, setSelectBlog] = useState();
+  const { data: sectionNine, getSectionNine } = GetSectionNineHook();
+  const {
+    data: blogById,
+    getBlogById,
+    loading: load,
+    setData,
+  } = GetBlogByIdHook();
+  const { data, getBlog, loading } = GetBlogHook();
 
-useEffect(()=>{
-  getBlog()
-  getSectionNine()
-  window.scroll(0,0)
-},[])
+  useEffect(() => {
+    getBlog();
+    getSectionNine();
+    window.scroll(0, 0);
+  }, []);
 
-useEffect(()=>{
-  if(id){
-    getBlogById(id) 
-  }
+  useEffect(() => {
+    if (id) {
+      getBlogById(id);
+    }
+  }, [id]);
 
-},[id])
-
-useEffect(()=>{
-  if(selectBlog){
-    const selected=data.find((x)=>x._id==selectBlog)
-      setData(selected)
-      window.scroll(0,0)
-  }
-},[selectBlog])
-
+  useEffect(() => {
+    if (selectBlog) {
+      const selected = data.find((x) => x._id == selectBlog);
+      setData(selected);
+      window.scroll(0, 0);
+    }
+  }, [selectBlog]);
 
   const swiperRef = useRef<SwiperCore>();
   const firstSwiperRef = useRef<SwiperCore>();
@@ -104,14 +107,12 @@ useEffect(()=>{
           <img className="img-fluid" src={blogById?.image} />
         </ImageWrapper>
         <PostContainer>
-          <PostHeader>
-          {blogById?.heading}
-          </PostHeader>
+          <PostHeader>{blogById?.heading}</PostHeader>
           <div className="postWrapper">
             <div>
               <PostTextFirst>
-              {blogById?.content}
-               {/* <br />
+                {blogById?.content}
+                {/* <br />
                 <br /> */}
                 {/* They have designated a few dozen plots of native forest so that
                 local residents can enjoy this natural space and the forest's
@@ -150,10 +151,10 @@ useEffect(()=>{
             </div>
           </div>
         </PostContainer>
-        <BlogSection>
+        {/* <BlogSection>
           <BlogHeader>Our Blog</BlogHeader>
-        </BlogSection>
-        <SwiperContainer>
+        </BlogSection> */}
+        {/* <SwiperContainer>
           <Swiper
             slidesPerView={3}
             spaceBetween={30}
@@ -210,16 +211,16 @@ useEffect(()=>{
           </div>
           
          
-        </SwiperContainer>
+        </SwiperContainer> */}
         <ImageContainer>
-          <img src={sectionNine && sectionNine[0]?.image} alt="" className="img-fluid" />
+          <img
+            src={sectionNine && sectionNine[0]?.image}
+            alt=""
+            className="img-fluid"
+          />
           <TextContainer>
-            <HeaderText>
-            {sectionNine && sectionNine[0]?.heading}
-            </HeaderText>
-            <TextNote>
-            {sectionNine && sectionNine[0]?.paragraph}
-            </TextNote>
+            <HeaderText>{sectionNine && sectionNine[0]?.heading}</HeaderText>
+            <TextNote>{sectionNine && sectionNine[0]?.paragraph}</TextNote>
             <BuyBtn>Buy Tapera Jungle NFT</BuyBtn>
           </TextContainer>
         </ImageContainer>
