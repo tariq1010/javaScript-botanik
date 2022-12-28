@@ -18,13 +18,14 @@ const EditSectionFive = async (id: any, obj: any) => {
    }
 
     const update = {
+      text: obj.text,
       image: obj.image_path,
     };
-    // const data =await SectionFive.create(update)
+    const data =await SectionFive.create(update)
 
-    const data = await SectionFive.findByIdAndUpdate({ _id: id }, update, {
-      new: true,
-    });
+    // const data = await SectionFive.findByIdAndUpdate({ _id: id }, update, {
+    //   new: true,
+    // });
     
     if (!data) throw "not inserted";
     return data;

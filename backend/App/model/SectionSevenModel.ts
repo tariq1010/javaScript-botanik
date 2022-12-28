@@ -20,11 +20,10 @@ const EditSectionSeven = async (id: any, obj: any) => {
     const update = {
       image: obj.image_path,
     };
-    const data =await SectionSeven.create(update)
 
-    // const data = await SectionSeven.findByIdAndUpdate({ _id: id }, update, {
-    //   new: true,
-    // });
+    const data = await SectionSeven.findByIdAndUpdate({ _id: id }, update, {
+      new: true,
+    });
     
     if (!data) throw "not inserted";
     return data;

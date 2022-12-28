@@ -47,8 +47,8 @@ export const APIPath = {
   editSectionTen: "edit-section-ten",
   getSectionTen: "get-section-ten",
 
-  editSectionEleven: "edit-section-eleven",
-  getSectionEleven: "get-section-eleven",
+  editBlog: "edit-section-eleven",
+  getBlog: "get-section-eleven",
 
 
   

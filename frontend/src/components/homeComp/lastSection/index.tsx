@@ -14,60 +14,36 @@ import {
   SwiperContainer,
   SeeAllBtn,
 } from "./element";
-import forest from "../../../assets/images/forest.png";
-import animatedjungle from "../../../assets/images/animatedjungle.png";
-import manpainting from "../../../assets/images/manpainting.png";
-import swiperimg1 from "../../../assets/images/swiperimg1.png";
-import swiperimg2 from "../../../assets/images/swiperimg2.png";
-import swiperimg3 from "../../../assets/images/swiperimg3.png";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
+import { GetSectionNineHook } from "hooks/sectionNineHook";
+import { useEffect } from "react";
+import { GetSectionTenHook } from "hooks/sectionTenHook";
+import { GetBlogHook } from "hooks/blogHook";
 
 function LastSection() {
-  const swiperData = [
-    {
-      image: swiperimg1,
-    },
-    {
-      image: swiperimg2,
-    },
-    {
-      image: swiperimg3,
-    },
-    {
-      image: swiperimg1,
-    },
-    {
-      image: swiperimg2,
-    },
-    {
-      image: swiperimg3,
-    },
-    {
-      image: swiperimg1,
-    },
-    {
-      image: swiperimg2,
-    },
-    {
-      image: swiperimg3,
-    },
-  ];
+  const {data,loading,getSectionNine}=GetSectionNineHook()
+   const {data:sectionTen, getSectionTen} = GetSectionTenHook()
+   const {data:blogs, getBlog} = GetBlogHook()
+
+  useEffect(()=>{
+    getSectionNine()
+    getSectionTen()
+    getBlog()
+  },[])
+ 
   return (
     <LastSectionWrapper>
       <MainContainer>
         <ImageWrapper>
-          <img src={forest} alt="" className="img-fluid" />
+          <img src={data && data[0]?.image} alt="" className="img-fluid" />
           <TextContainer>
             <HeaderText>
-              In exchange for your purchase of one or more NFTs, you will be
-              able to become a member of the Tapera Jungle club
+            {data && data[0]?.heading}
             </HeaderText>
             <TextNote>
-              you will have access to all information and activities related to
-              the project, as well as the <br /> chance to visit the forest and
-              take part in the extraordinary <br /> Amazonian biodiversity
-              conservation project.
+            {data && data[0]?.paragraph}
             </TextNote>
             <BuyBtn>Buy Tapera Jungle NFT</BuyBtn>
           </TextContainer>
@@ -75,15 +51,14 @@ function LastSection() {
         <Wrapper>
           <MainRow>
             <MainCol lg={6}>
-              <img className="img-fluid wrapperimg" src={animatedjungle} />
+              <img className="img-fluid wrapperimg" src={sectionTen && sectionTen[0]?.image_one} />
             </MainCol>
             <MainCol lg={6}>
               <InnerContainer>
-                <img className="img-fluid containerimg" src={manpainting} />
+                <img className="img-fluid containerimg" src={sectionTen && sectionTen[0]?.image_two} />
                 <ContainerText>
                   <p>
-                    We preserve and provide the values of the Tapera forest in
-                    the Amazon, in the village of Uruсara
+                  {sectionTen && sectionTen[0]?.text}
                   </p>
                 </ContainerText>
               </InnerContainer>
@@ -118,9 +93,9 @@ function LastSection() {
                 },
               }}
             >
-              {swiperData.map((item) => (
+              {blogs?.map((item) => (
                 <SwiperSlide>
-                  <img className="img-fluid swiperImg" src={item.image} />
+                  <img key={item._id}  className="img-fluid swiperImg" src={item.image} />
                 </SwiperSlide>
               ))}
             </Swiper>

@@ -59,7 +59,7 @@ const GetSectionEight = async () => {
 const DeleteSectionEight = async (id: any) => {
   try {
     const data = await SectionEight.findByIdAndDelete({ _id: id });
-    if (!data) throw "not inserted";
+    if (!data) throw "not found";
     const url = String(process.env.BACKEND_URL);
     const subStr = data?.image.slice(url.length + 1);
     fs.unlink(

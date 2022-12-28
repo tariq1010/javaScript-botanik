@@ -1,20 +1,12 @@
-// import { useNavigate } from "react-router-dom";
-// import { FaqsSectionService } from "services/faqsSectionServices";
-// import {  BrowserUtility } from "utility";
-// import { CommonHook } from "./commonHook";
-
-import { useNavigate } from "react-router-dom";
-import { SectionOneService } from "services/sectionOneServices";
+import { SectionsService } from "services/sectionsServices";
 import { CommonHook } from "./commonHook";
 
-export const CreateFaqsSectionHook = () => {
+export const EditSectionOneHook = () => {
   const { data, setData, setError, loading, setLoading, error } = CommonHook();
-  const navigate = useNavigate()
-
-  const createFaqsSection = async (id,data) => {
+  const editSectionOne = async (id,data) => {
     try {
       setLoading(true);
-      const result = await SectionOneService.editSectionOne(id,data);
+      const result = await SectionsService.editSectionOne(id,data);
       setData(result.data);
     } catch (error) {
       setError(error);
@@ -25,7 +17,7 @@ export const CreateFaqsSectionHook = () => {
   };
 
   return {
-    createFaqsSection,
+    editSectionOne,
     data,
     loading,
     error,
@@ -40,7 +32,7 @@ export const GetSectionOneHook = () => {
     const getSectionOne = async () => {
       try {
         setLoading(true);
-        const result = await SectionOneService.getSectionOne();
+        const result = await SectionsService.getSectionOne();
         setData(result.data);
       } catch (error) {
         setError(error);

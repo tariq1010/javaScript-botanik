@@ -4,7 +4,6 @@ const editSectionTen = async (ctx:any) => {
     try {
       const body = ctx.request.body;
       const id = ctx.params.id;
-      console.log(ctx.files)
         if(ctx.files.image_one){
         body.image_one= `${process.env.BACKEND_URL}/${ctx.files.image_one[0].filename}`;
       }

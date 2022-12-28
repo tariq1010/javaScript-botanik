@@ -15,18 +15,25 @@ import {
   Numbers,
   NumbersText,
 } from "./element";
-import headerbg from "../../../assets/images/headerbg.png";
-import sectionimg1 from "../../../assets/images/sectionimg1.png";
-import sectionimg2 from "../../../assets/images/sectionimg2.png";
 import { GetSectionOneHook } from "hooks/sectionOneHook";
 import { useEffect } from "react";
+import { GetSectionTwoHook } from "hooks/sectionTwoHook";
+import { GetSectionThreeHook } from "hooks/sectionThreeHook";
+import { GetSectionFourHook } from "hooks/sectionFourHook";
 
 function Header() {
   const {data,getSectionOne,loading}=GetSectionOneHook()
-
+  const {data:sectionTwo,getSectionTwo}=GetSectionTwoHook()
+  const {data:sectionThree,getSectionThree}=GetSectionThreeHook()
+  const {data:sectionFour,getSectionFour}=GetSectionFourHook()
+  
   useEffect(()=>{
     getSectionOne()
+    getSectionTwo()
+    getSectionThree()
+    getSectionFour()
   },[])
+
   return (
     <HeaderWrapper>
       <MainContainer>
@@ -39,29 +46,25 @@ function Header() {
           </p>
         </TextContainer>
         <BottomWrapper>
-          <MainRow>
+        <MainRow>
             <MainCol lg={6} className="d-flex justify-content-center">
               <WrapperContainer>
                 <WrapperHeader>
-                  This area has been protected by a group of local farmers since
-                  2003
+                 {sectionTwo && sectionTwo[0]?.heading}
                 </WrapperHeader>
                 <WrapperText>
-                  They have designated a few dozen plots of native forest so
-                  that local residents can enjoy this natural space and the
-                  forest's exuberance. <br /> <br /> But for several years now,
-                  wood theft and illegal invasions have become more and more
-                  frequent, and many producers have lost their land, which is
-                  now occupied by illegal loggers or by ranchers who are
-                  beginning to transform the forest into pasture for their
-                  livestock.
+                {sectionTwo && sectionTwo[0]?.paragraph_one}
+                <br></br>
+                <br></br>
+                {sectionTwo && sectionTwo[0]?.paragraph_two}
+
                 </WrapperText>
               </WrapperContainer>
             </MainCol>
             <MainCol lg={6}>
               <ImageContainer>
                 <img
-                  src={sectionimg1}
+                  src=  {sectionTwo && sectionTwo[0]?.image}
                   alt=""
                   className="img-fluid sectionImg"
                 />
@@ -72,7 +75,7 @@ function Header() {
             <MainCol lg={6}>
               <SecondImageContainer>
                 <img
-                  src={sectionimg2}
+                  src={sectionThree && sectionThree[0]?.image}
                   alt=""
                   className="img-fluid sectionImg"
                 />
@@ -80,15 +83,8 @@ function Header() {
             </MainCol>
             <MainCol lg={6} className="d-flex justify-content-center">
               <SecondWrapperText>
-                The Tapera project is a private initiative of the Agro-Frut
-                cooperative in Urucara and a group of botanical and nature
-                enthusiasts, which aims to recover ownership of these lands,
-                restore and protect them, while valuing this treasure of
-                biodiversity, which has more than 100 species of trees. <br />
-                Thus, several plots have already been bought from illegal
-                sawmills, located in Sao Sebastiao, a village next to Urucara,
-                where the majority of sawmills are located, all in an irregular
-                situation.
+               {sectionThree && sectionThree[0]?.paragraph_one} <br />
+               {sectionThree && sectionThree[0]?.paragraph_two}
               </SecondWrapperText>
             </MainCol>
           </MainRow>
@@ -98,23 +94,23 @@ function Header() {
           <MainRow>
             <MainCol lg={4}>
               <NumbersWrapper>
-                <Numbers>2003</Numbers>
-                <NumbersText>Protected by a group of local farmers</NumbersText>
+                <Numbers>{sectionFour && sectionFour[0]?.heading1}</Numbers>
+                <NumbersText>{sectionFour && sectionFour[0]?.text1}</NumbersText>
               </NumbersWrapper>
             </MainCol>
             <MainCol lg={4}>
               <NumbersWrapper>
-                <Numbers>8000</Numbers>
+                <Numbers>{sectionFour && sectionFour[0]?.heading2}</Numbers>
                 <NumbersText>
-                  Amazon trees in the original collection
+                {sectionFour && sectionFour[0]?.text1}
                 </NumbersText>
               </NumbersWrapper>
             </MainCol>
             <MainCol lg={4}>
               <NumbersWrapper>
-                <Numbers>100</Numbers>
+                <Numbers>{sectionFour && sectionFour[0]?.heading3}</Numbers>
                 <NumbersText>
-                  or more unique species of trees located in Urucara
+                {sectionFour && sectionFour[0]?.text1}
                 </NumbersText>
               </NumbersWrapper>
             </MainCol>

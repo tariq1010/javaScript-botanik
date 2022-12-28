@@ -10,83 +10,64 @@ import {
   TextContainer,
   Wrapper,
 } from "./element";
-import menstanding from "../../../assets/images/menstanding.png";
-import meninwoods from "../../../assets/images/meninwoods.png";
-import map from "../../../assets/images/Map.png";
-import swiperimg1 from "../../../assets/images/swiperimg1.png";
-import swiperimg2 from "../../../assets/images/swiperimg2.png";
-import swiperimg3 from "../../../assets/images/swiperimg3.png";
+
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
+import { GetSectionFiveHook } from "hooks/sectionFiveHook";
+import {  useEffect } from "react";
+import { GetSectionSixHook } from "hooks/sectionSixHook";
+import { GetSectionEightHook } from "hooks/sectionEightHook";
+import { GetSectionSevenHook } from "hooks/sectionSevenHook";
 
 function MiddleSection() {
-  const swiperData = [
-    {
-      image: swiperimg1,
-    },
-    {
-      image: swiperimg2,
-    },
-    {
-      image: swiperimg3,
-    },
-    {
-      image: swiperimg1,
-    },
-    {
-      image: swiperimg2,
-    },
-    {
-      image: swiperimg3,
-    },
-    {
-      image: swiperimg1,
-    },
-    {
-      image: swiperimg2,
-    },
-    {
-      image: swiperimg3,
-    },
-  ];
+
+ const {data,loading,getSectionFive} =GetSectionFiveHook()
+ const {data:sectionSix,getSectionSix} =GetSectionSixHook()
+ const {data:carousel,getSectionEight} =GetSectionEightHook()
+ const {data:sectionSeven,getSectionSeven} =GetSectionSevenHook()
+
+ useEffect(()=>{
+  getSectionFive()
+  getSectionSix()
+  getSectionEight()
+  getSectionSeven()
+ },[])
+
+
   return (
     <MiddleSectionWrapper>
       <MainContainer>
         <ImageWrapper>
-          <img className="img-fluid" src={menstanding} alt="" />
+          <img className="img-fluid" src={data && data[0]?.image} alt="" />
           <TextContainer>
-            <Text>A forest inventory has been initiated</Text>
-            <Text>and label all large trees</Text>
-            <Text> The GPS coordinates, species, and characteristics</Text>
-            <Text>to list of each large tree are recorded</Text>
+            <Text>{data&& data[0]?.text.substring(0, 39)}</Text>
+            <Text>{data&& data[0]?.text.substring(39, 64)}</Text>
+            <Text>{data&& data[0]?.text.substring(64, 115)}</Text>
+            <Text>{data&& data[0]?.text.substring(115)}</Text>
+           
           </TextContainer>
         </ImageWrapper>
 
         <Wrapper>
           <MainRow>
             <MainCol lg={6} className="d-flex justify-content-center">
-              <img src={meninwoods} alt="" className="img-fluid wrapperImg" />
+              <img src={sectionSix && sectionSix[0]?.image} alt="" className="img-fluid wrapperImg" />
             </MainCol>
             <MainCol lg={6} className="d-flex justify-content-center">
               <MainTextContainer>
                 <MainTextHeader>
-                  Initial collection <br />
-                  of 8,000 original trees
+                {sectionSix && sectionSix[0]?.heading}
                 </MainTextHeader>
                 <MainTextNote>
-                  Trees over 10 cm in diameter were inventoried. Each tree was
-                  marked with its location, species and characteristics. <br />
-                  This forest inventory, together with physical demarcation,
-                  land registration in the national registry (incra) and
-                  occupation of the forest by foresters, is a powerful
-                  initiative to combat deforestation and protect the Tapera
-                  forest.
+                {sectionSix && sectionSix[0]?.paragraph_one} <br />
+                {sectionSix && sectionSix[0]?.paragraph_two}
                 </MainTextNote>
               </MainTextContainer>
             </MainCol>
           </MainRow>
         </Wrapper>
-        <img className="img-fluid mapImg" src={map} />
+        <img className="img-fluid mapImg" src={sectionSeven && sectionSeven[0]?.image} />
 
         <SwiperContainer>
           <Swiper
@@ -114,9 +95,9 @@ function MiddleSection() {
               },
             }}
           >
-            {swiperData.map((item) => (
+            {carousel?.map((item) => (
               <SwiperSlide>
-                <img className="img-fluid swiperImg" src={item.image} />
+                <img key={item._id} className="img-fluid swiperImg" src={item.image} />
               </SwiperSlide>
             ))}
           </Swiper>

@@ -24,8 +24,17 @@ import swiperimg3 from "../../assets/images/swiperimg3.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import forest from "../../assets/images/forest.png";
+import { GetBlogHook } from "hooks/blogHook";
+import { useEffect } from "react";
 
 function BlogsCom() {
+
+const {data,getBlog,loading}=GetBlogHook()
+useEffect(()=>{
+  getBlog()
+},[])
+console.log(data,"data")
+
   const swiperData = [
     {
       image: swiperimg1,
