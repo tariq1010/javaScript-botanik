@@ -27,25 +27,43 @@ import swiperimg3 from "../../assets/images/swiperimg3.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import forest from "../../assets/images/forest.png";
-import { GetBlogHook } from "hooks/blogHook";
+import { GetBlogByIdHook, GetBlogHook } from "hooks/blogHook";
 import { useEffect } from "react";
 import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../assets/images/back.png";
 import next from "../../assets/images/next.png";
 import { useState, useRef } from "react";
+import { useParams } from "react-router-dom";
+import { GetSectionNineHook } from "hooks/sectionNineHook";
 function BlogsCom() {
-
+const {id}=useParams()
+const [selectBlog,setSelectBlog]=useState();
+const {data:sectionNine,getSectionNine}=GetSectionNineHook()
+const {data:blogById,getBlogById,loading:load,setData}=GetBlogByIdHook()
 const {data,getBlog,loading}=GetBlogHook()
+
 useEffect(()=>{
   getBlog()
+  getSectionNine()
+  window.scroll(0,0)
 },[])
-console.log(data,"data")
-// import { Swiper as SwiperCore } from "swiper/types";
-// import back from "../../assets/images/back.png";
-// import next from "../../assets/images/next.png";
-// import { useState, useEffect, useRef } from "react";
 
-// function BlogsCom() {
+useEffect(()=>{
+  if(id){
+    getBlogById(id) 
+  }
+
+},[id])
+
+useEffect(()=>{
+  if(selectBlog){
+    const selected=data.find((x)=>x._id==selectBlog)
+      setData(selected)
+      window.scroll(0,0)
+  }
+},[selectBlog])
+
+
   const swiperRef = useRef<SwiperCore>();
   const firstSwiperRef = useRef<SwiperCore>();
 
@@ -83,41 +101,29 @@ console.log(data,"data")
       <Navbar />
       <MainContainer className="mainContainer">
         <ImageWrapper>
-          <img className="img-fluid" src={bikerheader} />
+          <img className="img-fluid" src={blogById?.image} />
         </ImageWrapper>
         <PostContainer>
           <PostHeader>
-            Post title post title Post title in the Amazon, in the village of
-            Urucara
+          {blogById?.heading}
           </PostHeader>
           <div className="postWrapper">
             <div>
               <PostTextFirst>
-                They have designated a few dozen plots of native forest so that
+              {blogById?.content}
+               {/* <br />
+                <br /> */}
+                {/* They have designated a few dozen plots of native forest so that
                 local residents can enjoy this natural space and the forest's
                 exuberance. But for several years now, wood theft and illegal
                 invasions have become more and more frequent, and many producers
                 have lost their land, which is now occupied by illegal loggers
                 or by ranchers who are beginning to transform the forest into
-                pasture for their livestock.They have designated a few dozen
-                plots of native forest so that local residents can enjoy this
-                natural space and the forest's exuberance. But for several years
-                now, wood theft and illegal invasions have become more and more
-                frequent, and many producers have lost their land, which is now
-                occupied by illegal loggers or by ranchers who are beginning to
-                transform the forest into pasture for their livestock. <br />
-                <br />
-                They have designated a few dozen plots of native forest so that
-                local residents can enjoy this natural space and the forest's
-                exuberance. But for several years now, wood theft and illegal
-                invasions have become more and more frequent, and many producers
-                have lost their land, which is now occupied by illegal loggers
-                or by ranchers who are beginning to transform the forest into
-                pasture for their livestock.
+                pasture for their livestock. */}
               </PostTextFirst>
             </div>
             <div>
-              <PostTextSecond>
+              {/* <PostTextSecond>
                 They have designated a few dozen plots of native forest so that
                 local residents can enjoy this natural space and the forest's
                 exuberance. But for several years now, wood theft and illegal
@@ -140,7 +146,7 @@ console.log(data,"data")
                 have lost their land, which is now occupied by illegal loggers
                 or by ranchers who are beginning to transform the forest into
                 pasture for their livestock.
-              </PostTextSecond>
+              </PostTextSecond> */}
             </div>
           </div>
         </PostContainer>
@@ -176,13 +182,14 @@ console.log(data,"data")
               },
             }}
           >
-            {swiperData.map((item) => (
+            {data?.map((item) => (
               <SwiperSlide>
-                <img className="img-fluid swiperImg" src={item.image} />
-                <SwiperHeader>Post title post title Post title</SwiperHeader>
+                <img className="img-fluid swiperImg" src={item.image} 
+                onClick={()=>setSelectBlog(item._id)}
+                />
+                <SwiperHeader>{item.heading}</SwiperHeader>
                 <SwiperText>
-                  You will have access to all information and activities related
-                  to the project, as well as the...
+                {item.content.slice(0,50)}
                 </SwiperText>
               </SwiperSlide>
             ))}
@@ -201,72 +208,17 @@ console.log(data,"data")
               <img className="img-fluid" src={next} />
             </NextButton>
           </div>
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={30}
-            grabCursor={true}
-            navigation={false}
-            modules={[Navigation]}
-            onBeforeInit={(swiper) => {
-              swiperRef.current = swiper;
-            }}
-            className="mySwiper mt-5"
-            breakpoints={{
-              100: {
-                slidesPerView: 1,
-              },
-              500: {
-                slidesPerView: 1.5,
-              },
-              768: {
-                slidesPerView: 2,
-              },
-              1024: {
-                slidesPerView: 3,
-              },
-              1400: {
-                slidesPerView: 3,
-              },
-            }}
-          >
-            {swiperData.map((item) => (
-              <SwiperSlide>
-                <img className="img-fluid swiperImg" src={item.image} />
-                <SwiperHeader>Post title post title Post title</SwiperHeader>
-                <SwiperText>
-                  You will have access to all information and activities related
-                  to the project, as well as the...
-                </SwiperText>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div className="btnWrapper">
-            <PreviousButton
-              className="swiper-button image-swiper-button-next"
-              onClick={() => swiperRef.current?.slidePrev()}
-            >
-              <img className="img-fluid" src={back} />
-            </PreviousButton>
-            <NextButton
-              className="swiper-button image-swiper-button-prev"
-              onClick={() => swiperRef.current?.slideNext()}
-            >
-              <img className="img-fluid" src={next} />
-            </NextButton>
-          </div>
+          
+         
         </SwiperContainer>
         <ImageContainer>
-          <img src={forest} alt="" className="img-fluid" />
+          <img src={sectionNine && sectionNine[0]?.image} alt="" className="img-fluid" />
           <TextContainer>
             <HeaderText>
-              In exchange for your purchase of one or more NFTs, you will be
-              able to become a member of the Tapera Jungle club
+            {sectionNine && sectionNine[0]?.heading}
             </HeaderText>
             <TextNote>
-              you will have access to all information and activities related to
-              the project, as well as the <br /> chance to visit the forest and
-              take part in the extraordinary <br /> Amazonian biodiversity
-              conservation project.
+            {sectionNine && sectionNine[0]?.paragraph}
             </TextNote>
             <BuyBtn>Buy Tapera Jungle NFT</BuyBtn>
           </TextContainer>

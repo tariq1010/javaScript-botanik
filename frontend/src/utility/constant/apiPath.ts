@@ -49,6 +49,7 @@ export const APIPath = {
 
   editBlog: "edit-section-eleven",
   getBlog: "get-section-eleven",
+  getBlogById:"get-section-eleven"
 
 
   

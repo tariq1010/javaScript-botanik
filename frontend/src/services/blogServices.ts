@@ -9,6 +9,10 @@ class BlogSection {
   getBlog = () => {
     return BaseService.get(APIPath.getBlog);
   };
+  getBlogById = (id) => {
+    return BaseService.get(`${APIPath.getBlogById}/${id}`);
+  };
+  
 
 }
 

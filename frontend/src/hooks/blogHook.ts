@@ -51,3 +51,30 @@ export const GetBlogHook = () => {
       error,
     };
   };
+
+
+  export const GetBlogByIdHook = () => {
+    const { data, setData, setError, loading, setLoading, error } = CommonHook();
+    const getBlogById = async (id) => {
+      try {
+        setLoading(true);
+        const result = await BlogSectionService.getBlogById(id);
+        if(result.response=="success" && result.data){
+          setData(result.data);
+      }
+      } catch (error) {
+        setError(error);
+        setLoading(false)
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    return {
+      getBlogById,
+      data,
+      setData,
+      loading,
+      error,
+    };
+  };

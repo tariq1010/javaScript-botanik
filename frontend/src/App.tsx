@@ -53,8 +53,7 @@ const App = () => {
         <GlobalStyle />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/blogs/:new" element={<Blogs />} />
-          {/* <Route path="/blogs/:id" element={<Blogs />} /> */}
+          <Route path="/blogs/:id" element={<Blogs />} />
           <Route path="/minting-nft" element={<Minting />} />
           <Route path="/minted" element={<MintedNfts />} />
           <Route path="/admin-login" element={<AdminLogin />} />
