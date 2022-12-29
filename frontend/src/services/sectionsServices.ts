@@ -4,19 +4,19 @@ import { BaseService } from "./baseService";
 
 class Sections {
   editSectionOne = (id,data) => {
-    return BaseService.post(`${APIPath.editSectionOne}/${id}`, data);
+    return BaseService.put(`${APIPath.editSectionOne}/${id}`, data);
   };
   getSectionOne = () => {
     return BaseService.get(APIPath.getSectionOne);
   };
   editSectionTwo = (id,data) => {
-    return BaseService.post(`${APIPath.editSectionTwo}/${id}`, data);
+    return BaseService.put(`${APIPath.editSectionTwo}/${id}`, data);
   };
   getSectionTwo = () => {
     return BaseService.get(APIPath.getSectionTwo);
   };
   editSectionThree= (id,data) => {
-    return BaseService.post(`${APIPath.editSectionThree}/${id}`, data);
+    return BaseService.put(`${APIPath.editSectionThree}/${id}`, data);
   };
   getSectionThree= () => {
     return BaseService.get(APIPath.getSectionThree);

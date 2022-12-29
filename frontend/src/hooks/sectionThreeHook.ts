@@ -6,7 +6,14 @@ export const EditSectionThreeHook = () => {
   const editSectionThree = async (id,data) => {
     try {
       setLoading(true);
-      const result = await SectionsService.editSectionThree(id,data);
+      let formData=new FormData()
+      if(data.constructor === File){
+        formData.append("section_three_image",data)
+      }
+      else{
+        formData=data
+      }
+      const result = await SectionsService.editSectionThree(id,formData);
       if(result.response=="success" && result.data){
         setData(result.data);
     }

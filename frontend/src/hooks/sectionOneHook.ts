@@ -5,8 +5,14 @@ export const EditSectionOneHook = () => {
   const { data, setData, setError, loading, setLoading, error } = CommonHook();
   const editSectionOne = async (id,data) => {
     try {
+    const formData=new FormData()
+    if(data.constructor === File){
+      formData.append ("section_one_image",data)
+    }else{
+      formData.append ("text",data)
+    }
       setLoading(true);
-      const result = await SectionsService.editSectionOne(id,data);
+      const result = await SectionsService.editSectionOne(id,formData);
       setData(result.data);
     } catch (error) {
       setError(error);

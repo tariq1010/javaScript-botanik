@@ -1,12 +1,19 @@
 import { SectionsService } from "services/sectionsServices";
 import { CommonHook } from "./commonHook";
 
-export const EditSectionOneHook = () => {
+export const EditSectionTwoHook = () => {
   const { data, setData, setError, loading, setLoading, error } = CommonHook();
   const editSectionTwo = async (id,data) => {
     try {
+      let formData=new FormData()
+      if(data.constructor === File){
+        formData.append ("section_two_image",data)
+      }
+      else{
+        formData=data
+      }
       setLoading(true);
-      const result = await SectionsService.editSectionTwo(id,data);
+      const result = await SectionsService.editSectionTwo(id,formData);
       if(result.response=="success" && result.data){
         setData(result.data);
     }

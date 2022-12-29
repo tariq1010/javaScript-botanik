@@ -10,13 +10,14 @@ const EditSectionThree = async (id:any,obj:any) => {
        
       fs.unlink(`${process.env.FILE_UPLOAD_PATH}/${subStr}`,(err:any,done:any)=>{
             if(err){
-                console.log("file not deleted")
+                console.log("file not updated")
             }else{
                 console.log("file updated")
             }
         })
      }
     
+    console.log(obj)
     
     const update = {
         heading: obj.heading,
@@ -34,6 +35,7 @@ const EditSectionThree = async (id:any,obj:any) => {
     if (!data) throw "not inserted";
     return data;
   } catch (error) {
+    console.log(error)
     return { error: error };
   }
 };
