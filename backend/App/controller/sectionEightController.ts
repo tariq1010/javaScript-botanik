@@ -31,7 +31,6 @@ const editSectionEight = async (ctx: any) => {
     if (ctx.file) {
       body.image_path = `${process.env.BACKEND_URL}/${ctx.file.filename}`;
     }
-
     const data = await EditSectionEight(id, body);
     if (data.error) throw data.error;
     ctx.body = {

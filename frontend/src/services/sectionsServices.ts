@@ -47,19 +47,26 @@ class Sections {
     return BaseService.get(APIPath.getSectionSeven);
   };
   editSectionEight= (id,data) => {
-    return BaseService.post(`${APIPath.editSectionEight}/${id}`, data);
+    return BaseService.put(`${APIPath.editSectionEight}/${id}`, data);
   };
   getSectionEight= () => {
     return BaseService.get(APIPath.getSectionEight);
   };
+  addSectionEight= (data) => {
+    return BaseService.post(APIPath.addSectionEight,data);
+  };
+  deleteSectionEight= (id) => {
+    return BaseService.delete(`${APIPath.deleteSectionEight}${id}`);
+  };
+  
   editSectionNine= (id,data) => {
-    return BaseService.post(`${APIPath.editSectionNine}/${id}`, data);
+    return BaseService.put(`${APIPath.editSectionNine}/${id}`, data);
   };
   getSectionNine= () => {
     return BaseService.get(APIPath.getSectionNine);
   };
   editSectionTen= (id,data) => {
-    return BaseService.post(`${APIPath.editSectionTen}/${id}`, data);
+    return BaseService.put(`${APIPath.editSectionTen}/${id}`, data);
   };
   getSectionTen= () => {
     return BaseService.get(APIPath.getSectionTen);

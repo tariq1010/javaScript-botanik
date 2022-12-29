@@ -40,6 +40,8 @@ export const APIPath = {
 
   editSectionEight: "edit-section-eight",
   getSectionEight: "get-section-eight",
+  addSectionEight: "save-section-eight",
+  deleteSectionEight: "delete-section-eight",
 
   editSectionNine: "edit-section-nine",
   getSectionNine: "get-section-nine",

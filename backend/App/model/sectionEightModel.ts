@@ -38,6 +38,7 @@ const EditSectionEight = async (id: any, obj: any) => {
     const data = await SectionEight.findByIdAndUpdate({ _id: id }, update, {
       new: true,
     });
+   
 
     if (!data) throw "not inserted";
     return data;
