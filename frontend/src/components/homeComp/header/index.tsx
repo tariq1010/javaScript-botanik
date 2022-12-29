@@ -22,17 +22,17 @@ import { GetSectionThreeHook } from "hooks/sectionThreeHook";
 import { GetSectionFourHook } from "hooks/sectionFourHook";
 
 function Header() {
-  const {data,getSectionOne,loading}=GetSectionOneHook()
-  const {data:sectionTwo,getSectionTwo}=GetSectionTwoHook()
-  const {data:sectionThree,getSectionThree}=GetSectionThreeHook()
-  const {data:sectionFour,getSectionFour}=GetSectionFourHook()
-  
-  useEffect(()=>{
-    getSectionOne()
-    getSectionTwo()
-    getSectionThree()
-    getSectionFour()
-  },[])
+  const { data, getSectionOne, loading } = GetSectionOneHook();
+  const { data: sectionTwo, getSectionTwo } = GetSectionTwoHook();
+  const { data: sectionThree, getSectionThree } = GetSectionThreeHook();
+  const { data: sectionFour, getSectionFour } = GetSectionFourHook();
+
+  useEffect(() => {
+    getSectionOne();
+    getSectionTwo();
+    getSectionThree();
+    getSectionFour();
+  }, []);
 
   return (
     <HeaderWrapper>
@@ -41,30 +41,31 @@ function Header() {
           <img className="img-fluid" src={data && data[0]?.image} />
         </ImageWrapper>
         <TextContainer>
-          <p>
-          {data && data[0]?.text}
-          </p>
+          {data && <p dangerouslySetInnerHTML={{ __html: data[0]?.text }}></p>}
         </TextContainer>
         <BottomWrapper>
-        <MainRow>
+          <MainRow>
             <MainCol lg={6} className="d-flex justify-content-center">
               <WrapperContainer>
-                <WrapperHeader>
-                 {sectionTwo && sectionTwo[0]?.heading}
-                </WrapperHeader>
-                <WrapperText>
-                {sectionTwo && sectionTwo[0]?.paragraph_one}
-                <br></br>
-                <br></br>
-                {sectionTwo && sectionTwo[0]?.paragraph_two}
+                {sectionTwo && (
+                  <WrapperHeader
+                    dangerouslySetInnerHTML={{ __html: sectionTwo[0]?.heading }}
+                  ></WrapperHeader>
+                )}
 
-                </WrapperText>
+                {sectionTwo && (
+                  <WrapperText
+                    dangerouslySetInnerHTML={{
+                      __html: sectionTwo[0]?.paragraph_one,
+                    }}
+                  ></WrapperText>
+                )}
               </WrapperContainer>
             </MainCol>
             <MainCol lg={6}>
               <ImageContainer>
                 <img
-                  src=  {sectionTwo && sectionTwo[0]?.image}
+                  src={sectionTwo && sectionTwo[0]?.image}
                   alt=""
                   className="img-fluid sectionImg"
                 />
@@ -82,10 +83,14 @@ function Header() {
               </SecondImageContainer>
             </MainCol>
             <MainCol lg={6} className="d-flex justify-content-center">
-              <SecondWrapperText>
-               {sectionThree && sectionThree[0]?.paragraph_one} <br />
-               {sectionThree && sectionThree[0]?.paragraph_two}
-              </SecondWrapperText>
+
+            {sectionThree && (
+                  <SecondWrapperText
+                    dangerouslySetInnerHTML={{
+                      __html: sectionThree[0]?.paragraph_one,
+                    }}
+                  ></SecondWrapperText>
+                )}
             </MainCol>
           </MainRow>
         </BottomWrapper>
@@ -95,14 +100,16 @@ function Header() {
             <MainCol lg={4}>
               <NumbersWrapper>
                 <Numbers>{sectionFour && sectionFour[0]?.heading1}</Numbers>
-                <NumbersText>{sectionFour && sectionFour[0]?.text1}</NumbersText>
+                <NumbersText>
+                  {sectionFour && sectionFour[0]?.text1}
+                </NumbersText>
               </NumbersWrapper>
             </MainCol>
             <MainCol lg={4}>
               <NumbersWrapper>
                 <Numbers>{sectionFour && sectionFour[0]?.heading2}</Numbers>
                 <NumbersText>
-                {sectionFour && sectionFour[0]?.text1}
+                  {sectionFour && sectionFour[0]?.text1}
                 </NumbersText>
               </NumbersWrapper>
             </MainCol>
@@ -110,7 +117,7 @@ function Header() {
               <NumbersWrapper>
                 <Numbers>{sectionFour && sectionFour[0]?.heading3}</Numbers>
                 <NumbersText>
-                {sectionFour && sectionFour[0]?.text1}
+                  {sectionFour && sectionFour[0]?.text1}
                 </NumbersText>
               </NumbersWrapper>
             </MainCol>
