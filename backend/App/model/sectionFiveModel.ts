@@ -3,6 +3,7 @@ const fs=require("fs")
 
 const EditSectionFive = async (id: any, obj: any) => {
   try {
+    console.log("oj",obj)
 
     if(obj.image_path){
       const previous_data=await SectionFive.findById({_id:id})
@@ -21,11 +22,10 @@ const EditSectionFive = async (id: any, obj: any) => {
       text: obj.text,
       image: obj.image_path,
     };
-    const data =await SectionFive.create(update)
 
-    // const data = await SectionFive.findByIdAndUpdate({ _id: id }, update, {
-    //   new: true,
-    // });
+    const data = await SectionFive.findByIdAndUpdate({ _id: id }, update, {
+      new: true,
+    });
     
     if (!data) throw "not inserted";
     return data;

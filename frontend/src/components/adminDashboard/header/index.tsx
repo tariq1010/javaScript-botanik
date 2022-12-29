@@ -18,185 +18,209 @@ import {
 import { EditSectionOneHook, GetSectionOneHook } from "hooks/sectionOneHook";
 import { useEffect, useState } from "react";
 import { EditSectionTwoHook, GetSectionTwoHook } from "hooks/sectionTwoHook";
-import { EditSectionThreeHook, GetSectionThreeHook } from "hooks/sectionThreeHook";
-import { GetSectionFourHook } from "hooks/sectionFourHook";
-import  { useRef } from 'react';
+import {
+  EditSectionThreeHook,
+  GetSectionThreeHook,
+} from "hooks/sectionThreeHook";
+import { EditSectionFourHook, GetSectionFourHook } from "hooks/sectionFourHook";
+import { useRef } from "react";
 function Header() {
-  const [sectionOneFile,setSectionOneFile]=useState(null)
-  const [sectiontwoFile,setSectiontwoFile]=useState(null)
-  const [sectionThreeFile,setSectionThreeFile]=useState(null)
+  const [sectionOneFile, setSectionOneFile] = useState(null);
+  const [sectiontwoFile, setSectiontwoFile] = useState(null);
+  const [sectionThreeFile, setSectionThreeFile] = useState(null);
 
   const sectionOneText = useRef(null);
   const sectiontwoText = useRef(null);
-  const sectionthreeText = useRef(null);
+  const heading1 = useRef(null);
+  const heading2 = useRef(null);
+  const heading3 = useRef(null);
+  const text1 = useRef(null);
+  const text2 = useRef(null);
+  const text3 = useRef(null);
+
   const sectiontwoParagraph_one = useRef(null);
-  const sectionThreeParagraph= useRef(null);
+  const sectionThreeParagraph = useRef(null);
 
   const { data, getSectionOne, loading } = GetSectionOneHook();
-  const {data:edited, editSectionOne} = EditSectionOneHook();
-  const {data:editedSectionTwo, editSectionTwo} = EditSectionTwoHook();
-  const {data:editedSectionThree, editSectionThree} = EditSectionThreeHook();
+  const { data: edited, editSectionOne } = EditSectionOneHook();
+  const { data: editedSectionTwo, editSectionTwo } = EditSectionTwoHook();
+  const { data: editedSectionThree, editSectionThree } = EditSectionThreeHook();
+  const { data: editedSectionFour, editSectionFour } = EditSectionFourHook();
 
   const { data: sectionTwo, getSectionTwo } = GetSectionTwoHook();
   const { data: sectionThree, getSectionThree } = GetSectionThreeHook();
   const { data: sectionFour, getSectionFour } = GetSectionFourHook();
 
-
-
-  function stripTags(html: any) {
-    if( html) {
-      // return html.replace(/<br[^>]*>|<div[^>]*>/g, '</br>')
-      return html.replace(/<br[^>]*>/g, '</br>')
-    }
-  }
-
   function handleSectionOne() {
-    editSectionOne(data[0]._id,sectionOneText.current.innerHTML); 
+    editSectionOne(data[0]._id, sectionOneText.current.innerHTML);
   }
-
 
   function handleSectionTwo() {
-  const   data={
-    heading:  sectiontwoText.current.innerHTML,
-    paragraph_one:sectiontwoParagraph_one.current.innerHTML,
-    }
-    editSectionTwo(sectionTwo[0]._id,data);
+    const data = {
+      heading: sectiontwoText.current.innerHTML,
+      paragraph_one: sectiontwoParagraph_one.current.innerHTML,
+    };
+    editSectionTwo(sectionTwo[0]._id, data);
   }
 
   function handleSectionThree() {
-    const   data={
-      paragraph_one:sectionThreeParagraph.current.innerHTML,
-      }
-      editSectionThree(sectionThree[0]._id,data);
-    }
+    const data = {
+      paragraph_one: sectionThreeParagraph.current.innerHTML,
+    };
+    editSectionThree(sectionThree[0]._id, data);
+  }
 
-
-
-    useEffect(() => {
-      getSectionFour();
-    }, []);
-  
-    useEffect(() => {
-      getSectionOne();
-      setSectionOneFile(null);
-     
-    }, [edited]);
-  
-    useEffect(() => {
-      getSectionTwo();
-      setSectiontwoFile(null);
-    }, [editedSectionTwo]);
-  
-    useEffect(() => {
-      getSectionThree();
-      setSectionThreeFile(null);
-    }, [editedSectionThree]);
-
-
-
-
-
+  function handleSectionFour() {
+    const data = {
+      heading1: heading1.current.innerHTML,
+      heading2: heading2.current.innerHTML,
+      heading3: heading3.current.innerHTML,
+      text1: text1.current.innerHTML,
+      text2: text2.current.innerHTML,
+      text3: text3.current.innerHTML,
+    };
+    editSectionFour(sectionFour[0]._id, data);
+  }
 
   useEffect(() => {
-   if(sectionOneFile){
-    editSectionOne(data[0]._id,sectionOneFile)
-   }
+    getSectionFour();
+  }, [editedSectionFour]);
+
+  useEffect(() => {
+    getSectionOne();
+    setSectionOneFile(null);
+  }, [edited]);
+
+  useEffect(() => {
+    getSectionTwo();
+    setSectiontwoFile(null);
+  }, [editedSectionTwo]);
+
+  useEffect(() => {
+    getSectionThree();
+    setSectionThreeFile(null);
+  }, [editedSectionThree]);
+
+  useEffect(() => {
+    if (sectionOneFile) {
+      editSectionOne(data[0]._id, sectionOneFile);
+    }
   }, [sectionOneFile]);
 
   useEffect(() => {
-    if(sectiontwoFile){
-     editSectionTwo(sectionTwo[0]._id,sectiontwoFile)
+    if (sectiontwoFile) {
+      editSectionTwo(sectionTwo[0]._id, sectiontwoFile);
     }
-   }, [sectiontwoFile]);
+  }, [sectiontwoFile]);
 
-   useEffect(() => {
-    if(sectionThreeFile){
-     editSectionThree(sectionThree[0]._id,sectionThreeFile)
+  useEffect(() => {
+    if (sectionThreeFile) {
+      editSectionThree(sectionThree[0]._id, sectionThreeFile);
     }
-   }, [sectionThreeFile]);
+  }, [sectionThreeFile]);
 
   return (
-    <HeaderWrapper >
+    <HeaderWrapper>
       <MainContainer>
-       
         <ImageWrapper>
-        <label htmlFor="sectionOneFile" style={{width:"100%"}}>
-          <img
-          className="img-fluid" src={data && data[0]?.image} />
-           </label>
-           <input type="file" style={{display:"none"}} name="sectionOneFile" id="sectionOneFile"
-            onChange={(e)=>setSectionOneFile(e.target.files[0]) }
-           />
+          <label htmlFor="sectionOneFile" style={{ width: "100%" }}>
+            <img className="img-fluid" src={data && data[0]?.image} />
+          </label>
+          <input
+            type="file"
+            style={{ display: "none" }}
+            name="sectionOneFile"
+            id="sectionOneFile"
+            onChange={(e) => setSectionOneFile(e.target.files[0])}
+          />
         </ImageWrapper>
-       
+
         <TextContainer>
-        {  data &&<p
-           dangerouslySetInnerHTML={{ __html: stripTags(data[0]?.text)}}
-           ref={sectionOneText} contentEditable onBlur={handleSectionOne} 
-          ></p>}
+          {data && (
+            <p
+              dangerouslySetInnerHTML={{ __html: data[0]?.text }}
+              ref={sectionOneText}
+              contentEditable
+              onBlur={handleSectionOne}
+            ></p>
+          )}
         </TextContainer>
         <BottomWrapper>
           <MainRow>
             <MainCol lg={6} className="d-flex justify-content-center">
               <WrapperContainer>
                 <WrapperHeader
-                 ref={sectiontwoText} contentEditable onBlur={handleSectionTwo}
+                  ref={sectiontwoText}
+                  contentEditable
+                  onBlur={handleSectionTwo}
                 >
                   {sectionTwo && sectionTwo[0]?.heading}
                 </WrapperHeader>
-                  {sectionTwo &&<WrapperText
-                ref={sectiontwoParagraph_one} contentEditable onBlur={handleSectionTwo} 
-                dangerouslySetInnerHTML={{ __html: stripTags( sectionTwo[0]?.paragraph_one)}}
-                >
-                </WrapperText>}
+                {sectionTwo && (
+                  <WrapperText
+                    ref={sectiontwoParagraph_one}
+                    contentEditable
+                    onBlur={handleSectionTwo}
+                    dangerouslySetInnerHTML={{
+                      __html: sectionTwo[0]?.paragraph_one,
+                    }}
+                  ></WrapperText>
+                )}
               </WrapperContainer>
             </MainCol>
             <MainCol lg={6}>
               <ImageContainer>
                 <label
-                // htmlFor="two"
-                htmlFor="two"
-                style={{width:"100%"}}
+                  // htmlFor="two"
+                  htmlFor="two"
+                  style={{ width: "100%" }}
                 >
-               
-                <img
-                  src={sectionTwo && sectionTwo[0]?.image}
-                  alt=""
-                  className="img-fluid sectionImg"
-                  
-                />
+                  <img
+                    src={sectionTwo && sectionTwo[0]?.image}
+                    alt=""
+                    className="img-fluid sectionImg"
+                  />
                 </label>
-                <input type="file" style={{display:"none"}} name="two" id="two" 
-                onChange={(e)=>setSectiontwoFile(e.target.files[0])}
+                <input
+                  type="file"
+                  style={{ display: "none" }}
+                  name="two"
+                  id="two"
+                  onChange={(e) => setSectiontwoFile(e.target.files[0])}
                 />
-                
-
-
               </ImageContainer>
             </MainCol>
           </MainRow>
           <MainRow>
             <MainCol lg={6}>
               <SecondImageContainer>
-                <label htmlFor="three" style={{width:"100%"}}>
-                <img
-                  src={sectionThree && sectionThree[0]?.image}
-                  alt=""
-                  className="img-fluid sectionImg"
+                <label htmlFor="three" style={{ width: "100%" }}>
+                  <img
+                    src={sectionThree && sectionThree[0]?.image}
+                    alt=""
+                    className="img-fluid sectionImg"
+                  />
+                </label>
+                <input
+                  type="file"
+                  style={{ display: "none" }}
+                  name="three"
+                  id="three"
+                  onChange={(e) => setSectionThreeFile(e.target.files[0])}
                 />
-                 </label>
-                 <input type="file" style={{display:"none"}} name="three" id="three" 
-                onChange={(e)=>setSectionThreeFile(e.target.files[0])}
-                />
-
               </SecondImageContainer>
             </MainCol>
             <MainCol lg={6} className="d-flex justify-content-center">
-             {sectionThree &&<SecondWrapperText 
-              ref={sectionThreeParagraph} contentEditable onBlur={handleSectionThree}
-             dangerouslySetInnerHTML={{ __html: stripTags(sectionThree[0]?.paragraph_one)}}
-             />
-            }
+              {sectionThree && (
+                <SecondWrapperText
+                  ref={sectionThreeParagraph}
+                  contentEditable
+                  onBlur={handleSectionThree}
+                  dangerouslySetInnerHTML={{
+                    __html: sectionThree[0]?.paragraph_one,
+                  }}
+                />
+              )}
             </MainCol>
           </MainRow>
         </BottomWrapper>
@@ -204,28 +228,64 @@ function Header() {
         <NumbersDiv>
           <MainRow>
             <MainCol lg={4}>
-              <NumbersWrapper>
-                <Numbers>{sectionFour && sectionFour[0]?.heading1}</Numbers>
-                <NumbersText>
-                  {sectionFour && sectionFour[0]?.text1}
-                </NumbersText>
-              </NumbersWrapper>
+              {sectionFour && (
+                <NumbersWrapper>
+                  <Numbers
+                    ref={heading1}
+                    contentEditable
+                    onBlur={handleSectionFour}
+                    dangerouslySetInnerHTML={{
+                      __html: sectionFour[0]?.heading1,
+                    }}
+                  />
+                  <NumbersText
+                    ref={text1}
+                    contentEditable
+                    onBlur={handleSectionFour}
+                    dangerouslySetInnerHTML={{ __html: sectionFour[0]?.text1 }}
+                  />
+                </NumbersWrapper>
+              )}
             </MainCol>
             <MainCol lg={4}>
-              <NumbersWrapper>
-                <Numbers>{sectionFour && sectionFour[0]?.heading2}</Numbers>
-                <NumbersText>
-                  {sectionFour && sectionFour[0]?.text1}
-                </NumbersText>
-              </NumbersWrapper>
+              {sectionFour && (
+                <NumbersWrapper>
+                  <Numbers
+                    ref={heading2}
+                    contentEditable
+                    onBlur={handleSectionFour}
+                    dangerouslySetInnerHTML={{
+                      __html: sectionFour[0]?.heading2,
+                    }}
+                  />
+                  <NumbersText
+                    ref={text2}
+                    contentEditable
+                    onBlur={handleSectionFour}
+                    dangerouslySetInnerHTML={{ __html: sectionFour[0]?.text2 }}
+                  />
+                </NumbersWrapper>
+              )}
             </MainCol>
             <MainCol lg={4}>
-              <NumbersWrapper>
-                <Numbers>{sectionFour && sectionFour[0]?.heading3}</Numbers>
-                <NumbersText>
-                  {sectionFour && sectionFour[0]?.text1}
-                </NumbersText>
-              </NumbersWrapper>
+              {sectionFour && (
+                <NumbersWrapper>
+                  <Numbers
+                    ref={heading3}
+                    contentEditable
+                    onBlur={handleSectionFour}
+                    dangerouslySetInnerHTML={{
+                      __html: sectionFour[0]?.heading3,
+                    }}
+                  />
+                  <NumbersText
+                    dangerouslySetInnerHTML={{ __html: sectionFour[0]?.text3 }}
+                    ref={text3}
+                    contentEditable
+                    onBlur={handleSectionFour}
+                  />
+                </NumbersWrapper>
+              )}
             </MainCol>
           </MainRow>
         </NumbersDiv>

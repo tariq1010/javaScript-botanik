@@ -17,15 +17,12 @@ const EditSectionThree = async (id:any,obj:any) => {
         })
      }
     
-    console.log(obj)
-    
     const update = {
         heading: obj.heading,
         paragraph_one: obj.paragraph_one,
         paragraph_two: obj.paragraph_two,
         image: obj.image_path,
     };
-    // const data =await SectionThree.create(update)
 
     const data = await SectionThree.findByIdAndUpdate({ _id: id }, update, {
       new: true,
@@ -35,7 +32,6 @@ const EditSectionThree = async (id:any,obj:any) => {
     if (!data) throw "not inserted";
     return data;
   } catch (error) {
-    console.log(error)
     return { error: error };
   }
 };
