@@ -17,6 +17,7 @@ import { setCount } from "store/redux/slices/mintNftSlice";
 import UploadNft from "pages/uploadNft";
 import { updateAccount } from "store/redux/slices/web3ConnectSlice";
 import { Blogs, Home, AdminDashboard } from "./pages";
+import EditBlogsCom from "components/blogsComp/edit";
 
 let socket: any;
 const ENDPOINT = env.BACKEND_BASE_URL;
@@ -53,7 +54,7 @@ const App = () => {
         <GlobalStyle />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/blogs/:id" element={<Blogs />} />
+          <Route  path="/blogs/:id" element={<Blogs />} />
           <Route path="/minting-nft" element={<Minting />} />
           <Route path="/minted" element={<MintedNfts />} />
           <Route path="/admin-login" element={<AdminLogin />} />
@@ -63,7 +64,8 @@ const App = () => {
           <Route path="/upload-nft" element={<UploadNft />} />
 
           {/* adminDashboard */}
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/home-content" element={<AdminDashboard />} />
+          <Route path="/blog-edit/:id" element={<EditBlogsCom />} />
         </Routes>
       </BrowserRouter>
     </div>

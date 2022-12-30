@@ -3,7 +3,32 @@ import { CommonHook } from "./commonHook";
 
 export const SaveBlogHook = () => {
   const { data, setData, setError, loading, setLoading, error } = CommonHook();
-  const createFaqsBlog = async (id,data) => {
+  const saveBlog = async (data) => {
+    try {
+      setLoading(true);
+      const result = await BlogSectionService.addBlog(data);
+      if(result.response=="success" && result.data){
+        setData(result.data);
+    }
+    } catch (error) {
+      setError(error);
+      setLoading(false)
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    saveBlog,
+    data,
+    loading,
+    error,
+  };
+};
+
+export const EditBlogHook = () => {
+  const { data, setData, setError, loading, setLoading, error } = CommonHook();
+  const editBlog = async (id,data) => {
     try {
       setLoading(true);
       const result = await BlogSectionService.editBlog(id,data);
@@ -19,7 +44,7 @@ export const SaveBlogHook = () => {
   };
 
   return {
-    createFaqsBlog,
+    editBlog,
     data,
     loading,
     error,

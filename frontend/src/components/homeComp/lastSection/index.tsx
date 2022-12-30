@@ -26,52 +26,62 @@ import { useEffect } from "react";
 import { GetSectionTenHook } from "hooks/sectionTenHook";
 import { GetBlogHook } from "hooks/blogHook";
 import { useNavigate } from "react-router-dom";
-import { useState,useRef } from "react";
+import { useState, useRef } from "react";
 import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
+import Item from "antd/lib/list/Item";
 function LastSection() {
-const navigate=useNavigate()
-const swiperRef = useRef<SwiperCore>();
+  const navigate = useNavigate();
+  const swiperRef = useRef<SwiperCore>();
 
+  const { data, loading, getSectionNine } = GetSectionNineHook();
+  const { data: sectionTen, getSectionTen } = GetSectionTenHook();
+  const { data: blogs, getBlog } = GetBlogHook();
 
-  const {data,loading,getSectionNine}=GetSectionNineHook()
-   const {data:sectionTen, getSectionTen} = GetSectionTenHook()
-   const {data:blogs, getBlog} = GetBlogHook()
+  useEffect(() => {
+    getSectionNine();
+    getSectionTen();
+    getBlog();
+  }, []);
 
-  useEffect(()=>{
-    getSectionNine()
-    getSectionTen()
-    getBlog()
-  },[])
- 
   return (
     <LastSectionWrapper>
       <MainContainer>
         <ImageWrapper>
           <img src={data && data[0]?.image} alt="" className="img-fluid" />
           <TextContainer>
-            <HeaderText>
-            {data && data[0]?.heading}
-            </HeaderText>
-            <TextNote>
-            {data && data[0]?.paragraph}
-            </TextNote>
+            {data &&<HeaderText
+           dangerouslySetInnerHTML={{ __html: data[0]?.heading }}
+            
+            />}
+           {data && <TextNote
+             dangerouslySetInnerHTML={{ __html: data[0]?.paragraph }}
+            
+            />}
             <BuyBtn>Buy Tapera Jungle NFT</BuyBtn>
           </TextContainer>
         </ImageWrapper>
         <Wrapper>
           <MainRow>
             <MainCol lg={6}>
-              <img className="img-fluid wrapperimg" src={sectionTen && sectionTen[0]?.image_one} />
+              <img
+                className="img-fluid wrapperimg"
+                src={sectionTen && sectionTen[0]?.image_one}
+              />
             </MainCol>
             <MainCol lg={6}>
               <InnerContainer>
-                <img className="img-fluid containerimg" src={sectionTen && sectionTen[0]?.image_two} />
+                <img
+                  className="img-fluid containerimg"
+                  src={sectionTen && sectionTen[0]?.image_two}
+                />
                 <ContainerText>
-                  <p>
-                  {sectionTen && sectionTen[0]?.text}
-                  </p>
+                  {sectionTen && (
+                    <p
+                      dangerouslySetInnerHTML={{ __html: sectionTen[0]?.text }}
+                    />
+                  )}
                 </ContainerText>
               </InnerContainer>
             </MainCol>
@@ -110,11 +120,21 @@ const swiperRef = useRef<SwiperCore>();
             >
               {blogs?.map((item) => (
                 <SwiperSlide>
-                  <img key={item._id}  className="img-fluid swiperImg" src={item.image}
-                  onClick={()=>navigate("/blogs/"+item._id)}
+                  <img
+                    key={item._id}
+                    className="img-fluid swiperImg"
+                    src={item.image}
+                    onClick={() => navigate("/blogs/" + item._id)}
+                  />
+                  <h4
+                  dangerouslySetInnerHTML={{ __html: item.heading }}
+                  />
+                  <p
+                  dangerouslySetInnerHTML={{ __html: item.content.slice(0,125) + "..."  }}
                   />
                 </SwiperSlide>
               ))}
+              
             </Swiper>
             <div className="btnWrapper">
               <PreviousButton

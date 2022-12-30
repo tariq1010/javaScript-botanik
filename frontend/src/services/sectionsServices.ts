@@ -65,6 +65,7 @@ class Sections {
   getSectionNine= () => {
     return BaseService.get(APIPath.getSectionNine);
   };
+  
   editSectionTen= (id,data) => {
     return BaseService.put(`${APIPath.editSectionTen}/${id}`, data);
   };

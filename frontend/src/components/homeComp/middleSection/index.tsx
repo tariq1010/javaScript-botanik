@@ -13,11 +13,10 @@ import {
   NextButton,
 } from "./element";
 
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import { GetSectionFiveHook } from "hooks/sectionFiveHook";
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { GetSectionSixHook } from "hooks/sectionSixHook";
 import { GetSectionEightHook } from "hooks/sectionEightHook";
 import { GetSectionSevenHook } from "hooks/sectionSevenHook";
@@ -28,18 +27,17 @@ import { useRef } from "react";
 
 function MiddleSection() {
   const swiperRef = useRef<SwiperCore>();
- const {data,loading,getSectionFive} =GetSectionFiveHook()
- const {data:sectionSix,getSectionSix} =GetSectionSixHook()
- const {data:carousel,getSectionEight} =GetSectionEightHook()
- const {data:sectionSeven,getSectionSeven} =GetSectionSevenHook()
+  const { data, loading, getSectionFive } = GetSectionFiveHook();
+  const { data: sectionSix, getSectionSix } = GetSectionSixHook();
+  const { data: carousel, getSectionEight } = GetSectionEightHook();
+  const { data: sectionSeven, getSectionSeven } = GetSectionSevenHook();
 
- useEffect(()=>{
-  getSectionFive()
-  getSectionSix()
-  getSectionEight()
-  getSectionSeven()
- },[])
-
+  useEffect(() => {
+    getSectionFive();
+    getSectionSix();
+    getSectionEight();
+    getSectionSeven();
+  }, []);
 
   return (
     <MiddleSectionWrapper>
@@ -47,33 +45,43 @@ function MiddleSection() {
         <ImageWrapper>
           <img className="img-fluid" src={data && data[0]?.image} alt="" />
           <TextContainer>
-            <Text>{data&& data[0]?.text.substring(0, 39)}</Text>
-            <Text>{data&& data[0]?.text.substring(39, 64)}</Text>
-            <Text>{data&& data[0]?.text.substring(64, 115)}</Text>
-            <Text>{data&& data[0]?.text.substring(115)}</Text>
-           
+            {data && (
+              <Text dangerouslySetInnerHTML={{ __html: data[0]?.text }} />
+            )}
           </TextContainer>
         </ImageWrapper>
 
         <Wrapper>
           <MainRow>
             <MainCol lg={6} className="d-flex justify-content-center">
-              <img src={sectionSix && sectionSix[0]?.image} alt="" className="img-fluid wrapperImg" />
+              <img
+                src={sectionSix && sectionSix[0]?.image}
+                alt=""
+                className="img-fluid wrapperImg"
+              />
             </MainCol>
             <MainCol lg={6} className="d-flex justify-content-center">
               <MainTextContainer>
-                <MainTextHeader>
-                {sectionSix && sectionSix[0]?.heading}
-                </MainTextHeader>
-                <MainTextNote>
-                {sectionSix && sectionSix[0]?.paragraph_one} <br />
-                {sectionSix && sectionSix[0]?.paragraph_two}
-                </MainTextNote>
+                {sectionSix && (
+                  <MainTextHeader
+                    dangerouslySetInnerHTML={{ __html: sectionSix[0]?.heading }}
+                  />
+                )}
+                {sectionSix && (
+                  <MainTextNote
+                    dangerouslySetInnerHTML={{
+                      __html: sectionSix[0]?.paragraph_one,
+                    }}
+                  />
+                )}
               </MainTextContainer>
             </MainCol>
           </MainRow>
         </Wrapper>
-        <img className="img-fluid mapImg" src={sectionSeven && sectionSeven[0]?.image} />
+        <img
+          className="img-fluid mapImg"
+          src={sectionSeven && sectionSeven[0]?.image}
+        />
 
         <SwiperContainer>
           <Swiper
@@ -106,7 +114,11 @@ function MiddleSection() {
           >
             {carousel?.map((item) => (
               <SwiperSlide>
-                <img key={item._id} className="img-fluid swiperImg" src={item.image} />
+                <img
+                  key={item._id}
+                  className="img-fluid swiperImg"
+                  src={item.image}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
