@@ -48,7 +48,7 @@ const App = () => {
         dispatch(setCount(result));
       });
   }, [socket]);
-  // const token=BrowserUtility.get("token");
+
   const { token, loading, errorMessage, error } = useAppSelector(
     (state) => state.login
   );
@@ -62,18 +62,13 @@ const App = () => {
           <Route  path="/blogs/:id" element={<Blogs />} />
           <Route path="/minting-nft" element={<Minting />} />
           <Route path="/minted" element={<MintedNfts />} />
-          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-login" element={token?<AdminDashboard />:<AdminLogin />} />
           <Route path="/*" element={<Error404 />} />
           <Route path="/contract-functions" element={<ContractFunctions />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/upload-nft" element={<UploadNft />} />
-
-          {/* adminDashboard */}
-          {token && 
-           <>
-            <Route path="/home-content" element={<AdminDashboard />} />
-          <Route path="/blog-edit/:id" element={<EditBlogsCom />} />
-        </>}
+            <Route path="/home-content" element={token?  <AdminDashboard />: <AdminLogin /> } />
+          <Route path="/blog-edit/:id" element={token? <EditBlogsCom />:<AdminLogin />} />
         </Routes>
       </BrowserRouter>
     </div>

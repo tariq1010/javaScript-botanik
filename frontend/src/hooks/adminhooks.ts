@@ -107,10 +107,18 @@ export const CheckAuthHook = () => {
 };
 
 export const LogoutHook = () => {
+  const navigate=useNavigate()
   const dispatch = useAppDispatch();
-  const logout = () => {
-    dispatch(logoutWallet());
-    dispatch(resetBotanikData());
+  const logout = async() => {
+    const result=await LoginService.logout()
+    if(result.data){
+      dispatch(logoutWallet());
+      dispatch(resetBotanikData());
+      BrowserUtility.remove("token")
+      dispatch(resetLogin())
+      navigate("/admin-login")
+    }
+    
   };
 
   return {

@@ -56,7 +56,8 @@ class Sections {
     return BaseService.post(APIPath.addSectionEight,data);
   };
   deleteSectionEight= (id) => {
-    return BaseService.delete(`${APIPath.deleteSectionEight}${id}`);
+    console.log(id,"id")
+    return BaseService.delete(`${APIPath.deleteSectionEight}/${id}`);
   };
   
   editSectionNine= (id,data) => {

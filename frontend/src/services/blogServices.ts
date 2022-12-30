@@ -15,6 +15,9 @@ class BlogSection {
   getBlogById = (id) => {
     return BaseService.get(`${APIPath.getBlogById}/${id}`);
   };
+  deleteBlog = (id) => {
+    return BaseService.delete(`${APIPath.deleteBlog}/${id}`);
+  };
   
 
 }

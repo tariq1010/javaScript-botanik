@@ -4,8 +4,11 @@ import Navbar from "react-bootstrap/Navbar";
 import { MainCol, MainContainer } from "components/common";
 import { Link } from "react-router-dom";
 import mainlogo from "../../assets/images/mainlogo.png";
+import { LogoutHook } from "hooks/adminhooks";
+import { fontSize } from "@mui/system";
 
 function NavbarCom() {
+  const {  logout } = LogoutHook();
   return (
     <NavbarWrapper>
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -23,6 +26,12 @@ function NavbarCom() {
                 <BlogBtn>Blogs</BlogBtn>
               </Link> */}
               <BuyNFTbtn>Buy Tapera Jungle NFT</BuyNFTbtn>
+              <button
+          style={{border:"none", padding:"5px 20px",background:"black",color:"white", fontSize:"18px"}}
+          onClick={()=>{
+          logout()
+        }}>Logout</button>
+
             </IconContainer>
           </Navbar.Collapse>
         </MainContainer>

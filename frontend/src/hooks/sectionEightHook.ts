@@ -6,6 +6,7 @@ export const EditSectionEightHook = () => {
   const editSectionEight = async (id,data) => {
     try {
       setLoading(true);
+      
       const formData=new FormData()
       formData.append("section_eight_image",data)
       const result = await SectionsService.editSectionEight(id,formData);
@@ -78,6 +79,30 @@ export const GetSectionEightHook = () => {
   
     return {
     getSectionEight,
+      data,
+      loading,
+      error,
+    };
+  };
+
+  export const DeleteSectionEightHook = () => {
+    const { data, setData, setError, loading, setLoading, error } = CommonHook();
+    const deleteSectionEight= async (id) => {
+      try {
+        setData(null)
+        setLoading(true);
+        const result = await SectionsService.deleteSectionEight(id);
+          setData(result.data);
+      } catch (error) {
+        setError(error);
+        setLoading(false)
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    return {
+      deleteSectionEight,
       data,
       loading,
       error,

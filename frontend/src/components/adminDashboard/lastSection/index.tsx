@@ -22,7 +22,7 @@ import { Navigation } from "swiper";
 import { EditSectionNineHook, GetSectionNineHook } from "hooks/sectionNineHook";
 import { useEffect } from "react";
 import { EditSectionTenHook, GetSectionTenHook } from "hooks/sectionTenHook";
-import { GetBlogHook, SaveBlogHook } from "hooks/blogHook";
+import { DeletelogHook, GetBlogHook, SaveBlogHook } from "hooks/blogHook";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { Swiper as SwiperCore } from "swiper/types";
@@ -38,8 +38,9 @@ function LastSection() {
   const [sectionNineFile, setSectionNineFile] = useState(null);
   const [sectionTenFile, setSectionTenFile] = useState(null);
   const [sectionTenFile2, setSectionTenFile2] = useState(null);
-
+  
   const { data, loading, getSectionNine } = GetSectionNineHook();
+  const { data:deleted, loading:loading7, deleteBlog } = DeletelogHook();
   const { data: editNine, editSectionNine,loading:load } = EditSectionNineHook();
   const { data: sectionTen, getSectionTen ,loading:load1} = GetSectionTenHook();
   const { data: editTen, editSectionTen ,loading:load2} = EditSectionTenHook();
@@ -103,7 +104,7 @@ function LastSection() {
 
   useEffect(() => {
     getBlog();
-  }, [added]);
+  }, [added,deleted]);
 
   return (
     <LastSectionWrapper>
@@ -113,6 +114,7 @@ function LastSection() {
       {load2 && <Loader/>}
       {load3 && <Loader/>}
       {load4 && <Loader/>}
+      {loading7 && <Loader/>}
       <MainContainer>
         <ImageWrapper>
           <label htmlFor="nine" style={{ width: "100%" }}>
@@ -255,6 +257,11 @@ function LastSection() {
                     className="img-fluid swiperImg"
                     src={item.image}
                   />
+                  <button
+            style={{border:"none", padding:"5px 20px",background:"black",color:"white", fontSize:"12px",margin:"5px"}}
+            onClick={()=>{
+              deleteBlog(item._id)
+           }}>Delete</button>
                 </SwiperSlide>
               ))}
             </Swiper>

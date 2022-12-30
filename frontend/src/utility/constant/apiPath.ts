@@ -42,7 +42,6 @@ export const APIPath = {
   getSectionEight: "get-section-eight",
   addSectionEight: "save-section-eight",
   deleteSectionEight: "delete-section-eight",
-
   editSectionNine: "edit-section-nine",
   getSectionNine: "get-section-nine",
 

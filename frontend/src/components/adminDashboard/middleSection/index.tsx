@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { EditSectionSixHook, GetSectionSixHook } from "hooks/sectionSixHook";
 import {
   AddSectionEightHook,
+  DeleteSectionEightHook,
   EditSectionEightHook,
   GetSectionEightHook,
 } from "hooks/sectionEightHook";
@@ -46,8 +47,9 @@ function MiddleSection() {
   const [show, setShow] = useState(false);
 
   const swiperRef = useRef<SwiperCore>();
-
+  
   const { data, loading, getSectionFive } = GetSectionFiveHook();
+  const { data:deleted, loading:load7, deleteSectionEight } = DeleteSectionEightHook();
   const { data: sectionSix, getSectionSix,loading:load } = GetSectionSixHook();
   const { data: carousel, getSectionEight ,loading:load1} = GetSectionEightHook();
   const { data: sectionSeven, getSectionSeven } = GetSectionSevenHook();
@@ -73,7 +75,7 @@ function MiddleSection() {
     getSectionEight();
     setSectionEightFile(null);
     setEightId(null)
-  }, [addEight, editedEight]);
+  }, [addEight, editedEight,deleted]);
 
   useEffect(() => {
     getSectionFive();
@@ -130,6 +132,7 @@ function MiddleSection() {
       {load4 && <Loader/>}
       {load5 && <Loader/>}
       {load6 && <Loader/>}
+      {load7 && <Loader/>}
       <MainContainer>
         <ImageWrapper>
           <label htmlFor="five" style={{ width: "100%" }}>
@@ -271,27 +274,18 @@ function MiddleSection() {
                 onClick={()=>{
                   setEightId(item._id)
                 }}
-                // onMouseOver={()=>setShow(true)}
+               
                 onMouseOut={()=>setShow(false)}
                 key={item._id}
                 className="img-fluid swiperImg"
                 src={item.image}
               />
-            {show&& <button
-            style={{
-              background: "#FEE123",
-              padding: "5px 28px",
-              marginBottom: "4px",
-              position: "absolute",
-              top:"50%",
-              right:"50%",
-              transform:"translate(-50%,-50%)",
-              border: "none",
-              fontSize: "20px",
-              cursor: "pointer",
-            }}
-            >del
-           </button>}
+              <button
+            style={{border:"none", padding:"5px 20px",background:"black",color:"white", fontSize:"12px",margin:"5px"}}
+            onClick={()=>{
+              deleteSectionEight(item._id)
+           }}>Delete</button>
+           
 
                 </label>
                 <input

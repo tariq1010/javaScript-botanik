@@ -40,7 +40,8 @@ function Header() {
 
   const sectiontwoParagraph_one = useRef(null);
   const sectionThreeParagraph = useRef(null);
-
+  
+  
   const { data, getSectionOne, loading } = GetSectionOneHook();
   const { data: edited, editSectionOne, loading:load } = EditSectionOneHook();
   const { data: editedSectionTwo, editSectionTwo,loading:load1 } = EditSectionTwoHook();
@@ -129,6 +130,7 @@ function Header() {
       {load4 && <Loader/>}
       {load5 && <Loader/>}
       {load6 && <Loader/>}
+      
       <MainContainer>
         <ImageWrapper>
           <label htmlFor="sectionOneFile" style={{ width: "100%" }}>

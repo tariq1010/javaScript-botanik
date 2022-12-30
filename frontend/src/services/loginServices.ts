@@ -6,6 +6,9 @@ class Login {
   login = (data) => {
     return BaseService.post(APIPath.login, data);
   };
+  logout = () => {
+    return BaseService.get(APIPath.logout);
+  };
 }
 
 const LoginService = new Login();
