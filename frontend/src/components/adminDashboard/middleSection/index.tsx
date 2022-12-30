@@ -11,8 +11,16 @@ import {
   Wrapper,
   PreviousButton,
   NextButton,
+  UploadImagedDiv,
+  UploadImage,
+  ImageContainer,
+  HeaderImageContainer,
+  MainImageWrapper,
+  AddCarouselImages,
+  DeleteBtn,
+  SwiperImgContainer,
 } from "./element";
-
+import { Tooltip } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import { EditSectionFiveHook, GetSectionFiveHook } from "hooks/sectionFiveHook";
@@ -47,18 +55,50 @@ function MiddleSection() {
   const [show, setShow] = useState(false);
 
   const swiperRef = useRef<SwiperCore>();
-  
+
   const { data, loading, getSectionFive } = GetSectionFiveHook();
-  const { data:deleted, loading:load7, deleteSectionEight } = DeleteSectionEightHook();
-  const { data: sectionSix, getSectionSix,loading:load } = GetSectionSixHook();
-  const { data: carousel, getSectionEight ,loading:load1} = GetSectionEightHook();
+  const {
+    data: deleted,
+    loading: load7,
+    deleteSectionEight,
+  } = DeleteSectionEightHook();
+  const {
+    data: sectionSix,
+    getSectionSix,
+    loading: load,
+  } = GetSectionSixHook();
+  const {
+    data: carousel,
+    getSectionEight,
+    loading: load1,
+  } = GetSectionEightHook();
   const { data: sectionSeven, getSectionSeven } = GetSectionSevenHook();
 
-  const { data: editedFive, editSectionFive,loading:load2 } = EditSectionFiveHook();
-  const { data: editedSix, editSectionSix ,loading:load3} = EditSectionSixHook();
-  const { data: editedSeven, editSectionSeven,loading:load4 } = EditSectionSevenHook();
-  const { data: addEight, addSectionEight,loading:load5 } = AddSectionEightHook();
-  const { data: editedEight, editSectionEight,loading:load6 } = EditSectionEightHook();
+  const {
+    data: editedFive,
+    editSectionFive,
+    loading: load2,
+  } = EditSectionFiveHook();
+  const {
+    data: editedSix,
+    editSectionSix,
+    loading: load3,
+  } = EditSectionSixHook();
+  const {
+    data: editedSeven,
+    editSectionSeven,
+    loading: load4,
+  } = EditSectionSevenHook();
+  const {
+    data: addEight,
+    addSectionEight,
+    loading: load5,
+  } = AddSectionEightHook();
+  const {
+    data: editedEight,
+    editSectionEight,
+    loading: load6,
+  } = EditSectionEightHook();
 
   function handleSectionFive() {
     editSectionFive(data[0]._id, sectionFiveText.current.innerHTML);
@@ -74,8 +114,8 @@ function MiddleSection() {
   useEffect(() => {
     getSectionEight();
     setSectionEightFile(null);
-    setEightId(null)
-  }, [addEight, editedEight,deleted]);
+    setEightId(null);
+  }, [addEight, editedEight]);
 
   useEffect(() => {
     getSectionFive();
@@ -115,36 +155,45 @@ function MiddleSection() {
     }
   }, [sectionEightFile]);
 
-
   useEffect(() => {
     if (editEightFile) {
-      editSectionEight(eightId,editEightFile);
+      editSectionEight(eightId, editEightFile);
     }
   }, [editEightFile]);
 
   return (
     <MiddleSectionWrapper>
-      {loading && <Loader/>}
-      {load && <Loader/>}
-      {load1 && <Loader/>}
-      {load2 && <Loader/>}
-      {load3 && <Loader/>}
-      {load4 && <Loader/>}
-      {load5 && <Loader/>}
-      {load6 && <Loader/>}
-      {load7 && <Loader/>}
+      {loading && <Loader />}
+      {load && <Loader />}
+      {load1 && <Loader />}
+      {load2 && <Loader />}
+      {load3 && <Loader />}
+      {load4 && <Loader />}
+      {load5 && <Loader />}
+      {load6 && <Loader />}
+      {load7 && <Loader />}
       <MainContainer>
         <ImageWrapper>
-          <label htmlFor="five" style={{ width: "100%" }}>
-            <img className="img-fluid" src={data && data[0]?.image} alt="" />
-          </label>
-          <input
-            type="file"
-            style={{ display: "none" }}
-            name="five"
-            id="five"
-            onChange={(e) => setSectionFiveFile(e.target.files[0])}
-          />
+          <HeaderImageContainer>
+            <label htmlFor="five" style={{ width: "100%" }}>
+              <img className="img-fluid" src={data && data[0]?.image} alt="" />
+              <UploadImagedDiv>
+                <UploadImage />
+                <h2>
+                  Update Image <small>(Max height: 630px)</small>
+                </h2>
+              </UploadImagedDiv>
+            </label>
+
+            <input
+              type="file"
+              style={{ display: "none" }}
+              name="five"
+              id="five"
+              onChange={(e) => setSectionFiveFile(e.target.files[0])}
+            />
+          </HeaderImageContainer>
+
           <TextContainer>
             {data && (
               <Text
@@ -160,21 +209,28 @@ function MiddleSection() {
         <Wrapper>
           <MainRow>
             <MainCol lg={6} className="d-flex justify-content-center">
-              
-              <label htmlFor="six" style={{ width: "100%" }}>
-                <img
-                  src={sectionSix && sectionSix[0]?.image}
-                  alt=""
-                  className="img-fluid wrapperImg"
+              <ImageContainer>
+                <label htmlFor="six" style={{ width: "100%" }}>
+                  <img
+                    src={sectionSix && sectionSix[0]?.image}
+                    alt=""
+                    className="img-fluid wrapperImg"
+                  />
+                  <UploadImagedDiv>
+                    <UploadImage />
+                    <h2>
+                      Update Image <small>(Max height: 375px)</small>
+                    </h2>
+                  </UploadImagedDiv>
+                </label>
+                <input
+                  type="file"
+                  style={{ display: "none" }}
+                  name="six"
+                  id="six"
+                  onChange={(e) => setSectionSixFile(e.target.files[0])}
                 />
-              </label>
-              <input
-                type="file"
-                style={{ display: "none" }}
-                name="six"
-                id="six"
-                onChange={(e) => setSectionSixFile(e.target.files[0])}
-              />
+              </ImageContainer>
             </MainCol>
             <MainCol lg={6} className="d-flex justify-content-center">
               <MainTextContainer>
@@ -201,44 +257,41 @@ function MiddleSection() {
             </MainCol>
           </MainRow>
         </Wrapper>
-        <label htmlFor="seven" style={{ width: "100%" }}>
-          <img
-            className="img-fluid mapImg"
-            src={sectionSeven && sectionSeven[0]?.image}
-          />
-        </label>
-        <input
-          type="file"
-          style={{ display: "none" }}
-          name="seven"
-          id="seven"
-          onChange={(e) => setSectionSevenFile(e.target.files[0])}
-        />
 
-        <SwiperContainer style={{ position: "relative" }}>
-          <label
-            htmlFor="eight"
-            style={{
-              background: "#FEE123",
-              padding: "5px 28px",
-              marginBottom: "4px",
-              position: "relative",
-              marginLeft: "94%",
-              border: "none",
-              fontSize: "20px",
-              cursor: "pointer",
-            }}
-          >
-            {" "}
-            +{" "}
+        <MainImageWrapper>
+          <label htmlFor="seven" style={{ width: "100%" }}>
+            <img
+              className="img-fluid mapImg"
+              src={sectionSeven && sectionSeven[0]?.image}
+            />
+            <UploadImagedDiv>
+              <UploadImage />
+              <h2>
+                Update Image <small>(Max height: 550px)</small>
+              </h2>
+            </UploadImagedDiv>
           </label>
+
           <input
             type="file"
             style={{ display: "none" }}
-            name="eight"
-            id="eight"
-            onChange={(e) => setSectionEightFile(e.target.files[0])}
+            name="seven"
+            id="seven"
+            onChange={(e) => setSectionSevenFile(e.target.files[0])}
           />
+        </MainImageWrapper>
+
+        <SwiperContainer>
+          <AddCarouselImages>
+            <label htmlFor="eight">Add Carousel Image</label>
+            <input
+              type="file"
+              style={{ display: "none" }}
+              name="eight"
+              id="eight"
+              onChange={(e) => setSectionEightFile(e.target.files[0])}
+            />
+          </AddCarouselImages>
           <Swiper
             slidesPerView={3}
             spaceBetween={30}
@@ -270,37 +323,36 @@ function MiddleSection() {
             {carousel?.map((item) => (
               <SwiperSlide>
                 <label htmlFor="editEight" style={{ width: "100%" }}>
-                <img
-                onClick={()=>{
-                  setEightId(item._id)
-                }}
-               
-                onMouseOut={()=>setShow(false)}
-                key={item._id}
-                className="img-fluid swiperImg"
-                src={item.image}
-              />
-              <button
-            style={{border:"none", padding:"5px 20px",background:"black",color:"white", fontSize:"12px",margin:"5px"}}
-            onClick={()=>{
-              deleteSectionEight(item._id)
-           }}>Delete</button>
-           
-
+                  <SwiperImgContainer>
+                    <img
+                      onClick={() => {
+                        setEightId(item._id);
+                      }}
+                      // onMouseOver={()=>setShow(true)}
+                      onMouseOut={() => setShow(false)}
+                      key={item._id}
+                      className="img-fluid swiperImg"
+                      src={item.image}
+                    />
+                    <Tooltip title="Delete Image">
+                      <DeleteBtn
+                        onClick={() => {
+                          deleteSectionEight(item._id);
+                        }}
+                      />
+                    </Tooltip>
+                  </SwiperImgContainer>
                 </label>
                 <input
-            type="file"
-            style={{ display: "none" }}
-            name="editEight"
-            id="editEight"
-            onChange={(e) => setEditEightFile(e.target.files[0])}
-          />
-           
-              
+                  type="file"
+                  style={{ display: "none" }}
+                  name="editEight"
+                  id="editEight"
+                  onChange={(e) => setEditEightFile(e.target.files[0])}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
-        
 
           <div className="btnWrapper">
             <PreviousButton

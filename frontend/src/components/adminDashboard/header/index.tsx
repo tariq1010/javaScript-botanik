@@ -14,6 +14,8 @@ import {
   NumbersWrapper,
   Numbers,
   NumbersText,
+  UploadImage,
+  UploadImagedDiv,
 } from "./element";
 import { EditSectionOneHook, GetSectionOneHook } from "hooks/sectionOneHook";
 import { useEffect, useState } from "react";
@@ -24,6 +26,7 @@ import {
 } from "hooks/sectionThreeHook";
 import { EditSectionFourHook, GetSectionFourHook } from "hooks/sectionFourHook";
 import { useRef } from "react";
+
 function Header() {
   const [sectionOneFile, setSectionOneFile] = useState(null);
   const [sectiontwoFile, setSectiontwoFile] = useState(null);
@@ -135,6 +138,12 @@ function Header() {
         <ImageWrapper>
           <label htmlFor="sectionOneFile" style={{ width: "100%" }}>
             <img className="img-fluid" src={data && data[0]?.image} />
+            <UploadImagedDiv>
+              <UploadImage />
+              <h2>
+                Update Image <small>(Max Height: 550px)</small>
+              </h2>
+            </UploadImagedDiv>
           </label>
           <input
             type="file"
@@ -190,7 +199,14 @@ function Header() {
                     alt=""
                     className="img-fluid sectionImg"
                   />
+                  <UploadImagedDiv>
+                    <UploadImage />
+                    <h2>
+                      Update Image <small>(Max Height: 375px)</small>
+                    </h2>
+                  </UploadImagedDiv>
                 </label>
+
                 <input
                   type="file"
                   style={{ display: "none" }}
@@ -210,6 +226,12 @@ function Header() {
                     alt=""
                     className="img-fluid sectionImg"
                   />
+                  <UploadImagedDiv>
+                    <UploadImage />
+                    <h2>
+                      Update Image <small>(375px * 550px)</small>
+                    </h2>
+                  </UploadImagedDiv>
                 </label>
                 <input
                   type="file"

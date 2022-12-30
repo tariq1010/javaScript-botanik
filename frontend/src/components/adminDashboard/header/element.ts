@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { AiOutlineUpload } from "react-icons/ai";
 
 export const HeaderWrapper = styled.div`
   overflow: hidden;
@@ -7,9 +8,16 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
+  position: relative;
+
+  &:hover {
+    opacity: 0.5;
+  }
+
   .img-fluid {
     height: 550px;
     width: 100%;
+    cursor: pointer;
     position: relative;
     z-index: 10;
 
@@ -167,11 +175,20 @@ export const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+
+  &:hover {
+    opacity: 0.4;
+  }
+
   .sectionImg {
     height: 375px;
+    width: 90%;
+    cursor: pointer;
 
     @media (max-width: 991.98px) {
       height: 100%;
+      width: 100%;
     }
   }
 `;
@@ -180,6 +197,11 @@ export const SecondImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 5rem;
+  position: relative;
+
+  &:hover {
+    opacity: 0.4;
+  }
 
   @media (max-width: 991.98px) {
     margin-top: 2rem;
@@ -187,6 +209,11 @@ export const SecondImageContainer = styled.div`
 
   .sectionImg {
     height: 375px;
+    width: 550px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
 
     @media (max-width: 991.98px) {
       height: 100%;
@@ -258,4 +285,56 @@ export const NumbersWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 3.5rem;
+`;
+
+export const UploadImagedDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 9999;
+  height: 50%;
+  width: 50%;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  cursor: pointer;
+
+  ${ImageWrapper}:hover & {
+    visibility: visible;
+  }
+
+  ${ImageContainer}:hover & {
+    visibility: visible;
+    height: 70%;
+    width: 70%;
+
+    top: 50%;
+    left: 45%;
+  }
+
+  ${SecondImageContainer}:hover & {
+    visibility: visible;
+    top: 50%;
+    left: 50%;
+    height: 70%;
+    width: 70%;
+  }
+
+  h2 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 30px;
+
+    small {
+      font-size: 16px;
+    }
+  }
+`;
+
+export const UploadImage = styled(AiOutlineUpload)`
+  font-size: 60px;
+  color: #fff;
 `;

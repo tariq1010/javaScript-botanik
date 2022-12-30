@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import next from "../../../assets/images/next.png";
 import back from "../../../assets/images/back.png";
+import { AiOutlineUpload, AiFillDelete } from "react-icons/ai";
 
 export const LastSectionWrapper = styled.div`
   overflow: hidden;
@@ -11,12 +12,17 @@ export const ImageWrapper = styled.div`
   margin-top: 6rem;
   position: relative;
 
+  &:hover {
+    opacity: 0.4;
+  }
+
   @media (max-width: 991.98px) {
     margin-top: 1rem;
   }
   .img-fluid {
     width: 100%;
     height: 664px;
+    cursor: pointer;
   }
 `;
 
@@ -129,16 +135,46 @@ export const BuyBtn = styled.button`
   margin-top: 2rem;
 `;
 
+export const WrapperImg = styled.div`
+  position: relative;
+
+  &:hover {
+    opacity: 0.4;
+  }
+  .wrapperimg {
+    height: 602px;
+    width: 100%;
+    cursor: pointer;
+
+    @media (max-width: 767.98px) {
+      height: 100%;
+    }
+  }
+`;
+
 export const Wrapper = styled.div`
   margin-top: 6rem;
 
   @media (max-width: 991.98px) {
     margin-top: 2rem;
   }
+`;
 
-  .wrapperimg {
-    height: 602px;
+export const InnerContainerImg = styled.div`
+  position: relative;
+
+  &:hover {
+    opacity: 0.4;
+  }
+
+  .containerimg {
     width: 100%;
+    height: 412px;
+    cursor: pointer;
+
+    @media (max-width: 991.98px) {
+      margin-top: 1rem;
+    }
 
     @media (max-width: 767.98px) {
       height: 100%;
@@ -151,19 +187,6 @@ export const InnerContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  .containerimg {
-    width: 100%;
-    height: 412px;
-
-    @media (max-width: 991.98px) {
-      margin-top: 1rem;
-    }
-
-    @media (max-width: 767.98px) {
-      height: 100%;
-    }
-  }
 `;
 
 export const ContainerText = styled.div`
@@ -305,4 +328,97 @@ export const SwiperText = styled.p`
   line-height: 22px;
   color: #003333;
   width: 90%;
+`;
+
+export const DeleteBtn = styled(AiFillDelete)`
+  color: #ff597b;
+  font-size: 24px;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+
+  &:hover {
+    scale: 1.3;
+    transition: 0.3s all ease-in-out;
+  }
+`;
+
+export const AddCarouselImages = styled.button`
+  background: #d3e5d1;
+  border-radius: 4px;
+  height: 46px;
+  width: 182px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  color: #090a00;
+  display: block;
+  margin: 2rem 0 1rem auto;
+  border: none;
+
+  label {
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+`;
+
+export const SwiperImgContainer = styled.div`
+  position: relative;
+  z-index: 10;
+`;
+
+export const UploadImagedDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 9999;
+  height: 50%;
+  width: 50%;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  cursor: pointer;
+
+  ${ImageWrapper}:hover & {
+    visibility: visible;
+    top: 8%;
+  }
+
+  ${WrapperImg}:hover & {
+    visibility: visible;
+    top: 50%;
+    height: 70%;
+    width: 70%;
+  }
+  ${InnerContainerImg}:hover & {
+    visibility: visible;
+    top: 50%;
+    height: 70%;
+    width: 70%;
+  }
+
+  h2 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 30px;
+
+    small {
+      font-size: 16px;
+    }
+  }
+`;
+
+export const UploadImage = styled(AiOutlineUpload)`
+  font-size: 60px;
+  color: #fff;
 `;

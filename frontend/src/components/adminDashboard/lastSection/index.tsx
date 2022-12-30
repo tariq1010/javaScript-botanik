@@ -15,6 +15,13 @@ import {
   NextButton,
   PreviousButton,
   SeeAllBtn,
+  AddCarouselImages,
+  DeleteBtn,
+  SwiperImgContainer,
+  UploadImage,
+  UploadImagedDiv,
+  WrapperImg,
+  InnerContainerImg,
 } from "./element";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -28,6 +35,8 @@ import { useState, useRef } from "react";
 import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
+import { Tooltip } from "antd";
+
 function LastSection() {
   const navigate = useNavigate();
   const swiperRef = useRef<SwiperCore>();
@@ -38,15 +47,27 @@ function LastSection() {
   const [sectionNineFile, setSectionNineFile] = useState(null);
   const [sectionTenFile, setSectionTenFile] = useState(null);
   const [sectionTenFile2, setSectionTenFile2] = useState(null);
-  
-  const { data, loading, getSectionNine } = GetSectionNineHook();
-  const { data:deleted, loading:loading7, deleteBlog } = DeletelogHook();
-  const { data: editNine, editSectionNine,loading:load } = EditSectionNineHook();
-  const { data: sectionTen, getSectionTen ,loading:load1} = GetSectionTenHook();
-  const { data: editTen, editSectionTen ,loading:load2} = EditSectionTenHook();
 
-  const { data: blogs, getBlog,loading:load3 } = GetBlogHook();
-  const { data: added, saveBlog,loading:load4 } = SaveBlogHook();
+  const { data, loading, getSectionNine } = GetSectionNineHook();
+  const { data: deleted, loading: loading7, deleteBlog } = DeletelogHook();
+  const {
+    data: editNine,
+    editSectionNine,
+    loading: load,
+  } = EditSectionNineHook();
+  const {
+    data: sectionTen,
+    getSectionTen,
+    loading: load1,
+  } = GetSectionTenHook();
+  const {
+    data: editTen,
+    editSectionTen,
+    loading: load2,
+  } = EditSectionTenHook();
+
+  const { data: blogs, getBlog, loading: load3 } = GetBlogHook();
+  const { data: added, saveBlog, loading: load4 } = SaveBlogHook();
 
   function handleSectionNine() {
     const obj = {
@@ -104,21 +125,27 @@ function LastSection() {
 
   useEffect(() => {
     getBlog();
-  }, [added,deleted]);
+  }, [added, deleted]);
 
   return (
     <LastSectionWrapper>
-       {loading && <Loader/>}
-      {load && <Loader/>}
-      {load1 && <Loader/>}
-      {load2 && <Loader/>}
-      {load3 && <Loader/>}
-      {load4 && <Loader/>}
-      {loading7 && <Loader/>}
+      {loading && <Loader />}
+      {load && <Loader />}
+      {load1 && <Loader />}
+      {load2 && <Loader />}
+      {load3 && <Loader />}
+      {load4 && <Loader />}
+      {loading7 && <Loader />}
       <MainContainer>
         <ImageWrapper>
           <label htmlFor="nine" style={{ width: "100%" }}>
             <img src={data && data[0]?.image} alt="" className="img-fluid" />
+            <UploadImagedDiv>
+              <UploadImage />
+              <h2>
+                Update Image <small>(Max height: 670px)</small>
+              </h2>
+            </UploadImagedDiv>
           </label>
           <input
             type="file"
@@ -150,36 +177,52 @@ function LastSection() {
         <Wrapper>
           <MainRow>
             <MainCol lg={6}>
-              <label htmlFor="ten" style={{ width: "100%" }}>
-                <img
-                  className="img-fluid wrapperimg"
-                  src={sectionTen && sectionTen[0]?.image_one}
-                />
-              </label>
-              <input
-                type="file"
-                style={{ display: "none" }}
-                name="ten"
-                id="ten"
-                onChange={(e) => setSectionTenFile(e.target.files[0])}
-              />
-            </MainCol>
-            <MainCol lg={6}>
-              <InnerContainer>
-                <label htmlFor="ten2" style={{ width: "100%" }}>
+              <WrapperImg>
+                <label htmlFor="ten" style={{ width: "100%" }}>
                   <img
-                    className="img-fluid containerimg"
-                    src={sectionTen && sectionTen[0]?.image_two}
+                    className="img-fluid wrapperimg"
+                    src={sectionTen && sectionTen[0]?.image_one}
                   />
+                  <UploadImagedDiv>
+                    <UploadImage />
+                    <h2>
+                      Update Image <small>(Max height: 600px)</small>
+                    </h2>
+                  </UploadImagedDiv>
                 </label>
-
                 <input
                   type="file"
                   style={{ display: "none" }}
-                  name="ten2"
-                  id="ten2"
-                  onChange={(e) => setSectionTenFile2(e.target.files[0])}
+                  name="ten"
+                  id="ten"
+                  onChange={(e) => setSectionTenFile(e.target.files[0])}
                 />
+              </WrapperImg>
+            </MainCol>
+            <MainCol lg={6}>
+              <InnerContainer>
+                <InnerContainerImg>
+                  <label htmlFor="ten2" style={{ width: "100%" }}>
+                    <img
+                      className="img-fluid containerimg"
+                      src={sectionTen && sectionTen[0]?.image_two}
+                    />
+                    <UploadImagedDiv>
+                      <UploadImage />
+                      <h2>
+                        Update Image <small>(Max height: 412px)</small>
+                      </h2>
+                    </UploadImagedDiv>
+                  </label>
+
+                  <input
+                    type="file"
+                    style={{ display: "none" }}
+                    name="ten2"
+                    id="ten2"
+                    onChange={(e) => setSectionTenFile2(e.target.files[0])}
+                  />
+                </InnerContainerImg>
                 <ContainerText>
                   {sectionTen && (
                     <p
@@ -197,7 +240,7 @@ function LastSection() {
         <BlogSection>
           <BlogHeader>Our Blog</BlogHeader>
           <SwiperContainer>
-            <button
+            <AddCarouselImages
               onClick={() => {
                 const data = {
                   heading: "deme headings",
@@ -206,20 +249,9 @@ function LastSection() {
                 };
                 saveBlog(data);
               }}
-              style={{
-                background: "#daa520",
-                padding: "5px 28px",
-                marginBottom: "4px",
-                position: "relative",
-                marginLeft: "94%",
-                border: "none",
-                fontSize: "20px",
-                cursor: "pointer",
-              }}
             >
-              {" "}
-              +{" "}
-            </button>
+              Add Carousel Image
+            </AddCarouselImages>
 
             <Swiper
               slidesPerView={3}
@@ -251,17 +283,21 @@ function LastSection() {
             >
               {blogs?.map((item) => (
                 <SwiperSlide>
-                  <img
-                    onClick={() => navigate("/blog-edit/" + item._id)}
-                    key={item._id}
-                    className="img-fluid swiperImg"
-                    src={item.image}
-                  />
-                  <button
-            style={{border:"none", padding:"5px 20px",background:"black",color:"white", fontSize:"12px",margin:"5px"}}
-            onClick={()=>{
-              deleteBlog(item._id)
-           }}>Delete</button>
+                  <SwiperImgContainer>
+                    <img
+                      onClick={() => navigate("/blog-edit/" + item._id)}
+                      key={item._id}
+                      className="img-fluid swiperImg"
+                      src={item.image}
+                    />
+                    <Tooltip title="Delete Image">
+                      <DeleteBtn
+                        onClick={() => {
+                          deleteBlog(item._id);
+                        }}
+                      />
+                    </Tooltip>
+                  </SwiperImgContainer>
                 </SwiperSlide>
               ))}
             </Swiper>
