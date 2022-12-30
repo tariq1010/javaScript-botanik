@@ -13,8 +13,9 @@ export const NavbarWrapper = styled.div`
 
 export const IconContainer = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 60px;
+  gap: 40px;
 
   @media (max-width: 991.98px) {
     flex-direction: column;
@@ -43,5 +44,19 @@ export const BuyNFTbtn = styled.button`
   font-size: 16px;
   line-height: 16px;
   color: #eeefec;
+  border: none;
+`;
+
+export const LogoutBtn = styled.button`
+  background: #d3e5d1;
+  border-radius: 30px;
+  height: 46px;
+  width: 152px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  color: #090a00;
+  display: block;
   border: none;
 `;
