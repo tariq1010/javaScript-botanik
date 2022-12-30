@@ -15,8 +15,6 @@ import {
   NextButton,
   PreviousButton,
   SeeAllBtn,
-  SwiperHeader,
-  SwiperText,
 } from "./element";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -26,11 +24,11 @@ import { useEffect } from "react";
 import { GetSectionTenHook } from "hooks/sectionTenHook";
 import { GetBlogHook } from "hooks/blogHook";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
-import Item from "antd/lib/list/Item";
+
 function LastSection() {
   const navigate = useNavigate();
   const swiperRef = useRef<SwiperCore>();
