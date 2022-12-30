@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { checkAuthRequest } from "store/redux/slices/adminSlices/checkAuthSlice";
 import {
   loginRequest,
+  loginRequestSuccess,
   resetLogin,
 } from "store/redux/slices/adminSlices/loginSlices";
 import {
@@ -19,31 +20,70 @@ import {
   bootanikDataLoading,
   resetBotanikData,
 } from "store/redux/slices/helperSlices/modelSlice";
+import { LoginService } from "services/loginServices";
+import { CommonHook } from "./commonHook";
+import { BrowserUtility } from "utility/browserUtility";
 
-export const LoginHook = () => {
-  const { credentials, result, error, errorMessage } = useAppSelector(
-    (state) => state.login
-  );
+// export const LoginHooks = () => {
+//   const { credentials, result, error, errorMessage } = useAppSelector(
+//     (state) => state.login
+//   );
+//   const dispatch = useAppDispatch();
+//   const navigate = useNavigate();
+
+//   const login = (accounts) => {
+//     const obj={
+//       accounts:accounts
+//     }
+//     dispatch(loginRequest(obj));
+//   };
+
+//   useEffect(() => {
+//     error &&
+//       errorMessage.status === 505 &&
+//       openNotification(
+//         "Error",
+//         "Something went Wrong, please refresh",
+//         "error"
+//       );
+//     result && dispatch(resetLogin()) && navigate("/contract-functions");
+//   }, [error, result]);
+
+//   return {
+//     login,
+//   };
+// };
+
+export const LoginHook= () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const login = () => {
-    dispatch(loginRequest(credentials));
+  const navigate=useNavigate()
+  const { data, setData, setError, loading, setLoading, error } = CommonHook();
+  const login = async (data) => {
+    try {
+      const obj={
+        accounts:data
+      }
+      setLoading(true);
+      const result = await LoginService.login(obj);
+      if(result.response=="success" && result.data){
+        BrowserUtility.save("token",result.data.token)
+        setData(result.data);
+         dispatch(loginRequestSuccess(result.data.token))
+        navigate("/home-content")
+    }
+    } catch (error) {
+      setError(error);
+      setLoading(false)
+    } finally {
+      setLoading(false);
+    }
   };
-
-  useEffect(() => {
-    error &&
-      errorMessage.status === 505 &&
-      openNotification(
-        "Error",
-        "Something went Wrong, please refresh",
-        "error"
-      );
-    result && dispatch(resetLogin()) && navigate("/contract-functions");
-  }, [error, result]);
 
   return {
     login,
+    data,
+    loading,
+    error,
   };
 };
 
@@ -99,6 +139,7 @@ export const OwnerHook = () => {
 
   useEffect(() => {
     if (botanikData) {
+      // const botanikData="0xc549a25685ad0C9361B1Ec2bD29a3316a1371F60"
       let owner = botanikData?.owner?.toLowerCase() === accounts?.toLowerCase();
       dispatch(bootanikDataLoading(false));
       owner && navigate("/contract-functions");

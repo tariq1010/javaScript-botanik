@@ -1,4 +1,4 @@
-import { MainCol, MainContainer, MainRow } from "components/common";
+import { Loader, MainCol, MainContainer, MainRow } from "components/common";
 import {
   ImageWrapper,
   LastSectionWrapper,
@@ -40,12 +40,12 @@ function LastSection() {
   const [sectionTenFile2, setSectionTenFile2] = useState(null);
 
   const { data, loading, getSectionNine } = GetSectionNineHook();
-  const { data: editNine, editSectionNine } = EditSectionNineHook();
-  const { data: sectionTen, getSectionTen } = GetSectionTenHook();
-  const { data: editTen, editSectionTen } = EditSectionTenHook();
+  const { data: editNine, editSectionNine,loading:load } = EditSectionNineHook();
+  const { data: sectionTen, getSectionTen ,loading:load1} = GetSectionTenHook();
+  const { data: editTen, editSectionTen ,loading:load2} = EditSectionTenHook();
 
-  const { data: blogs, getBlog } = GetBlogHook();
-  const { data: added, saveBlog } = SaveBlogHook();
+  const { data: blogs, getBlog,loading:load3 } = GetBlogHook();
+  const { data: added, saveBlog,loading:load4 } = SaveBlogHook();
 
   function handleSectionNine() {
     const obj = {
@@ -107,6 +107,12 @@ function LastSection() {
 
   return (
     <LastSectionWrapper>
+       {loading && <Loader/>}
+      {load && <Loader/>}
+      {load1 && <Loader/>}
+      {load2 && <Loader/>}
+      {load3 && <Loader/>}
+      {load4 && <Loader/>}
       <MainContainer>
         <ImageWrapper>
           <label htmlFor="nine" style={{ width: "100%" }}>

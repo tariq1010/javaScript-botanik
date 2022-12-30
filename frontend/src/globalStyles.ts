@@ -35,7 +35,21 @@ iframe
   right: none !important;
   z-index: -5 !important;
 }
+//  loader
+.cover-spin {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background:rgba(0,0,0,0.8);
  
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
  
  

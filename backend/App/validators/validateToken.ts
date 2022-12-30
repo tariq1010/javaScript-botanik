@@ -4,7 +4,7 @@ const SHA256 = require('crypto-js/sha256');
 const { getToken } = require('../model/blacklistModel')
 
 export const validateToken = async (ctx: any, next: any) => {
-   
+   console.log(ctx.headers.authorization)
     if (
         !ctx.request.headers.authorization ||
         !ctx.request.headers.authorization.startsWith('Bearer') ||
@@ -29,7 +29,7 @@ export const validateToken = async (ctx: any, next: any) => {
             }
         }
         else {
-            return jwt.verify(theToken, JSON.stringify(SHA256(environment.ADMIN_TOKEN).words), (err: any, decoded: any) => {
+            return jwt.verify(theToken, JSON.stringify(SHA256(process.env.ADMIN_TOKEN).words), (err: any, decoded: any) => {
                 if (decoded) {
                     return next();
                 }

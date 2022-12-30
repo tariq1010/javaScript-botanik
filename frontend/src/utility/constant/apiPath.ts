@@ -6,7 +6,7 @@ export const APIPath = {
   moralisServer:'https://nbnob0befkpo.usemoralis.com:2053/server',
 
   //admin
-  login: "login",
+  login: "/login",
   logout: "blacklist-token",
   auth: "auth",
   updatePassword: "update-password",

@@ -1,5 +1,5 @@
 import { Footer, Navbar } from "components";
-import { MainContainer } from "components/common";
+import { Loader, MainContainer } from "components/common";
 import {
   BlogWrapper,
   ImageWrapper,
@@ -22,7 +22,7 @@ import { GetSectionNineHook } from "hooks/sectionNineHook";
 function BlogsCom() {
   const { id } = useParams();
   const [selectBlog, setSelectBlog] = useState();
-  const { data: sectionNine, getSectionNine } = GetSectionNineHook();
+  const { data: sectionNine, getSectionNine,loading:load1 } = GetSectionNineHook();
   const {
     data: blogById,
     getBlogById,
@@ -53,6 +53,10 @@ function BlogsCom() {
 
   return (
     <BlogWrapper>
+      {loading && <Loader/>}
+      {load && <Loader/>}
+      {load1 && <Loader/>}
+     
       <Navbar />
       <MainContainer className="mainContainer">
         <ImageWrapper>

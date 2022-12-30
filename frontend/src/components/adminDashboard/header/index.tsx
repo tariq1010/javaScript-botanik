@@ -1,4 +1,4 @@
-import { MainCol, MainContainer, MainRow } from "components/common";
+import { Loader, MainCol, MainContainer, MainRow } from "components/common";
 import {
   BottomWrapper,
   HeaderWrapper,
@@ -42,14 +42,14 @@ function Header() {
   const sectionThreeParagraph = useRef(null);
 
   const { data, getSectionOne, loading } = GetSectionOneHook();
-  const { data: edited, editSectionOne } = EditSectionOneHook();
-  const { data: editedSectionTwo, editSectionTwo } = EditSectionTwoHook();
-  const { data: editedSectionThree, editSectionThree } = EditSectionThreeHook();
-  const { data: editedSectionFour, editSectionFour } = EditSectionFourHook();
+  const { data: edited, editSectionOne, loading:load } = EditSectionOneHook();
+  const { data: editedSectionTwo, editSectionTwo,loading:load1 } = EditSectionTwoHook();
+  const { data: editedSectionThree, editSectionThree,loading:load2 } = EditSectionThreeHook();
+  const { data: editedSectionFour, editSectionFour,loading:load3 } = EditSectionFourHook();
 
-  const { data: sectionTwo, getSectionTwo } = GetSectionTwoHook();
-  const { data: sectionThree, getSectionThree } = GetSectionThreeHook();
-  const { data: sectionFour, getSectionFour } = GetSectionFourHook();
+  const { data: sectionTwo, getSectionTwo,loading:load4 } = GetSectionTwoHook();
+  const { data: sectionThree, getSectionThree,loading:load5 } = GetSectionThreeHook();
+  const { data: sectionFour, getSectionFour ,loading:load6} = GetSectionFourHook();
 
   function handleSectionOne() {
     editSectionOne(data[0]._id, sectionOneText.current.innerHTML);
@@ -121,6 +121,14 @@ function Header() {
 
   return (
     <HeaderWrapper>
+      {loading && <Loader/>}
+      {load && <Loader/>}
+      {load1 && <Loader/>}
+      {load2 && <Loader/>}
+      {load3 && <Loader/>}
+      {load4 && <Loader/>}
+      {load5 && <Loader/>}
+      {load6 && <Loader/>}
       <MainContainer>
         <ImageWrapper>
           <label htmlFor="sectionOneFile" style={{ width: "100%" }}>

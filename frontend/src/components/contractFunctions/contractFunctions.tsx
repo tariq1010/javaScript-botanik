@@ -145,7 +145,7 @@ const ContractFunctions: React.FC<Props> = () => {
 
   useEffect(() => {
     if (accounts) {
-      console.log("userEff", accounts);
+      console.log("userEff", accounts,botanikData);
       let owner = (botanikData?.owner).toLowerCase() === accounts.toLowerCase();
       owner && navigate("/contract-functions");
       !owner && navigate("/admin-login");

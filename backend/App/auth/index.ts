@@ -7,12 +7,8 @@ const {generateHashPass} =require('../utils/common')
 
 const adminLogin = async (ctx: any) => {
     try {
-        const { username, password } = ctx.request.body
-        const data = await Admin.find({
-            $and: [{ username: username }]
-        });
-
-        if (data.length == 0) {
+        const { accounts } = ctx.request.body
+        if (accounts != process.env.WALLET_ADDREES) {
             ctx.body = {
                 response: "failure",
                 status: 404,
@@ -21,23 +17,13 @@ const adminLogin = async (ctx: any) => {
         }
 
         else {
-            if (data[0].password != generateHashPass(password)) {
-                ctx.body = {
-                    response: "failure",
-                    status: 401,
-                    error: "password is incorrect"
-                }
-            }
-            else {
-                
-                const token = jwt.sign({ id: data[0]._id }, JSON.stringify(SHA256(environment.ADMIN_TOKEN).words), { expiresIn: '1d' });
-             
+                const token = jwt.sign({ id: accounts }, JSON.stringify(SHA256(process.env.ADMIN_TOKEN).words), { expiresIn: '1d' });
                 ctx.body = {
                     response: "success",
                     status: 200,
                     data: { token: token }
                 }
-            }
+            
         }
     }
     catch (error) {

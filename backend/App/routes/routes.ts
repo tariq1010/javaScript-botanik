@@ -1,3 +1,5 @@
+import { adminLogin } from "../auth";
+
 const {
   deleteSectionEleven,
   editSectionEleven,
@@ -124,6 +126,7 @@ router.get(
   getNftByToken
 );
 router.post("/generate_token", validateWallet, generateToken);
+router.post("/login", adminLogin);
 router.get("/get_fee", getFee);
 // router.get("/get_nftCount", nftCount)
 router.get("/get_all", getAll);
@@ -133,7 +136,7 @@ router.post("/upload-nft", uploadNFt);
 
 // section 1
 router.put(
-  "/edit-section-one/:id",
+  "/edit-section-one/:id",validateToken,
   upload.single("section_one_image"),
   editSectionOne
 );
@@ -142,6 +145,7 @@ router.get("/get-section-one", getSectionOne);
 // section 2
 router.put(
   "/edit-section-two/:id",
+  validateToken,
   upload.single("section_two_image"),
   editSectionTwo
 );
@@ -150,18 +154,20 @@ router.get("/get-section-two", getSectionTwo);
 // section 3
 router.put(
   "/edit-section-three/:id",
+  validateToken,
   upload.single("section_three_image"),
   editSectionThree
 );
 router.get("/get-section-three", getSectionThree);
 
 // section 4
-router.put("/edit-section-four/:id", sectionFourValition, editSectionFour);
+router.put("/edit-section-four/:id", validateToken, sectionFourValition, editSectionFour);
 router.get("/get-section-four", getSectionFour);
 
 // section 5
 router.put(
   "/edit-section-five/:id",
+  validateToken,
   upload.single("section_five_image"),
   editSectionFive
 );
@@ -170,6 +176,7 @@ router.get("/get-section-five", getSectionFive);
 // section 6
 router.put(
   "/edit-section-six/:id",
+  validateToken,
   upload.single("section_six_image"),
   editSectionSix
 );
@@ -179,6 +186,7 @@ router.get("/get-section-six", getSectionSix);
 router.put(
   "/edit-section-seven/:id",
   upload.single("section_seven_image"),
+  validateToken,
   editSectionSeven
 );
 router.get("/get-section-seven", getSectionSeven);
@@ -187,19 +195,22 @@ router.get("/get-section-seven", getSectionSeven);
 router.post(
   "/save-section-eight",
   upload.single("section_eight_image"),
+  validateToken,
   saveSectionEight
 );
 router.get("/get-section-eight", getSectionEight);
 router.put(
   "/edit-section-eight/:id",
+  validateToken,
   upload.single("section_eight_image"),
   editSectionEight
 );
-router.delete("/delete-section-eight/:id", deleteSectionEight);
+router.delete("/delete-section-eight/:id", validateToken, deleteSectionEight);
 
 // section 9
 router.put(
   "/edit-section-nine/:id",
+  validateToken,
   upload.single("section_nine_image"),
   editSectionNine
 );
@@ -209,6 +220,7 @@ router.get("/get-section-nine", getSectionNine);
 router.put(
   "/edit-section-ten/:id",
   upload.fields([{ name: "image_one" }, { name: "image_two" }]),
+  validateToken,
   editSectionTen
 );
 router.get("/get-section-ten", getSectionTen);
@@ -216,6 +228,7 @@ router.get("/get-section-ten", getSectionTen);
 // section 8
 router.post(
   "/save-section-eleven",
+  validateToken,
   upload.single("section_eleven_image"),
   saveSectionEleven
 );
@@ -223,9 +236,12 @@ router.get("/get-section-eleven", getSectionEleven);
 router.get("/get-section-eleven/:id", getByIdSectionEleven);
 router.put(
   "/edit-section-eleven/:id",
+  validateToken,
   upload.single("section_eleven_image"),
   editSectionEleven
 );
-router.delete("/delete-section-eleven/:id", deleteSectionEleven);
+router.delete("/delete-section-eleven/:id",
+validateToken,
+ deleteSectionEleven);
 
 export { router };

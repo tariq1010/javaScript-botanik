@@ -18,6 +18,7 @@ import UploadNft from "pages/uploadNft";
 import { updateAccount } from "store/redux/slices/web3ConnectSlice";
 import { Blogs, Home, AdminDashboard } from "./pages";
 import EditBlogsCom from "components/blogsComp/edit";
+import { BrowserUtility } from "utility/browserUtility";
 
 let socket: any;
 const ENDPOINT = env.BACKEND_BASE_URL;
@@ -47,7 +48,11 @@ const App = () => {
         dispatch(setCount(result));
       });
   }, [socket]);
-
+  // const token=BrowserUtility.get("token");
+  const { token, loading, errorMessage, error } = useAppSelector(
+    (state) => state.login
+  );
+ 
   return (
     <div>
       <BrowserRouter>
@@ -64,8 +69,11 @@ const App = () => {
           <Route path="/upload-nft" element={<UploadNft />} />
 
           {/* adminDashboard */}
-          <Route path="/home-content" element={<AdminDashboard />} />
+          {token && 
+           <>
+            <Route path="/home-content" element={<AdminDashboard />} />
           <Route path="/blog-edit/:id" element={<EditBlogsCom />} />
+        </>}
         </Routes>
       </BrowserRouter>
     </div>

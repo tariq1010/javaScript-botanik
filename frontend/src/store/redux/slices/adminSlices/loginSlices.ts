@@ -1,13 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { BrowserUtility } from "utility/browserUtility";
 
 
 export const loginSlice = createSlice({
     name: "login user",
     initialState: {
-        credentials: {
-            username: "",
-            password: ""
-        },
+        token: BrowserUtility.get("token")?BrowserUtility.get("token"):null,
+
+        // credentials: {
+        //     username: "",
+        //     password: ""
+        // },
         loading: false,
         error: false,
         errorMessage: null,
@@ -32,7 +35,7 @@ export const loginSlice = createSlice({
             return {
                 ...state,
                 loading: false,
-                result: action.payload.data
+                token: action.payload
             }
         },
         loginRequestFailure: (state, action) => {
@@ -46,16 +49,14 @@ export const loginSlice = createSlice({
         resetLogin: (state) => {
             return {
                 ...state,
-                credentials: {
-                    username: "",
-                    password: ""
-                },
+                 token:null,
                 loading: false,
                 error: false,
                 errorMessage: null,
                 result: null
             }
         }
+
     }
 });
 

@@ -1,5 +1,5 @@
 import { Footer, Navbar } from "components";
-import { MainContainer } from "components/common";
+import { Loader, MainContainer } from "components/common";
 import {
   BlogWrapper,
   ImageWrapper,
@@ -23,7 +23,7 @@ function EditBlogsCom() {
 
   const [editBlogFile, setEditBlogFile] = useState(null);
   const { data: blogById, getBlogById, loading: load } = GetBlogByIdHook();
-  const { data: edit, editBlog } = EditBlogHook();
+  const { data: edit, editBlog ,loading} = EditBlogHook();
 
   function handleBlog() {
     const obj = {
@@ -49,6 +49,9 @@ function EditBlogsCom() {
 
   return (
     <BlogWrapper>
+      {loading && <Loader/>}
+      {load && <Loader/>}
+     
       <Navbar />
       <MainContainer className="mainContainer">
         <ImageWrapper>

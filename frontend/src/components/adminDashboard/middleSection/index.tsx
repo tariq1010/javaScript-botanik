@@ -1,4 +1,4 @@
-import { MainCol, MainContainer, MainRow } from "components/common";
+import { Loader, MainCol, MainContainer, MainRow } from "components/common";
 import {
   ImageWrapper,
   MainTextContainer,
@@ -48,15 +48,15 @@ function MiddleSection() {
   const swiperRef = useRef<SwiperCore>();
 
   const { data, loading, getSectionFive } = GetSectionFiveHook();
-  const { data: sectionSix, getSectionSix } = GetSectionSixHook();
-  const { data: carousel, getSectionEight } = GetSectionEightHook();
+  const { data: sectionSix, getSectionSix,loading:load } = GetSectionSixHook();
+  const { data: carousel, getSectionEight ,loading:load1} = GetSectionEightHook();
   const { data: sectionSeven, getSectionSeven } = GetSectionSevenHook();
 
-  const { data: editedFive, editSectionFive } = EditSectionFiveHook();
-  const { data: editedSix, editSectionSix } = EditSectionSixHook();
-  const { data: editedSeven, editSectionSeven } = EditSectionSevenHook();
-  const { data: addEight, addSectionEight } = AddSectionEightHook();
-  const { data: editedEight, editSectionEight } = EditSectionEightHook();
+  const { data: editedFive, editSectionFive,loading:load2 } = EditSectionFiveHook();
+  const { data: editedSix, editSectionSix ,loading:load3} = EditSectionSixHook();
+  const { data: editedSeven, editSectionSeven,loading:load4 } = EditSectionSevenHook();
+  const { data: addEight, addSectionEight,loading:load5 } = AddSectionEightHook();
+  const { data: editedEight, editSectionEight,loading:load6 } = EditSectionEightHook();
 
   function handleSectionFive() {
     editSectionFive(data[0]._id, sectionFiveText.current.innerHTML);
@@ -122,6 +122,14 @@ function MiddleSection() {
 
   return (
     <MiddleSectionWrapper>
+      {loading && <Loader/>}
+      {load && <Loader/>}
+      {load1 && <Loader/>}
+      {load2 && <Loader/>}
+      {load3 && <Loader/>}
+      {load4 && <Loader/>}
+      {load5 && <Loader/>}
+      {load6 && <Loader/>}
       <MainContainer>
         <ImageWrapper>
           <label htmlFor="five" style={{ width: "100%" }}>
