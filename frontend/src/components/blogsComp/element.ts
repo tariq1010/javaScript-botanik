@@ -26,18 +26,14 @@ export const ImageWrapper = styled.div`
 `;
 export const EditImageWrapper = styled.div`
   position: relative;
-  height: 270px;
-  width: 400px;
-  display: block;
-  margin: 0 auto;
+
   &:hover {
     opacity: 0.4;
   }
+
   .img-fluid {
-    height: 270px;
-    width: 400px;
-    display: block;
-    margin: 0 auto;
+    height: 630px;
+    width: 100%;
     cursor: pointer;
 
     @media (max-width: 991.98px) {

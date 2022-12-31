@@ -1,9 +1,4 @@
-import {
-  NavbarWrapper,
-  IconContainer,
-  BuyNFTbtn,
-  LogoutBtn,
-} from "./element";
+import { NavbarWrapper, IconContainer, BuyNFTbtn, LogoutBtn } from "./element";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Loader, MainContainer } from "components/common";
@@ -11,9 +6,9 @@ import { Link } from "react-router-dom";
 import mainlogo from "../../assets/images/mainlogo.png";
 import { LogoutHook } from "hooks/adminhooks";
 
-
 function NavbarCom() {
-  const { logout,loading } = LogoutHook();
+  const { logout, loading } = LogoutHook();
+
   return (
     <NavbarWrapper>
       {loading && <Loader />}
@@ -29,13 +24,18 @@ function NavbarCom() {
             <Nav className="me-auto"></Nav>
             <IconContainer>
               <BuyNFTbtn>Buy Tapera Jungle NFT</BuyNFTbtn>
-              <LogoutBtn
-                onClick={() => {
-                  logout();
-                }}
-              >
-                Logout
-              </LogoutBtn>
+
+              {window.location.pathname === "/" ? (
+                ""
+              ) : (
+                <LogoutBtn
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Logout
+                </LogoutBtn>
+              )}
             </IconContainer>
           </Navbar.Collapse>
         </MainContainer>
