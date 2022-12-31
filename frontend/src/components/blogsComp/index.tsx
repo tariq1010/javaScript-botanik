@@ -17,7 +17,7 @@ import { GetBlogByIdHook, GetBlogHook } from "hooks/blogHook";
 import { useEffect } from "react";
 
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GetSectionNineHook } from "hooks/sectionNineHook";
 function BlogsCom() {
   const { id } = useParams();
@@ -54,6 +54,7 @@ function BlogsCom() {
       window.scroll(0, 0);
     }
   }, [selectBlog]);
+  const navigate = useNavigate()
 
   return (
     <BlogWrapper>
@@ -95,7 +96,7 @@ function BlogsCom() {
                 dangerouslySetInnerHTML={{ __html: sectionNine[0]?.paragraph }}
               />
             )}
-            <BuyBtn>Buy Tapera Jungle NFT</BuyBtn>
+            <BuyBtn onClick={() => navigate("/mint-nft")}>Buy Tapera Jungle NFT</BuyBtn>
           </TextContainer>
         </ImageContainer>
       </MainContainer>

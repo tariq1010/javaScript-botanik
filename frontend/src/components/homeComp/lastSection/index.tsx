@@ -59,7 +59,7 @@ function LastSection() {
                 dangerouslySetInnerHTML={{ __html: data[0]?.paragraph }}
               />
             )}
-            <BuyBtn>Buy Tapera Jungle NFT</BuyBtn>
+            <BuyBtn onClick={() => navigate("/mint-nft")}>Buy Tapera Jungle NFT</BuyBtn>
           </TextContainer>
         </ImageWrapper>
         <Wrapper>

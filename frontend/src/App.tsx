@@ -42,14 +42,14 @@ const App = () => {
             element={token ? <AdminDashboard /> : <AdminLogin />}
           />
           <Route path="/blogs/:id" element={<Blogs />} />
-          <Route path="/minting-nft" element={<Minting />} />
+          <Route path="/mint-nft" element={<Minting />} />
           <Route path="/minted" element={<MintedNfts />} />
           <Route path="/*" element={<Error404 />} />
           <Route path="/contract-functions" element={<ContractFunctions />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/upload-nft" element={<UploadNft />} />
           <Route
-            path="/blog-edit/:id"
+            path="/edit-blog/:id"
             element={token ? <EditBlogsCom /> : <AdminLogin />}
           />
         </Routes>

@@ -86,7 +86,7 @@ function LastSection() {
 
   useEffect(() => {
     if (added) {
-      navigate("/blog-edit/" + added._id);
+      navigate("/edit-blog/" + added._id);
     }
   }, [added]);
 
@@ -171,7 +171,7 @@ function LastSection() {
                 dangerouslySetInnerHTML={{ __html: data[0]?.paragraph }}
               />
             )}
-            <BuyBtn>Buy Tapera Jungle NFT</BuyBtn>
+            <BuyBtn onClick={() => navigate("/mint-nft")}>Buy Tapera Jungle NFT</BuyBtn>
           </TextContainer>
         </ImageWrapper>
         <Wrapper>
@@ -285,7 +285,7 @@ function LastSection() {
                 <SwiperSlide>
                   <SwiperImgContainer>
                     <img
-                      onClick={() => navigate("/blog-edit/" + item._id)}
+                      onClick={() => navigate("/edit-blog/" + item._id)}
                       key={item._id}
                       className="img-fluid swiperImg"
                       src={item.image}
