@@ -69,11 +69,11 @@ const App = () => {
           <Route path="/upload-nft" element={<UploadNft />} />
           <Route
             path="/home-content"
-            element={token ? <AdminDashboard /> : <AdminLogin />}
+            element={<AdminDashboard />}
           />
           <Route
             path="/blog-edit/:id"
-            element={token ? <EditBlogsCom /> : <AdminLogin />}
+            element={<EditBlogsCom />}
           />
         </Routes>
       </BrowserRouter>

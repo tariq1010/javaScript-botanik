@@ -69,6 +69,8 @@ export const LoginHook = () => {
         BrowserUtility.save("token", result.data.token);
         setData(result.data);
         dispatch(loginRequestSuccess(result.data.token));
+        dispatch(bootanikDataLoading(data));
+        
         navigate("/contract-functions");
       }
     } catch (error) {
