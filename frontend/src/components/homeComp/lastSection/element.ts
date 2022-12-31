@@ -228,6 +228,7 @@ export const SwiperContainer = styled.div`
   .swiperImg {
     height: 263px;
     width: 100%;
+    cursor: pointer;
   }
 
   .swiper-button-next {

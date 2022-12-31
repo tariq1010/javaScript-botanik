@@ -43,14 +43,10 @@ export const PostHeader = styled.h2`
   line-height: 46px;
   text-transform: uppercase;
   color: #090a00;
-  text-align: start;
+  text-align: center;
   text-align-last: center;
   font-family: "Gotham", sans-serif !important;
-  width: 70%;
-
-  display: block;
-  margin-left: auto;
-  margin-right: 60px;
+  width: 100%;
 
   @media (max-width: 1199.98px) {
     width: 100%;
@@ -75,11 +71,10 @@ export const PostTextFirst = styled.p`
   margin-top: 20px;
   display: block;
   margin-left: auto;
-  width: 70%;
-  transform: translateX(140px);
+  margin-right: auto;
+  width: 80%;
 
   @media (max-width: 1199.98px) {
-    transform: translateX(0px);
     width: 100%;
     margin-left: 0;
   }
