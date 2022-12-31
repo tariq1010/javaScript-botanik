@@ -63,9 +63,9 @@ export const LoginHook = () => {
       const obj = {
         accounts: data,
       };
-      const ab = {
-        owner: data,
-      };
+      const ab={
+        owner:data
+      }
       setLoading(true);
       const result = await LoginService.login(obj);
       if (result.response == "success" && result.data) {
@@ -77,7 +77,11 @@ export const LoginHook = () => {
     } catch (error) {
       setError(error);
       setLoading(false);
-    } finally {
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+
+     } finally {
       setLoading(false);
     }
   };
@@ -109,12 +113,36 @@ export const CheckAuthHook = () => {
   };
 };
 
+export const LogoutHook = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const logout = async () => {
+    const result = await LoginService.logout();
+    console.log(result,"result")
+    if (result.data) {
+      dispatch(logoutWallet());
+      dispatch(resetBotanikData());
+      BrowserUtility.remove("token");
+      dispatch(resetLogin());
+      navigate("/admin-login");
+    }
+  };
+
+
+  return {
+    logout,
+ 
+  };
+};
+
+
 // export const LogoutHook = () => {
-//   let loading=false;
-//   const navigate = useNavigate();
 //   const dispatch = useAppDispatch();
+//   const navigate = useNavigate();
+//   const { setError, loading, setLoading } = CommonHook();
 //   const logout = async () => {
-//     loading=true
+//     try{
+//      setLoading(true)
 //     const result = await LoginService.logout();
 //     if (result.data) {
 //       dispatch(logoutWallet());
@@ -122,54 +150,33 @@ export const CheckAuthHook = () => {
 //       BrowserUtility.remove("token");
 //       dispatch(resetLogin());
 //       navigate("/admin-login");
-//       loading=false
+//      setLoading(false)
 //     }
-//   };
-//   loading=false
-
+//   }catch (error) {
+//     setError(error);
+//     setLoading(false)
+//   } finally {
+//     setLoading(false);
+//   }
+// }
 //   return {
 //     logout,
 //     loading
 //   };
-// };
+// }
 
-export const LogoutHook = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { setError, loading, setLoading } = CommonHook();
-  const logout = async () => {
-    try {
-      setLoading(true);
-      const result = await LoginService.logout();
-      if (result.data) {
-        dispatch(logoutWallet());
-        dispatch(resetBotanikData());
-        BrowserUtility.remove("token");
-        dispatch(resetLogin());
-        navigate("/admin-login");
-        setLoading(false);
-      }
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  };
-  return {
-    logout,
-    loading,
-  };
-};
+
+
+
 
 export const OwnerHook = () => {
-  const { web3, userBalance, contract, accounts } = useAppSelector(
+  const { web3,  accounts } = useAppSelector(
     (state) => state.web3Connect
   );
 
   const navigate = useNavigate();
 
-  const { botanikData, botanikLoader } = useAppSelector((state) => state.model);
+  const { botanikData } = useAppSelector((state) => state.model);
 
   const [loader, setLoader] = useState(false);
   const [owner, setOwner] = useState(false);
@@ -183,7 +190,7 @@ export const OwnerHook = () => {
 
   useEffect(() => {
     if (botanikData) {
-      // const botanikData="0xc549a25685ad0C9361B1Ec2bD29a3316a1371F60"
+     
       let owner = botanikData?.owner?.toLowerCase() === accounts?.toLowerCase();
       dispatch(bootanikDataLoading(false));
       owner && navigate("/contract-functions");
@@ -194,7 +201,7 @@ export const OwnerHook = () => {
   }, [botanikData]);
 
   useEffect(() => {
-    if (owner) {
+    if (owner && web3) {
       setTimeout(() => {
         alert("You are not Owner!");
         window.location.reload();

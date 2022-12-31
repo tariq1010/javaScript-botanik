@@ -14,10 +14,10 @@ import { LogoutHook } from "hooks/adminhooks";
 
 
 function NavbarCom() {
-  const { logout, loading } = LogoutHook();
+  const { logout } = LogoutHook();
   return (
     <NavbarWrapper>
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
         <MainContainer>
           <Navbar.Brand>
