@@ -64,7 +64,7 @@ const App = () => {
             path="/home-content"
             element={token?<AdminDashboard /> :<AdminLogin />}
           />
-          <Route path="/blogs/:id" element={token? <Blogs /> :<AdminLogin />} />
+          <Route path="/blogs/:id" element={<Blogs/>} />
           <Route path="/minting-nft" element={<Minting />} />
           <Route path="/minted" element={<MintedNfts />} />
           <Route path="/*" element={<Error404 />} />
@@ -73,7 +73,7 @@ const App = () => {
           <Route path="/upload-nft" element={<UploadNft />} />
           <Route
             path="/blog-edit/:id"
-            element={<EditBlogsCom />}
+            element={token?<EditBlogsCom/>:<AdminLogin />}
           />
         </Routes>
       </BrowserRouter>
