@@ -1,23 +1,22 @@
 import {
   NavbarWrapper,
   IconContainer,
-  BlogBtn,
   BuyNFTbtn,
   LogoutBtn,
 } from "./element";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Loader, MainCol, MainContainer } from "components/common";
+import { Loader, MainContainer } from "components/common";
 import { Link } from "react-router-dom";
 import mainlogo from "../../assets/images/mainlogo.png";
 import { LogoutHook } from "hooks/adminhooks";
 
 
 function NavbarCom() {
-  const { logout } = LogoutHook();
+  const { logout,loading } = LogoutHook();
   return (
     <NavbarWrapper>
-      {/* {loading && <Loader />} */}
+      {loading && <Loader />}
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
         <MainContainer>
           <Navbar.Brand>

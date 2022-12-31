@@ -1,21 +1,13 @@
-import { openNotification } from "components/common";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { checkAuthRequest } from "store/redux/slices/adminSlices/checkAuthSlice";
 import {
-  loginRequest,
   loginRequestSuccess,
   resetLogin,
 } from "store/redux/slices/adminSlices/loginSlices";
-import {
-  logoutRequest,
-  resetLogout,
-} from "store/redux/slices/adminSlices/logoutSlice";
 import { logoutWallet } from "store/redux/slices/web3ConnectSlice";
 import { btkData } from "store/redux/slices/helperSlices/modelSlice";
-
 import { useAppDispatch, useAppSelector } from "store/store";
-
 import {
   bootanikDataLoading,
   resetBotanikData,
@@ -23,36 +15,6 @@ import {
 import { LoginService } from "services/loginServices";
 import { CommonHook } from "./commonHook";
 import { BrowserUtility } from "utility/browserUtility";
-
-// export const LoginHooks = () => {
-//   const { credentials, result, error, errorMessage } = useAppSelector(
-//     (state) => state.login
-//   );
-//   const dispatch = useAppDispatch();
-//   const navigate = useNavigate();
-
-//   const login = (accounts) => {
-//     const obj={
-//       accounts:accounts
-//     }
-//     dispatch(loginRequest(obj));
-//   };
-
-//   useEffect(() => {
-//     error &&
-//       errorMessage.status === 505 &&
-//       openNotification(
-//         "Error",
-//         "Something went Wrong, please refresh",
-//         "error"
-//       );
-//     result && dispatch(resetLogin()) && navigate("/contract-functions");
-//   }, [error, result]);
-
-//   return {
-//     login,
-//   };
-// };
 
 export const LoginHook = () => {
   const dispatch = useAppDispatch();
@@ -62,10 +24,7 @@ export const LoginHook = () => {
     try {
       const obj = {
         accounts: data,
-      };
-      const ab={
-        owner:data
-      }
+      }; 
       setLoading(true);
       const result = await LoginService.login(obj);
       if (result.response == "success" && result.data) {
@@ -80,8 +39,7 @@ export const LoginHook = () => {
       setTimeout(() => {
         window.location.reload();
       }, 2000);
-
-     } finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -114,65 +72,36 @@ export const CheckAuthHook = () => {
 };
 
 export const LogoutHook = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { setError, loading, setLoading } = CommonHook();
   const logout = async () => {
-    const result = await LoginService.logout();
-    console.log(result,"result")
-    if (result.data) {
-      dispatch(logoutWallet());
-      dispatch(resetBotanikData());
-      BrowserUtility.remove("token");
-      dispatch(resetLogin());
-      navigate("/admin-login");
+    try {
+      setLoading(true);
+      const result = await LoginService.logout();
+      if (result.data) {
+        dispatch(logoutWallet());
+        dispatch(resetBotanikData());
+        BrowserUtility.remove("token");
+        dispatch(resetLogin());
+        navigate("/admin-login");
+        setLoading(false);
+      }
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
-
-
   return {
     logout,
- 
+    loading,
   };
 };
 
-
-// export const LogoutHook = () => {
-//   const dispatch = useAppDispatch();
-//   const navigate = useNavigate();
-//   const { setError, loading, setLoading } = CommonHook();
-//   const logout = async () => {
-//     try{
-//      setLoading(true)
-//     const result = await LoginService.logout();
-//     if (result.data) {
-//       dispatch(logoutWallet());
-//       dispatch(resetBotanikData());
-//       BrowserUtility.remove("token");
-//       dispatch(resetLogin());
-//       navigate("/admin-login");
-//      setLoading(false)
-//     }
-//   }catch (error) {
-//     setError(error);
-//     setLoading(false)
-//   } finally {
-//     setLoading(false);
-//   }
-// }
-//   return {
-//     logout,
-//     loading
-//   };
-// }
-
-
-
-
-
 export const OwnerHook = () => {
-  const { web3,  accounts } = useAppSelector(
-    (state) => state.web3Connect
-  );
+  const { web3, accounts } = useAppSelector((state) => state.web3Connect);
 
   const navigate = useNavigate();
 
@@ -190,7 +119,6 @@ export const OwnerHook = () => {
 
   useEffect(() => {
     if (botanikData) {
-     
       let owner = botanikData?.owner?.toLowerCase() === accounts?.toLowerCase();
       dispatch(bootanikDataLoading(false));
       owner && navigate("/contract-functions");

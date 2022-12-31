@@ -57,6 +57,7 @@ const modelSlice = createSlice({
     },
     resetBotanikData: (state) => {
       state.botanikData = null;
+      state.botanikLoader = false;
     },
   },
   extraReducers: {

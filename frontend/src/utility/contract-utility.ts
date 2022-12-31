@@ -1,5 +1,3 @@
-//import { CommonConstant, Protocols } from "utility";
-
 import { CommonConstant, Protocols } from "./constant/common";
 
 export class ContractUtility {
@@ -149,7 +147,7 @@ export class ContractUtility {
       case "mumbai":
         return "Polygon Mumbai";
       case "avax":
-          return "Avalanche";  
+        return "Avalanche";
       default:
         return "";
     }
@@ -191,7 +189,7 @@ export class ContractUtility {
       case "polygon":
         return "https://polygonscan.com";
       case "avax":
-          return "https://snowtrace.io/";
+        return "https://snowtrace.io/";
       default:
         return "";
     }
@@ -499,7 +497,6 @@ export class ContractUtility {
       name: "Ethereum",
       value: "ethereum",
     },
-
   ];
 
   static marketplacePaymentList = (chainId) => {
@@ -542,14 +539,12 @@ export class ContractUtility {
 
   static checkIntegerSign(value) {
     let x = Math.sign(value);
-    if(x == 1) {
-      return true
-    }
-    else if (x == -1) {
-      return false
-    }
-    else {
-      return false
+    if (x == 1) {
+      return true;
+    } else if (x == -1) {
+      return false;
+    } else {
+      return false;
     }
   }
 }

@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import deme from "../../assets/images/deme.png";
+import p from "../../assets/images/p1.png";
 
 function EditBlogsCom() {
   const content = useRef(null);
@@ -60,7 +61,7 @@ function EditBlogsCom() {
           <label htmlFor="blog2" style={{ width: "100%" }}>
             <img
               className="img-fluid"
-              src={blogById?.image ? blogById?.image : deme}
+              src={blogById?.image ? blogById?.image : p}
             />
             <UploadImagedDiv>
               <UploadImage />
