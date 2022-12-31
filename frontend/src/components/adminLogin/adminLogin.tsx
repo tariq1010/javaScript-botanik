@@ -23,8 +23,6 @@ const AdminLogin = () => {
   const { botanikLoader } = useAppSelector((state) => state.model);
   const [connectModel, setConnectModel] = useState(false);
 
-  // custom hooks
-console.log(accounts,"accounts")
   useEffect(() => {
     if (web3 && accounts) {
       login(accounts);
