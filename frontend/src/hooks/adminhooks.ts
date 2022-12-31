@@ -54,26 +54,26 @@ import { BrowserUtility } from "utility/browserUtility";
 //   };
 // };
 
-export const LoginHook= () => {
+export const LoginHook = () => {
   const dispatch = useAppDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { data, setData, setError, loading, setLoading, error } = CommonHook();
   const login = async (data) => {
     try {
-      const obj={
-        accounts:data
-      }
+      const obj = {
+        accounts: data,
+      };
       setLoading(true);
       const result = await LoginService.login(obj);
-      if(result.response=="success" && result.data){
-        BrowserUtility.save("token",result.data.token)
+      if (result.response == "success" && result.data) {
+        BrowserUtility.save("token", result.data.token);
         setData(result.data);
-         dispatch(loginRequestSuccess(result.data.token))
-        navigate("/home-content")
-    }
+        dispatch(loginRequestSuccess(result.data.token));
+        navigate("/contract-functions");
+      }
     } catch (error) {
       setError(error);
-      setLoading(false)
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -107,18 +107,17 @@ export const CheckAuthHook = () => {
 };
 
 export const LogoutHook = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const logout = async() => {
-    const result=await LoginService.logout()
-    if(result.data){
+  const logout = async () => {
+    const result = await LoginService.logout();
+    if (result.data) {
       dispatch(logoutWallet());
       dispatch(resetBotanikData());
-      BrowserUtility.remove("token")
-      dispatch(resetLogin())
-      navigate("/admin-login")
+      BrowserUtility.remove("token");
+      dispatch(resetLogin());
+      navigate("/admin-login");
     }
-    
   };
 
   return {
