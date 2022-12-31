@@ -6,7 +6,7 @@ export const loginSlice = createSlice({
     name: "login user",
     initialState: {
         token: BrowserUtility.get("token")?BrowserUtility.get("token"):null,
-
+        token_temp:null,
         // credentials: {
         //     username: "",
         //     password: ""
@@ -35,7 +35,8 @@ export const loginSlice = createSlice({
             return {
                 ...state,
                 loading: false,
-                token: action.payload
+                token: action.payload,
+                token_temp: action.payload
             }
         },
         loginRequestFailure: (state, action) => {

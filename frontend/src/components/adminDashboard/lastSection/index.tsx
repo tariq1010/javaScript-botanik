@@ -250,7 +250,7 @@ function LastSection() {
                 saveBlog(data);
               }}
             >
-              Add Carousel Image
+              Add Blogs
             </AddCarouselImages>
 
             <Swiper

@@ -10,6 +10,7 @@ import img from "../../assets/images/bgimage.jpeg";
 import { FaUpload } from "react-icons/fa";
 import samplejson from "../../assets/sample.json";
 import MainNavbar from "components/navbar";
+import { LogoutHook } from "hooks/adminhooks";
 const UploadSection = styled.div`
   background-image: url(${img});
   -webkit-background-size: cover;
@@ -87,6 +88,7 @@ const UploadNft = () => {
     };
   };
   const { botanikData } = useAppSelector((state) => state.model);
+  const { token_temp } = useAppSelector((state) => state.login);
 
   useEffect(() => {
     if (files) {
@@ -107,15 +109,22 @@ const UploadNft = () => {
     hiddenFileInput.current.click();
   };
 
-  useEffect(() => {
-    //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if (accounts && botanikData?.owner) {
-      (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
-        navigate("/upload-nft");
-    } else {
-      navigate("/admin-login");
+  // useEffect(() => {
+  //   //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
+  //   if (accounts && botanikData?.owner) {
+  //     (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
+  //       navigate("/upload-nft");
+  //   } else {
+  //     navigate("/admin-login");
+  //   }
+  // }, [accounts, botanikData]);
+
+  const {logout}=LogoutHook()
+  useEffect(()=>{
+    if(!token_temp){
+      logout()
     }
-  }, [accounts, botanikData]);
+  },[])
 
   return (
     <>

@@ -59,20 +59,18 @@ const App = () => {
         <GlobalStyle />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/blogs/:id" element={<Blogs />} />
-          <Route path="/minting-nft" element={<Minting />} />
-   
-          <Route path="/minted" element={<MintedNfts />} />
           <Route path="/admin-login" element={<AdminLogin />} />
+          <Route
+            path="/home-content"
+            element={token?<AdminDashboard /> :<AdminLogin />}
+          />
+          <Route path="/blogs/:id" element={token? <Blogs /> :<AdminLogin />} />
+          <Route path="/minting-nft" element={<Minting />} />
+          <Route path="/minted" element={<MintedNfts />} />
           <Route path="/*" element={<Error404 />} />
           <Route path="/contract-functions" element={<ContractFunctions />} />
           <Route path="/collection" element={<Collection />} />
-
           <Route path="/upload-nft" element={<UploadNft />} />
-          <Route
-            path="/home-content"
-            element={<AdminDashboard />}
-          />
           <Route
             path="/blog-edit/:id"
             element={<EditBlogsCom />}

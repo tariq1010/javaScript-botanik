@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { GetSectionNineHook } from "hooks/sectionNineHook";
+import { LogoutHook } from "hooks/adminhooks";
 function BlogsCom() {
   const { id } = useParams();
   const [selectBlog, setSelectBlog] = useState();
@@ -50,6 +51,10 @@ function BlogsCom() {
       window.scroll(0, 0);
     }
   }, [selectBlog]);
+
+
+  
+
 
   return (
     <BlogWrapper>

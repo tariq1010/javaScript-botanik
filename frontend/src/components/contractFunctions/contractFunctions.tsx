@@ -13,7 +13,7 @@ import SimpleBackdrop from "components/backdrop/backdrop";
 import MainNavbar from "components/navbar";
 import { GetMintStatusHook, PhaseCountHook } from "hooks/web3Hooks";
 import { getFeeRequest } from "store/redux/slices/getFeeSlice";
-import { CheckAuthHook } from "hooks/adminhooks";
+import { CheckAuthHook, LogoutHook } from "hooks/adminhooks";
 import { BotanikService } from "web3Functions/botanik";
 
 toast.configure();
@@ -25,7 +25,7 @@ const ContractFunctions: React.FC<Props> = () => {
   //declarations
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const token = localStorage.getItem("access_token");
+  // const token = localStorage.getItem("access_token");
 
   //useAppSelector
   const { web3, accounts } = useAppSelector((state) => state.web3Connect);
@@ -42,6 +42,9 @@ const ContractFunctions: React.FC<Props> = () => {
   const { statusLoading } = GetMintStatusHook();
   const { loading: authLoading, error, auth } = CheckAuthHook();
   const { botanikData } = useAppSelector((state) => state.model);
+  const { token_temp, } = useAppSelector(
+    (state) => state.login
+  );
   //component functions
   const transferOwnerShipModel = () => {
     setTransferModel(true);
@@ -143,17 +146,14 @@ const ContractFunctions: React.FC<Props> = () => {
     dispatch(getFeeRequest());
   }, []);
 
-  useEffect(() => {
-    if (accounts) {
-      console.log("userEff",botanikData?.owner);
-      let owner = (botanikData?.owner).toLowerCase() === accounts.toLowerCase();
-      owner && navigate("/contract-functions");
-      !owner && navigate("/admin-login");
+
+  const {logout}=LogoutHook()
+  useEffect(()=>{
+    if(!token_temp){
+      logout()
     }
-    if (!web3) {
-      navigate("/admin-login");
-    }
-  }, [accounts]);
+
+  },[])
 
   return (
     <>
