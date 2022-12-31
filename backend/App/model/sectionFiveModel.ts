@@ -3,8 +3,6 @@ const fs=require("fs")
 
 const EditSectionFive = async (id: any, obj: any) => {
   try {
-    console.log("oj",obj)
-
     if(obj.image_path){
       const previous_data=await SectionFive.findById({_id:id})
       const url =String(process.env.BACKEND_URL)

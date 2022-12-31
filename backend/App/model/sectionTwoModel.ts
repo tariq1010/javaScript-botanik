@@ -22,8 +22,6 @@ const EditSectionTwo = async (id:any,obj:any) => {
         paragraph_two: obj.paragraph_two,
         image: obj.image_path,
     };
-    // const data =await SectionTwo.create(update)
-
     const data = await SectionTwo.findByIdAndUpdate({ _id: id }, update, {
       new: true,
     });
