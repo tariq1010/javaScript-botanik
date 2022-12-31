@@ -322,27 +322,18 @@ function MiddleSection() {
           >
             {carousel?.map((item) => (
               <SwiperSlide>
-                <label htmlFor="editEight" style={{ width: "100%" }}>
                   <SwiperImgContainer>
+                  <label htmlFor="editEight" style={{ width: "100%" }}>
                     <img
                       onClick={() => {
                         setEightId(item._id);
                       }}
-                      // onMouseOver={()=>setShow(true)}
                       onMouseOut={() => setShow(false)}
                       key={item._id}
                       className="img-fluid swiperImg"
                       src={item.image}
                     />
-                    <Tooltip title="Delete Image">
-                      <DeleteBtn
-                        onClick={() => {
-                          deleteSectionEight(item._id);
-                        }}
-                      />
-                    </Tooltip>
-                  </SwiperImgContainer>
-                </label>
+                      </label>
                 <input
                   type="file"
                   style={{ display: "none" }}
@@ -350,6 +341,15 @@ function MiddleSection() {
                   id="editEight"
                   onChange={(e) => setEditEightFile(e.target.files[0])}
                 />
+                    <Tooltip title="Delete Image">
+                      <DeleteBtn
+                        onClick={() => {
+                          deleteSectionEight(item._id,getSectionEight);
+                        }}
+                      />
+                    </Tooltip>
+                  </SwiperImgContainer>
+              
               </SwiperSlide>
             ))}
           </Swiper>

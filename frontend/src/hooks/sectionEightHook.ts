@@ -87,12 +87,15 @@ export const GetSectionEightHook = () => {
 
   export const DeleteSectionEightHook = () => {
     const { data, setData, setError, loading, setLoading, error } = CommonHook();
-    const deleteSectionEight= async (id) => {
+    const deleteSectionEight= async (id,getSectionEight) => {
       try {
         setData(null)
         setLoading(true);
         const result = await SectionsService.deleteSectionEight(id);
+        if(result.response=="success"){
           setData(result.data);
+          getSectionEight()
+        }
       } catch (error) {
         setError(error);
         setLoading(false)

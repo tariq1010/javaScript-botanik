@@ -89,7 +89,7 @@ function EditBlogsCom() {
                 />
               )}
             </div>
-            <div></div>
+            {/* <div></div> */}
           </div>
         </PostContainer>
       </MainContainer>

@@ -135,6 +135,7 @@ router.get("/updated-route", getUpdatedCount);
 router.post("/upload-nft", uploadNFt);
 router.get("/blacklist-token",addBlacklistToken)
 // section 1
+
 router.put(
   "/edit-section-one/:id",validateToken,
   upload.single("section_one_image"),

@@ -106,11 +106,12 @@ export const GetBlogHook = () => {
 
   export const DeletelogHook = () => {
     const { data, setData, setError, loading, setLoading, error } = CommonHook();
-    const deleteBlog = async (id) => {
+    const deleteBlog = async (id,getBlog) => {
       try {
         setLoading(true);
         const result = await BlogSectionService.deleteBlog(id);
         if(result.response=="success" && result.data){
+          getBlog()
           setData(result.data);
       }
       } catch (error) {

@@ -125,7 +125,7 @@ function LastSection() {
 
   useEffect(() => {
     getBlog();
-  }, [added, deleted]);
+  }, [added]);
 
   return (
     <LastSectionWrapper>
@@ -244,7 +244,7 @@ function LastSection() {
               onClick={() => {
                 const data = {
                   heading: "deme headings",
-                  content: "deme content",
+                  content: "this is deme contents",
                   image_path: "",
                 };
                 saveBlog(data);
@@ -293,7 +293,7 @@ function LastSection() {
                     <Tooltip title="Delete Image">
                       <DeleteBtn
                         onClick={() => {
-                          deleteBlog(item._id);
+                          deleteBlog(item._id,getBlog);
                         }}
                       />
                     </Tooltip>

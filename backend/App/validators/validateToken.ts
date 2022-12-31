@@ -4,7 +4,6 @@ const SHA256 = require('crypto-js/sha256');
 const { getToken } = require('../model/blacklistModel')
 
 export const validateToken = async (ctx: any, next: any) => {
-   console.log(ctx.headers.authorization)
     if (
         !ctx.request.headers.authorization ||
         !ctx.request.headers.authorization.startsWith('Bearer') ||
