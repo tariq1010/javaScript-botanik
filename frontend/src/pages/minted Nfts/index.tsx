@@ -26,17 +26,17 @@ const MintedNfts = () => {
 
   const [isOwner, setIsOwner] = useState(false);
 
-  const { botanikData } = useAppSelector((state) => state.model);
+  const { botanikLoader } = useAppSelector((state) => state.model);
   console.log("owner", isOwner, accounts);
   useEffect(() => {
     //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if (accounts && botanikData?.owner) {
-      (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
+    if (accounts && botanikLoader) {
+      String(botanikLoader).toLowerCase() === accounts.toLowerCase() &&
         navigate("/minted");
     } else {
       navigate("/admin-login");
     }
-  }, [accounts, botanikData]);
+  }, [accounts, botanikLoader]);
 
   return (
     <MintedNftWrapper>

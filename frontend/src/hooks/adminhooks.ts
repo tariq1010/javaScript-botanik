@@ -70,7 +70,6 @@ export const LoginHook = () => {
         setData(result.data);
         dispatch(loginRequestSuccess(result.data.token));
         dispatch(bootanikDataLoading(data));
-        
         navigate("/contract-functions");
       }
     } catch (error) {

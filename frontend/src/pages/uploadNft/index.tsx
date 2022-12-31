@@ -86,7 +86,7 @@ const UploadNft = () => {
       }
     };
   };
-  const { botanikData } = useAppSelector((state) => state.model);
+  const { botanikData,botanikLoader } = useAppSelector((state) => state.model);
 
   useEffect(() => {
     if (files) {
@@ -109,13 +109,13 @@ const UploadNft = () => {
 
   useEffect(() => {
     //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if (accounts && botanikData?.owner) {
-      (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
+    if (accounts && botanikLoader) {
+      String(botanikLoader).toLowerCase() === accounts.toLowerCase() &&
         navigate("/upload-nft");
     } else {
       navigate("/admin-login");
     }
-  }, [accounts, botanikData]);
+  }, [accounts, botanikLoader]);
 
   return (
     <>
