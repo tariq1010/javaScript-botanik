@@ -21,9 +21,7 @@ function MainFooter() {
           </MainCol>
           <MainCol lg={6}>
             <LinksWrapper>
-              <Link to="/blogs">
-                <Links>Blog</Links>
-              </Link>
+              <Links>Blog</Links>
               <Link to="/">
                 <Links>Home</Links>
               </Link>
