@@ -23,7 +23,11 @@ import { LogoutHook } from "hooks/adminhooks";
 function BlogsCom() {
   const { id } = useParams();
   const [selectBlog, setSelectBlog] = useState();
-  const { data: sectionNine, getSectionNine,loading:load1 } = GetSectionNineHook();
+  const {
+    data: sectionNine,
+    getSectionNine,
+    loading: load1,
+  } = GetSectionNineHook();
   const {
     data: blogById,
     getBlogById,
@@ -58,10 +62,10 @@ function BlogsCom() {
 
   return (
     <BlogWrapper>
-      {loading && <Loader/>}
-      {load && <Loader/>}
-      {load1 && <Loader/>}
-     
+      {loading && <Loader />}
+      {load && <Loader />}
+      {load1 && <Loader />}
+
       <Navbar />
       <MainContainer className="mainContainer">
         <ImageWrapper>
@@ -70,14 +74,11 @@ function BlogsCom() {
         <PostContainer>
           <PostHeader>{blogById?.heading}</PostHeader>
           <div className="postWrapper">
-            <div>
-              {blogById && (
-                <PostTextFirst
-                  dangerouslySetInnerHTML={{ __html: blogById?.content }}
-                />
-              )}
-            </div>
-            <div></div>
+            {blogById && (
+              <PostTextFirst
+                dangerouslySetInnerHTML={{ __html: blogById?.content }}
+              />
+            )}
           </div>
         </PostContainer>
 

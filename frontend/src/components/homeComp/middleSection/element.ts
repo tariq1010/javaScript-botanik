@@ -61,7 +61,9 @@ export const TextContainer = styled.div`
   }
 
   @media (max-width: 575.98px) {
-    top: 30%;
+    top: 50%;
+    left: 1%;
+    width: 95%;
   }
 `;
 
@@ -90,6 +92,11 @@ export const Text = styled.p`
 
   @media (max-width: 575.98px) {
     font-size: 14px;
+    text-align: left;
+
+    br {
+      display: none;
+    }
   }
 `;
 

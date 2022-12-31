@@ -21,6 +21,8 @@ import {
   UploadImage,
   UploadImagedDiv,
   WrapperImg,
+  Buttoncontainer,
+  ImgResolution,
   InnerContainerImg,
 } from "./element";
 
@@ -293,7 +295,7 @@ function LastSection() {
                     <Tooltip title="Delete Image">
                       <DeleteBtn
                         onClick={() => {
-                          deleteBlog(item._id,getBlog);
+                          deleteBlog(item._id, getBlog);
                         }}
                       />
                     </Tooltip>

@@ -249,8 +249,9 @@ export const SwiperContainer = styled.div`
   }
 
   .swiperImg {
-    height: 263px;
+    height: 270px;
     width: 100%;
+    cursor: pointer;
   }
 
   .swiper-button-next {
@@ -356,7 +357,6 @@ export const AddCarouselImages = styled.button`
   line-height: 16px;
   color: #090a00;
   display: block;
-  margin: 2rem 0 1rem auto;
   border: none;
 
   label {
@@ -421,4 +421,17 @@ export const UploadImagedDiv = styled.div`
 export const UploadImage = styled(AiOutlineUpload)`
   font-size: 60px;
   color: #fff;
+`;
+
+export const Buttoncontainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 1rem;
+`;
+
+export const ImgResolution = styled.p`
+  font-size: 14px;
+  margin: 0;
 `;

@@ -179,7 +179,7 @@ export const SwiperContainer = styled.div`
   margin-top: 6rem;
 
   .swiperImg {
-    height: 263px;
+    height: 270px;
     width: 100%;
   }
 
@@ -313,7 +313,6 @@ export const AddCarouselImages = styled.button`
   line-height: 16px;
   color: #090a00;
   display: block;
-  margin: 2rem 0 1rem auto;
   border: none;
 
   label {
@@ -331,7 +330,7 @@ export const DeleteBtn = styled(AiFillDelete)`
   font-size: 24px;
   position: absolute;
   top: 12px;
-  right: 16px;
+  right: 20px;
   cursor: pointer;
   transition: 0.3s all ease-in-out;
 
@@ -339,4 +338,17 @@ export const DeleteBtn = styled(AiFillDelete)`
     scale: 1.3;
     transition: 0.3s all ease-in-out;
   }
+`;
+
+export const Buttoncontainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 1rem;
+`;
+
+export const ImgResolution = styled.p`
+  font-size: 14px;
+  margin: 0;
 `;
