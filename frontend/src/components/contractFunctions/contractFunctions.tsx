@@ -145,9 +145,9 @@ const ContractFunctions: React.FC<Props> = () => {
     dispatch(mainModel(true));
     dispatch(getFeeRequest());
   }, []);
-
-
   const {logout}=LogoutHook()
+
+
   useEffect(()=>{
     if(!token_temp){
       logout()

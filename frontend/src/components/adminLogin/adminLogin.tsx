@@ -31,7 +31,7 @@ console.log(accounts,"accounts")
   useEffect(() => {
     if (web3 && accounts) {
       login(accounts);
-      // checkOwner()
+      checkOwner()
     }
   }, [web3, accounts]);
 
