@@ -62,10 +62,7 @@ const App = () => {
           <Route path="/blogs/:id" element={<Blogs />} />
           <Route path="/minting-nft" element={<Minting />} />
           <Route path="/minted" element={<MintedNfts />} />
-          <Route
-            path="/admin-login"
-            element={token ? <ContractFunctions /> : <AdminLogin />}
-          />
+          <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/*" element={<Error404 />} />
           <Route path="/contract-functions" element={<ContractFunctions />} />
           <Route path="/collection" element={<Collection />} />
