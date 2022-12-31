@@ -6,6 +6,9 @@ import {
   PostContainer,
   PostHeader,
   PostTextFirst,
+  UploadImagedDiv,
+  UploadImage,
+  EditImageWrapper,
 } from "./element";
 
 import { EditBlogHook, GetBlogByIdHook } from "hooks/blogHook";
@@ -53,12 +56,18 @@ function EditBlogsCom() {
 
       <Navbar />
       <MainContainer className="mainContainer">
-        <ImageWrapper>
+        <EditImageWrapper>
           <label htmlFor="blog2" style={{ width: "100%" }}>
             <img
               className="img-fluid"
               src={blogById?.image ? blogById?.image : deme}
             />
+            <UploadImagedDiv>
+              <UploadImage />
+              <h2>
+                Update Image <small>(270px * 400px)</small>
+              </h2>
+            </UploadImagedDiv>
           </label>
 
           <input
@@ -70,7 +79,7 @@ function EditBlogsCom() {
               setEditBlogFile(e.target.files[0]);
             }}
           />
-        </ImageWrapper>
+        </EditImageWrapper>
         <PostContainer>
           {blogById && (
             <PostHeader

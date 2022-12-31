@@ -175,13 +175,22 @@ export const SwiperImgContainer = styled.div`
   z-index: 10;
 `;
 
-export const SwiperContainer = styled.div`
-  margin-top: 6rem;
+export const SwiperImgWrapper = styled.div`
+  position: relative;
+
+  &:hover {
+    opacity: 0.4;
+  }
 
   .swiperImg {
     height: 270px;
     width: 100%;
+    cursor: pointer;
   }
+`;
+
+export const SwiperContainer = styled.div`
+  margin-top: 6rem;
 
   .btnWrapper {
     display: flex;
@@ -284,6 +293,17 @@ export const UploadImagedDiv = styled.div`
   ${MainImageWrapper}:hover & {
     visibility: visible;
     top: 50%;
+  }
+  ${SwiperImgWrapper}:hover & {
+    visibility: visible;
+    top: 50%;
+
+    h2 {
+      small {
+        font-size: 16px;
+        margin-left: 40px;
+      }
+    }
   }
 
   h2 {

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import next from "../../assets/images/next.png";
 import back from "../../assets/images/back.png";
+import { AiOutlineUpload, AiFillDelete } from "react-icons/ai";
 
 export const BlogWrapper = styled.div`
   background-color: #fff;
@@ -13,11 +14,36 @@ export const BlogWrapper = styled.div`
 
 export const ImageWrapper = styled.div`
   .img-fluid {
-    height: 631px;
-    width: 100%;
+    height: 270px;
+    width: 400px;
+    display: block;
+    margin: 0 auto;
 
     @media (max-width: 991.98px) {
       height: 100%;
+      width: 100%;
+    }
+  }
+`;
+export const EditImageWrapper = styled.div`
+  position: relative;
+  height: 270px;
+  width: 400px;
+  display: block;
+  margin: 0 auto;
+  &:hover {
+    opacity: 0.4;
+  }
+  .img-fluid {
+    height: 270px;
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+
+    @media (max-width: 991.98px) {
+      height: 100%;
+      width: 100%;
     }
   }
 `;
@@ -313,4 +339,47 @@ export const NextButton = styled.button`
 export const PreviousButton = styled.button`
   background-color: transparent;
   border: none;
+`;
+
+export const UploadImagedDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 9999;
+  height: 50%;
+  width: 50%;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  cursor: pointer;
+
+  ${EditImageWrapper}:hover & {
+    visibility: visible;
+    top: 50%;
+
+    h2 {
+      small {
+        font-size: 16px;
+        margin-left: 40px;
+      }
+    }
+  }
+
+  h2 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 30px;
+
+    small {
+      font-size: 16px;
+    }
+  }
+`;
+
+export const UploadImage = styled(AiOutlineUpload)`
+  font-size: 60px;
+  color: #fff;
 `;

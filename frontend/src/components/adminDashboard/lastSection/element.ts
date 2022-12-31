@@ -358,6 +358,7 @@ export const AddCarouselImages = styled.button`
   color: #090a00;
   display: block;
   border: none;
+  margin: 0 0 1rem auto;
 
   label {
     cursor: pointer;
