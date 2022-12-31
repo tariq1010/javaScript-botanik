@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import next from "../../assets/images/next.png";
 import back from "../../assets/images/back.png";
+import { AiOutlineUpload, AiFillDelete } from "react-icons/ai";
 
 export const BlogWrapper = styled.div`
   background-color: #fff;
@@ -12,9 +13,16 @@ export const BlogWrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
+  position: relative;
+  &:hover {
+    opacity: 0.4;
+  }
   .img-fluid {
-    height: 631px;
-    width: 100%;
+    height: 270px;
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
 
     @media (max-width: 991.98px) {
       height: 100%;
@@ -313,4 +321,40 @@ export const NextButton = styled.button`
 export const PreviousButton = styled.button`
   background-color: transparent;
   border: none;
+`;
+
+export const UploadImagedDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 9999;
+  height: 50%;
+  width: 50%;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  cursor: pointer;
+
+  ${ImageWrapper}:hover & {
+    visibility: visible;
+    top: 40%;
+  }
+
+  h2 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 30px;
+
+    small {
+      font-size: 16px;
+    }
+  }
+`;
+
+export const UploadImage = styled(AiOutlineUpload)`
+  font-size: 60px;
+  color: #fff;
 `;

@@ -6,6 +6,8 @@ import {
   PostContainer,
   PostHeader,
   PostTextFirst,
+  UploadImagedDiv,
+  UploadImage,
 } from "./element";
 
 import { EditBlogHook, GetBlogByIdHook, GetBlogHook } from "hooks/blogHook";
@@ -15,7 +17,6 @@ import { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import deme from "../../assets/images/deme.png";
 
-
 function EditBlogsCom() {
   const content = useRef(null);
   const heading = useRef(null);
@@ -23,7 +24,7 @@ function EditBlogsCom() {
 
   const [editBlogFile, setEditBlogFile] = useState(null);
   const { data: blogById, getBlogById, loading: load } = GetBlogByIdHook();
-  const { data: edit, editBlog ,loading} = EditBlogHook();
+  const { data: edit, editBlog, loading } = EditBlogHook();
 
   function handleBlog() {
     const obj = {
@@ -49,14 +50,23 @@ function EditBlogsCom() {
 
   return (
     <BlogWrapper>
-      {loading && <Loader/>}
-      {load && <Loader/>}
-     
+      {loading && <Loader />}
+      {load && <Loader />}
+
       <Navbar />
       <MainContainer className="mainContainer">
         <ImageWrapper>
           <label htmlFor="blog2" style={{ width: "100%" }}>
-            <img className="img-fluid" src={blogById?.image?blogById?.image:deme} />
+            <img
+              className="img-fluid"
+              src={blogById?.image ? blogById?.image : deme}
+            />
+            <UploadImagedDiv>
+              <UploadImage />
+              <h2>
+                Update Image <small>(270px * 400px)</small>
+              </h2>
+            </UploadImagedDiv>
           </label>
 
           <input

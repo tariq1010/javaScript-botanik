@@ -21,6 +21,7 @@ import {
   Buttoncontainer,
   SwiperImgContainer,
   ImgResolution,
+  SwiperImgWrapper,
 } from "./element";
 import { Tooltip } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -295,7 +296,7 @@ function MiddleSection() {
                 onChange={(e) => setSectionEightFile(e.target.files[0])}
               />
             </AddCarouselImages>
-            <ImgResolution>(Height:270px)</ImgResolution>
+            <ImgResolution>(270px * 400px)</ImgResolution>
           </Buttoncontainer>
           <Swiper
             slidesPerView={3}
@@ -328,24 +329,32 @@ function MiddleSection() {
             {carousel?.map((item) => (
               <SwiperSlide>
                 <SwiperImgContainer>
-                  <label htmlFor="editEight">
-                    <img
-                      onClick={() => {
-                        setEightId(item._id);
-                      }}
-                      onMouseOut={() => setShow(false)}
-                      key={item._id}
-                      className="img-fluid swiperImg"
-                      src={item.image}
+                  <SwiperImgWrapper>
+                    <label htmlFor="editEight">
+                      <img
+                        onClick={() => {
+                          setEightId(item._id);
+                        }}
+                        onMouseOut={() => setShow(false)}
+                        key={item._id}
+                        className="img-fluid swiperImg"
+                        src={item.image}
+                      />
+                      <UploadImagedDiv>
+                        <UploadImage />
+                        <h2>
+                          Update Image <small>(270px * 400px)</small>
+                        </h2>
+                      </UploadImagedDiv>
+                    </label>
+                    <input
+                      type="file"
+                      style={{ display: "none" }}
+                      name="editEight"
+                      id="editEight"
+                      onChange={(e) => setEditEightFile(e.target.files[0])}
                     />
-                  </label>
-                  <input
-                  type="file"
-                  style={{ display: "none" }}
-                  name="editEight"
-                  id="editEight"
-                  onChange={(e) => setEditEightFile(e.target.files[0])}
-                />
+                  </SwiperImgWrapper>
                   <Tooltip title="Delete Image">
                     <DeleteBtn
                       onClick={() => {
