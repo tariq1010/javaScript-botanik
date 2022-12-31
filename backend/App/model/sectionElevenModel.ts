@@ -1,11 +1,11 @@
-const {SectionEleven} =require("../schema/sectionElevenSchema");
+const { SectionEleven } = require("../schema/sectionElevenSchema");
 const fs = require("fs");
 const SaveSectionEleven = async (obj: any) => {
   try {
     const data = await SectionEleven.create({
-        heading: obj.heading,
-        content: obj.content,
-        image: obj.image_path,
+      heading: obj.heading,
+      content: obj.content,
+      image: obj.image_path,
     });
     if (!data) throw "not inserted";
     return data;
@@ -33,11 +33,11 @@ const EditSectionEleven = async (id: any, obj: any) => {
     }
 
     const update = {
-        heading: obj.heading,
-        content: obj.content,
-        image: obj.image_path,
+      heading: obj.heading,
+      content: obj.content,
+      image: obj.image_path,
     };
-   
+
     const data = await SectionEleven.findByIdAndUpdate({ _id: id }, update, {
       new: true,
     });
@@ -60,14 +60,14 @@ const GetSectionEleven = async () => {
 };
 
 const GetByIdSectionEleven = async (id: any) => {
-    try {
-      const data = await SectionEleven.findById({ _id: id });
-      if (!data) throw "not found";
-      return data;
-    } catch (error) {
-      return { error: error };
-    }
-  };
+  try {
+    const data = await SectionEleven.findById({ _id: id });
+    if (!data) throw "not found";
+    return data;
+  } catch (error) {
+    return { error: error };
+  }
+};
 
 const DeleteSectionEleven = async (id: any) => {
   try {
@@ -85,7 +85,7 @@ const DeleteSectionEleven = async (id: any) => {
         }
       }
     );
-    const deleted="carousel deleted"
+    const deleted = "carousel deleted";
     return deleted;
   } catch (error) {
     return { error: error };
@@ -97,5 +97,5 @@ export = {
   GetSectionEleven,
   SaveSectionEleven,
   DeleteSectionEleven,
-  GetByIdSectionEleven
+  GetByIdSectionEleven,
 };

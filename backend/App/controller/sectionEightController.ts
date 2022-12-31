@@ -1,9 +1,12 @@
-
-const {EditSectionEight,GetSectionEight,DeleteSectionEight,SaveSectionEight} =require("../model/sectionEightModel");
+const {
+  EditSectionEight,
+  GetSectionEight,
+  DeleteSectionEight,
+  SaveSectionEight,
+} = require("../model/sectionEightModel");
 
 const saveSectionEight = async (ctx: any) => {
   try {
-
     const body = ctx.request.body;
     if (ctx.file) {
       body.image_path = `${process.env.BACKEND_URL}/${ctx.file.filename}`;
@@ -25,7 +28,6 @@ const saveSectionEight = async (ctx: any) => {
 
 const editSectionEight = async (ctx: any) => {
   try {
-
     const body = ctx.request.body;
     const id = ctx.params.id;
     if (ctx.file) {
@@ -65,7 +67,7 @@ const getSectionEight = async (ctx: any) => {
 
 const deleteSectionEight = async (ctx: any) => {
   try {
-    const id=ctx.params.id;
+    const id = ctx.params.id;
     const data = await DeleteSectionEight(id);
     if (data.error) throw data.error;
     ctx.body = {
@@ -80,4 +82,9 @@ const deleteSectionEight = async (ctx: any) => {
     };
   }
 };
-export = { editSectionEight, getSectionEight,saveSectionEight,deleteSectionEight };
+export = {
+  editSectionEight,
+  getSectionEight,
+  saveSectionEight,
+  deleteSectionEight,
+};

@@ -7,12 +7,12 @@ export const SaveBlogHook = () => {
     try {
       setLoading(true);
       const result = await BlogSectionService.addBlog(data);
-      if(result.response=="success" && result.data){
+      if (result.response == "success" && result.data) {
         setData(result.data);
-    }
+      }
     } catch (error) {
       setError(error);
-      setLoading(false)
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -28,16 +28,16 @@ export const SaveBlogHook = () => {
 
 export const EditBlogHook = () => {
   const { data, setData, setError, loading, setLoading, error } = CommonHook();
-  const editBlog = async (id,data) => {
+  const editBlog = async (id, data) => {
     try {
       setLoading(true);
-      const result = await BlogSectionService.editBlog(id,data);
-      if(result.response=="success" && result.data){
+      const result = await BlogSectionService.editBlog(id, data);
+      if (result.response == "success" && result.data) {
         setData(result.data);
-    }
+      }
     } catch (error) {
       setError(error);
-      setLoading(false)
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -51,81 +51,79 @@ export const EditBlogHook = () => {
   };
 };
 
-
 export const GetBlogHook = () => {
-    const { data, setData, setError, loading, setLoading, error } = CommonHook();
-    const getBlog = async () => {
-      try {
-        setLoading(true);
-        const result = await BlogSectionService.getBlog();
-        if(result.response=="success" && result.data){
-          setData(result.data);
+  const { data, setData, setError, loading, setLoading, error } = CommonHook();
+  const getBlog = async () => {
+    try {
+      setLoading(true);
+      const result = await BlogSectionService.getBlog();
+      if (result.response == "success" && result.data) {
+        setData(result.data);
       }
-      } catch (error) {
-        setError(error);
-        setLoading(false)
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    return {
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
     getBlog,
-      data,
-      loading,
-      error,
-    };
+    data,
+    loading,
+    error,
+  };
+};
+
+export const GetBlogByIdHook = () => {
+  const { data, setData, setError, loading, setLoading, error } = CommonHook();
+  const getBlogById = async (id) => {
+    try {
+      setLoading(true);
+      const result = await BlogSectionService.getBlogById(id);
+      if (result.response == "success" && result.data) {
+        setData(result.data);
+      }
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
+  return {
+    getBlogById,
+    data,
+    setData,
+    loading,
+    error,
+  };
+};
 
-  export const GetBlogByIdHook = () => {
-    const { data, setData, setError, loading, setLoading, error } = CommonHook();
-    const getBlogById = async (id) => {
-      try {
-        setLoading(true);
-        const result = await BlogSectionService.getBlogById(id);
-        if(result.response=="success" && result.data){
-          setData(result.data);
+export const DeletelogHook = () => {
+  const { data, setData, setError, loading, setLoading, error } = CommonHook();
+  const deleteBlog = async (id, getBlog) => {
+    try {
+      setLoading(true);
+      const result = await BlogSectionService.deleteBlog(id);
+      if (result.response == "success" && result.data) {
+        getBlog();
+        setData(result.data);
       }
-      } catch (error) {
-        setError(error);
-        setLoading(false)
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    return {
-      getBlogById,
-      data,
-      setData,
-      loading,
-      error,
-    };
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  export const DeletelogHook = () => {
-    const { data, setData, setError, loading, setLoading, error } = CommonHook();
-    const deleteBlog = async (id,getBlog) => {
-      try {
-        setLoading(true);
-        const result = await BlogSectionService.deleteBlog(id);
-        if(result.response=="success" && result.data){
-          getBlog()
-          setData(result.data);
-      }
-      } catch (error) {
-        setError(error);
-        setLoading(false)
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    return {
-      deleteBlog,
-      data,
-      loading,
-      error,
-    };
+  return {
+    deleteBlog,
+    data,
+    loading,
+    error,
   };
+};

@@ -27,7 +27,7 @@ import { useRef } from "react";
 
 function MiddleSection() {
   const swiperRef = useRef<SwiperCore>();
-  const { data, loading, getSectionFive } = GetSectionFiveHook();
+  const { data, getSectionFive } = GetSectionFiveHook();
   const { data: sectionSix, getSectionSix } = GetSectionSixHook();
   const { data: carousel, getSectionEight } = GetSectionEightHook();
   const { data: sectionSeven, getSectionSeven } = GetSectionSevenHook();

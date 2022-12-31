@@ -1,5 +1,10 @@
-
-const {EditSectionEleven,GetSectionEleven,DeleteSectionEleven,SaveSectionEleven,GetByIdSectionEleven} =require("../model/sectionElevenModel");
+const {
+  EditSectionEleven,
+  GetSectionEleven,
+  DeleteSectionEleven,
+  SaveSectionEleven,
+  GetByIdSectionEleven,
+} = require("../model/sectionElevenModel");
 
 const saveSectionEleven = async (ctx: any) => {
   try {
@@ -24,7 +29,6 @@ const saveSectionEleven = async (ctx: any) => {
 
 const editSectionEleven = async (ctx: any) => {
   try {
-
     const body = ctx.request.body;
     const id = ctx.params.id;
     if (ctx.file) {
@@ -65,7 +69,7 @@ const getSectionEleven = async (ctx: any) => {
 
 const deleteSectionEleven = async (ctx: any) => {
   try {
-    const id=ctx.params.id;
+    const id = ctx.params.id;
     const data = await DeleteSectionEleven(id);
     if (data.error) throw data.error;
     ctx.body = {
@@ -81,20 +85,26 @@ const deleteSectionEleven = async (ctx: any) => {
   }
 };
 const getByIdSectionEleven = async (ctx: any) => {
-    try {
-      const id=ctx.params.id;
-      const data = await GetByIdSectionEleven(id);
-      if (data.error) throw data.error;
-      ctx.body = {
-        response: "success",
-        data: data,
-      };
-    } catch (error) {
-      ctx.status = 500;
-      ctx.body = {
-        response: "failure",
-        error: error,
-      };
-    }
-  };
-export = { editSectionEleven, getSectionEleven,saveSectionEleven,deleteSectionEleven,getByIdSectionEleven };
+  try {
+    const id = ctx.params.id;
+    const data = await GetByIdSectionEleven(id);
+    if (data.error) throw data.error;
+    ctx.body = {
+      response: "success",
+      data: data,
+    };
+  } catch (error) {
+    ctx.status = 500;
+    ctx.body = {
+      response: "failure",
+      error: error,
+    };
+  }
+};
+export = {
+  editSectionEleven,
+  getSectionEleven,
+  saveSectionEleven,
+  deleteSectionEleven,
+  getByIdSectionEleven,
+};

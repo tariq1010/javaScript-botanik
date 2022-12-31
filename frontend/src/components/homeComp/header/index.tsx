@@ -20,9 +20,10 @@ import { useEffect } from "react";
 import { GetSectionTwoHook } from "hooks/sectionTwoHook";
 import { GetSectionThreeHook } from "hooks/sectionThreeHook";
 import { GetSectionFourHook } from "hooks/sectionFourHook";
+import Loading from "components/common/loader/loader";
 
 function Header() {
-  const { data, getSectionOne, loading } = GetSectionOneHook();
+  const { data, getSectionOne ,loading} = GetSectionOneHook();
   const { data: sectionTwo, getSectionTwo } = GetSectionTwoHook();
   const { data: sectionThree, getSectionThree } = GetSectionThreeHook();
   const { data: sectionFour, getSectionFour } = GetSectionFourHook();
@@ -36,6 +37,7 @@ function Header() {
 
   return (
     <HeaderWrapper>
+      {loading && <Loading/>}
       <MainContainer>
         <ImageWrapper>
           <img className="img-fluid" src={data && data[0]?.image} />

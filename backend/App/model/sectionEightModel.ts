@@ -34,11 +34,10 @@ const EditSectionEight = async (id: any, obj: any) => {
     const update = {
       image: obj.image_path,
     };
-   
+
     const data = await SectionEight.findByIdAndUpdate({ _id: id }, update, {
       new: true,
     });
-   
 
     if (!data) throw "not inserted";
     return data;
@@ -73,7 +72,7 @@ const DeleteSectionEight = async (id: any) => {
         }
       }
     );
-    const deleted="carousel deleted"
+    const deleted = "carousel deleted";
     return deleted;
   } catch (error) {
     return { error: error };

@@ -1,20 +1,23 @@
 import { SectionFive } from "../schema/sectionFiveSchema";
-const fs=require("fs")
+const fs = require("fs");
 
 const EditSectionFive = async (id: any, obj: any) => {
   try {
-    if(obj.image_path){
-      const previous_data=await SectionFive.findById({_id:id})
-      const url =String(process.env.BACKEND_URL)
-      const subStr = previous_data?.image.slice(url.length+1);
-      fs.unlink(`${process.env.FILE_UPLOAD_PATH}/${subStr}`,(err:any,done:any)=>{
-          if(err){
-              console.log("file not updated")
-          }else{
-              console.log("file updated")
+    if (obj.image_path) {
+      const previous_data = await SectionFive.findById({ _id: id });
+      const url = String(process.env.BACKEND_URL);
+      const subStr = previous_data?.image.slice(url.length + 1);
+      fs.unlink(
+        `${process.env.FILE_UPLOAD_PATH}/${subStr}`,
+        (err: any, done: any) => {
+          if (err) {
+            console.log("file not updated");
+          } else {
+            console.log("file updated");
           }
-      })
-   }
+        }
+      );
+    }
 
     const update = {
       text: obj.text,
@@ -24,7 +27,7 @@ const EditSectionFive = async (id: any, obj: any) => {
     const data = await SectionFive.findByIdAndUpdate({ _id: id }, update, {
       new: true,
     });
-    
+
     if (!data) throw "not inserted";
     return data;
   } catch (error) {

@@ -4,7 +4,6 @@ import {
 } from "./adminLoginElements";
 import { useAppDispatch, useAppSelector } from "store/store";
 import SimpleBackdrop from "components/backdrop/backdrop";
-import { Button } from "react-bootstrap";
 import { mainModel } from "store/redux/slices/helperSlices/modelSlice";
 import { MainModel } from "components/common";
 import { LoginHook, OwnerHook } from "hooks/adminhooks";
@@ -15,11 +14,9 @@ const AdminLogin = () => {
   //decalartions
   const dispatch = useAppDispatch();
   //useAppSelector
-  const { token, loading, errorMessage, error } = useAppSelector(
-    (state) => state.login
-  );
   
-  const { web3, contract, accounts } = useAppSelector(
+  
+  const { web3, accounts } = useAppSelector(
     (state) => state.web3Connect
   );
 

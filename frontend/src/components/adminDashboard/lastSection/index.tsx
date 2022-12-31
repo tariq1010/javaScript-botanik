@@ -21,8 +21,6 @@ import {
   UploadImage,
   UploadImagedDiv,
   WrapperImg,
-  Buttoncontainer,
-  ImgResolution,
   InnerContainerImg,
 } from "./element";
 
@@ -51,7 +49,7 @@ function LastSection() {
   const [sectionTenFile2, setSectionTenFile2] = useState(null);
 
   const { data, loading, getSectionNine } = GetSectionNineHook();
-  const { data: deleted, loading: loading7, deleteBlog } = DeletelogHook();
+  const { loading: loading7, deleteBlog } = DeletelogHook();
   const {
     data: editNine,
     editSectionNine,

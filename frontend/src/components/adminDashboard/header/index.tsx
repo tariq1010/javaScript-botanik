@@ -43,17 +43,40 @@ function Header() {
 
   const sectiontwoParagraph_one = useRef(null);
   const sectionThreeParagraph = useRef(null);
-  
-  
-  const { data, getSectionOne, loading } = GetSectionOneHook();
-  const { data: edited, editSectionOne, loading:load } = EditSectionOneHook();
-  const { data: editedSectionTwo, editSectionTwo,loading:load1 } = EditSectionTwoHook();
-  const { data: editedSectionThree, editSectionThree,loading:load2 } = EditSectionThreeHook();
-  const { data: editedSectionFour, editSectionFour,loading:load3 } = EditSectionFourHook();
 
-  const { data: sectionTwo, getSectionTwo,loading:load4 } = GetSectionTwoHook();
-  const { data: sectionThree, getSectionThree,loading:load5 } = GetSectionThreeHook();
-  const { data: sectionFour, getSectionFour ,loading:load6} = GetSectionFourHook();
+  const { data, getSectionOne, loading } = GetSectionOneHook();
+  const { data: edited, editSectionOne, loading: load } = EditSectionOneHook();
+  const {
+    data: editedSectionTwo,
+    editSectionTwo,
+    loading: load1,
+  } = EditSectionTwoHook();
+  const {
+    data: editedSectionThree,
+    editSectionThree,
+    loading: load2,
+  } = EditSectionThreeHook();
+  const {
+    data: editedSectionFour,
+    editSectionFour,
+    loading: load3,
+  } = EditSectionFourHook();
+
+  const {
+    data: sectionTwo,
+    getSectionTwo,
+    loading: load4,
+  } = GetSectionTwoHook();
+  const {
+    data: sectionThree,
+    getSectionThree,
+    loading: load5,
+  } = GetSectionThreeHook();
+  const {
+    data: sectionFour,
+    getSectionFour,
+    loading: load6,
+  } = GetSectionFourHook();
 
   function handleSectionOne() {
     editSectionOne(data[0]._id, sectionOneText.current.innerHTML);
@@ -125,15 +148,15 @@ function Header() {
 
   return (
     <HeaderWrapper>
-      {loading && <Loader/>}
-      {load && <Loader/>}
-      {load1 && <Loader/>}
-      {load2 && <Loader/>}
-      {load3 && <Loader/>}
-      {load4 && <Loader/>}
-      {load5 && <Loader/>}
-      {load6 && <Loader/>}
-      
+      {loading && <Loader />}
+      {load && <Loader />}
+      {load1 && <Loader />}
+      {load2 && <Loader />}
+      {load3 && <Loader />}
+      {load4 && <Loader />}
+      {load5 && <Loader />}
+      {load6 && <Loader />}
+
       <MainContainer>
         <ImageWrapper>
           <label htmlFor="sectionOneFile" style={{ width: "100%" }}>

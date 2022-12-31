@@ -11,13 +11,13 @@ import { Loader, MainCol, MainContainer } from "components/common";
 import { Link } from "react-router-dom";
 import mainlogo from "../../assets/images/mainlogo.png";
 import { LogoutHook } from "hooks/adminhooks";
-import { fontSize } from "@mui/system";
+
 
 function NavbarCom() {
-  const { logout ,loading} = LogoutHook();
+  const { logout, loading } = LogoutHook();
   return (
     <NavbarWrapper>
-      {loading && <Loader/>}
+      {loading && <Loader />}
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
         <MainContainer>
           <Navbar.Brand>
@@ -29,9 +29,6 @@ function NavbarCom() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
             <IconContainer>
-              {/* <Link to="/blogs">
-                <BlogBtn>Blogs</BlogBtn>
-              </Link> */}
               <BuyNFTbtn>Buy Tapera Jungle NFT</BuyNFTbtn>
               <LogoutBtn
                 onClick={() => {

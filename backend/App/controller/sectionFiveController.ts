@@ -1,8 +1,10 @@
-const {EditSectionFive,GetSectionFive} =require("../model/sectionFiveModel");
+const {
+  EditSectionFive,
+  GetSectionFive,
+} = require("../model/sectionFiveModel");
 
 const editSectionFive = async (ctx: any) => {
   try {
-
     const body = ctx.request.body;
     const id = ctx.params.id;
     if (ctx.file) {

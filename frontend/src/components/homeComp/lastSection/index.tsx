@@ -33,7 +33,7 @@ function LastSection() {
   const navigate = useNavigate();
   const swiperRef = useRef<SwiperCore>();
 
-  const { data, loading, getSectionNine } = GetSectionNineHook();
+  const { data, getSectionNine } = GetSectionNineHook();
   const { data: sectionTen, getSectionTen } = GetSectionTenHook();
   const { data: blogs, getBlog } = GetBlogHook();
 
@@ -49,14 +49,16 @@ function LastSection() {
         <ImageWrapper>
           <img src={data && data[0]?.image} alt="" className="img-fluid" />
           <TextContainer>
-            {data &&<HeaderText
-           dangerouslySetInnerHTML={{ __html: data[0]?.heading }}
-            
-            />}
-           {data && <TextNote
-             dangerouslySetInnerHTML={{ __html: data[0]?.paragraph }}
-            
-            />}
+            {data && (
+              <HeaderText
+                dangerouslySetInnerHTML={{ __html: data[0]?.heading }}
+              />
+            )}
+            {data && (
+              <TextNote
+                dangerouslySetInnerHTML={{ __html: data[0]?.paragraph }}
+              />
+            )}
             <BuyBtn>Buy Tapera Jungle NFT</BuyBtn>
           </TextContainer>
         </ImageWrapper>
@@ -124,15 +126,14 @@ function LastSection() {
                     src={item.image}
                     onClick={() => navigate("/blogs/" + item._id)}
                   />
-                  <h4
-                  dangerouslySetInnerHTML={{ __html: item.heading }}
-                  />
+                  <h4 dangerouslySetInnerHTML={{ __html: item.heading }} />
                   <p
-                  dangerouslySetInnerHTML={{ __html: item.content.slice(0,125) + "..."  }}
+                    dangerouslySetInnerHTML={{
+                      __html: item.content.slice(0, 125) + "...",
+                    }}
                   />
                 </SwiperSlide>
               ))}
-              
             </Swiper>
             <div className="btnWrapper">
               <PreviousButton

@@ -130,11 +130,12 @@ router.get("/get_all", getAll);
 router.delete("/delete", deleteNft);
 router.get("/updated-route", getUpdatedCount);
 router.post("/upload-nft", uploadNFt);
-router.get("/blacklist-token",addBlacklistToken)
+router.get("/blacklist-token", addBlacklistToken);
 // section 1
 
 router.put(
-  "/edit-section-one/:id",validateToken,
+  "/edit-section-one/:id",
+  validateToken,
   upload.single("section_one_image"),
   editSectionOne
 );
@@ -159,7 +160,12 @@ router.put(
 router.get("/get-section-three", getSectionThree);
 
 // section 4
-router.put("/edit-section-four/:id", validateToken, sectionFourValition, editSectionFour);
+router.put(
+  "/edit-section-four/:id",
+  validateToken,
+  sectionFourValition,
+  editSectionFour
+);
 router.get("/get-section-four", getSectionFour);
 
 // section 5
@@ -238,8 +244,6 @@ router.put(
   upload.single("section_eleven_image"),
   editSectionEleven
 );
-router.delete("/delete-section-eleven/:id",
-validateToken,
- deleteSectionEleven);
+router.delete("/delete-section-eleven/:id", validateToken, deleteSectionEleven);
 
 export { router };

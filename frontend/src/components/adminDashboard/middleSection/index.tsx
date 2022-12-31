@@ -59,11 +59,7 @@ function MiddleSection() {
   const swiperRef = useRef<SwiperCore>();
 
   const { data, loading, getSectionFive } = GetSectionFiveHook();
-  const {
-    data: deleted,
-    loading: load7,
-    deleteSectionEight,
-  } = DeleteSectionEightHook();
+  const { loading: load7, deleteSectionEight } = DeleteSectionEightHook();
   const {
     data: sectionSix,
     getSectionSix,
@@ -340,12 +336,12 @@ function MiddleSection() {
                     />
                   </label>
                   <input
-                  type="file"
-                  style={{ display: "none" }}
-                  name="editEight"
-                  id="editEight"
-                  onChange={(e) => setEditEightFile(e.target.files[0])}
-                />
+                    type="file"
+                    style={{ display: "none" }}
+                    name="editEight"
+                    id="editEight"
+                    onChange={(e) => setEditEightFile(e.target.files[0])}
+                  />
                   <Tooltip title="Delete Image">
                     <DeleteBtn
                       onClick={() => {

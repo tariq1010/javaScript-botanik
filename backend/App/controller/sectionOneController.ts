@@ -1,8 +1,7 @@
-const {EditSectionOne,GetSectionOne} =require("../model/sectionOneModel");
+const { EditSectionOne, GetSectionOne } = require("../model/sectionOneModel");
 
 const editSectionOne = async (ctx: any) => {
   try {
-
     const body = ctx.request.body;
     const id = ctx.params.id;
     if (ctx.file) {

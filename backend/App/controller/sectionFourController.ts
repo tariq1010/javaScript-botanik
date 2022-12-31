@@ -1,9 +1,7 @@
 import { EditSectionFour, GetSectionFour } from "../model/sectionFourModel";
 
-
 const editSectionFour = async (ctx: any) => {
   try {
-
     const body = ctx.request.body;
     const id = ctx.params.id;
     if (ctx.file) {

@@ -3,23 +3,22 @@ import { CommonHook } from "./commonHook";
 
 export const EditSectionTwoHook = () => {
   const { data, setData, setError, loading, setLoading, error } = CommonHook();
-  const editSectionTwo = async (id,data) => {
+  const editSectionTwo = async (id, data) => {
     try {
-      let formData=new FormData()
-      if(data.constructor === File){
-        formData.append ("section_two_image",data)
-      }
-      else{
-        formData=data
+      let formData = new FormData();
+      if (data.constructor === File) {
+        formData.append("section_two_image", data);
+      } else {
+        formData = data;
       }
       setLoading(true);
-      const result = await SectionsService.editSectionTwo(id,formData);
-      if(result.response=="success" && result.data){
+      const result = await SectionsService.editSectionTwo(id, formData);
+      if (result.response == "success" && result.data) {
         setData(result.data);
-    }
+      }
     } catch (error) {
       setError(error);
-      setLoading(false)
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -33,30 +32,27 @@ export const EditSectionTwoHook = () => {
   };
 };
 
-
-
-
 export const GetSectionTwoHook = () => {
-    const { data, setData, setError, loading, setLoading, error } = CommonHook();
-    const getSectionTwo = async () => {
-      try {
-        setLoading(true);
-        const result = await SectionsService.getSectionTwo();
-        if(result.response=="success" && result.data){
-            setData(result.data);
-        }
-      } catch (error) {
-        setError(error);
-        setLoading(false)
-      } finally {
-        setLoading(false);
+  const { data, setData, setError, loading, setLoading, error } = CommonHook();
+  const getSectionTwo = async () => {
+    try {
+      setLoading(true);
+      const result = await SectionsService.getSectionTwo();
+      if (result.response == "success" && result.data) {
+        setData(result.data);
       }
-    };
-  
-    return {
-        getSectionTwo,
-      data,
-      loading,
-      error,
-    };
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  return {
+    getSectionTwo,
+    data,
+    loading,
+    error,
+  };
+};
