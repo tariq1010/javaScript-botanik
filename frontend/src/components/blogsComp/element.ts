@@ -13,7 +13,24 @@ export const BlogWrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
+  .img-fluid {
+    height: 270px;
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+
+    @media (max-width: 991.98px) {
+      height: 100%;
+      width: 100%;
+    }
+  }
+`;
+export const EditImageWrapper = styled.div`
   position: relative;
+  height: 270px;
+  width: 400px;
+  display: block;
+  margin: 0 auto;
   &:hover {
     opacity: 0.4;
   }
@@ -26,6 +43,7 @@ export const ImageWrapper = styled.div`
 
     @media (max-width: 991.98px) {
       height: 100%;
+      width: 100%;
     }
   }
 `;
@@ -338,9 +356,16 @@ export const UploadImagedDiv = styled.div`
   visibility: hidden;
   cursor: pointer;
 
-  ${ImageWrapper}:hover & {
+  ${EditImageWrapper}:hover & {
     visibility: visible;
-    top: 40%;
+    top: 50%;
+
+    h2 {
+      small {
+        font-size: 16px;
+        margin-left: 40px;
+      }
+    }
   }
 
   h2 {
