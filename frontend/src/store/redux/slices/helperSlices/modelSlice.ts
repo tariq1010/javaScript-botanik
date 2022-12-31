@@ -54,13 +54,9 @@ const modelSlice = createSlice({
   reducers: {
     bootanikDataLoading: (state, { payload }) => {
       state.botanikLoader = payload;
-  
-      
-      
     },
     resetBotanikData: (state) => {
-      state.botanikLoader = null;
-
+      state.botanikData = null;
     },
   },
   extraReducers: {

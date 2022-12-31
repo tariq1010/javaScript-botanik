@@ -25,7 +25,7 @@ const ContractFunctions: React.FC<Props> = () => {
   //declarations
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  // const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem("access_token");
 
   //useAppSelector
   const { web3, accounts } = useAppSelector((state) => state.web3Connect);
@@ -41,7 +41,7 @@ const ContractFunctions: React.FC<Props> = () => {
   //custom hooks
   const { statusLoading } = GetMintStatusHook();
   const { loading: authLoading, error, auth } = CheckAuthHook();
-  const { botanikData ,botanikLoader} = useAppSelector((state) => state.model);
+  const { botanikData } = useAppSelector((state) => state.model);
   //component functions
   const transferOwnerShipModel = () => {
     setTransferModel(true);
@@ -145,7 +145,8 @@ const ContractFunctions: React.FC<Props> = () => {
 
   useEffect(() => {
     if (accounts) {
-      let owner = String(botanikLoader).toLowerCase() === accounts.toLowerCase();
+      console.log("userEff",botanikData?.owner);
+      let owner = (botanikData?.owner).toLowerCase() === accounts.toLowerCase();
       owner && navigate("/contract-functions");
       !owner && navigate("/admin-login");
     }

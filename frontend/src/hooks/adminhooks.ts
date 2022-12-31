@@ -63,13 +63,16 @@ export const LoginHook = () => {
       const obj = {
         accounts: data,
       };
+      const ab={
+        owner:data
+      }
       setLoading(true);
       const result = await LoginService.login(obj);
       if (result.response == "success" && result.data) {
         BrowserUtility.save("token", result.data.token);
         setData(result.data);
         dispatch(loginRequestSuccess(result.data.token));
-        dispatch(bootanikDataLoading(data));
+        dispatch(bootanikDataLoading(ab));
         navigate("/contract-functions");
       }
     } catch (error) {
