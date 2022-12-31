@@ -13,11 +13,10 @@ export const BlogWrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
+  margin-top: 1rem;
   .img-fluid {
-    height: 270px;
-    width: 400px;
-    display: block;
-    margin: 0 auto;
+    height: 631px;
+    width: 100%;
 
     @media (max-width: 991.98px) {
       height: 100%;
