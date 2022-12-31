@@ -339,13 +339,13 @@ function MiddleSection() {
                       src={item.image}
                     />
                   </label>
-                  {/* <input
+                  <input
                   type="file"
                   style={{ display: "none" }}
                   name="editEight"
                   id="editEight"
                   onChange={(e) => setEditEightFile(e.target.files[0])}
-                /> */}
+                />
                   <Tooltip title="Delete Image">
                     <DeleteBtn
                       onClick={() => {
