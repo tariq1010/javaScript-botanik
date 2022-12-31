@@ -10,8 +10,6 @@ const EditSectionFour = async (id:any,obj:any) => {
         heading3: obj.heading3,
         text3: obj.text3, 
     };
-    // const data =await SectionFour.create(update)
-
     const data = await SectionFour.findByIdAndUpdate({ _id: id }, update, {
       new: true,
     });

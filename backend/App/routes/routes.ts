@@ -1,5 +1,4 @@
 import { adminLogin } from "../auth";
-
 const {
   deleteSectionEleven,
   editSectionEleven,
@@ -43,7 +42,6 @@ const {
   getSectionFour,
 } = require("../controller/sectionFourController");
 const multer = require("@koa/multer");
-const koabody = require("koa-body");
 const koaRouter = require("koa-router");
 const bodyValidate = require("koa-joi-validate");
 const {
@@ -76,7 +74,6 @@ const { addBlacklistToken } = require("../controller/blacklistController");
 const { uploadNFt } = require("../controller/uploadNFtController");
 
 const sectionFourValition = bodyValidate({ body: sectionFourSchema });
-const sectionOneValition = bodyValidate({ body: sectionOneSchema });
 const {
   validate,
   validateWallet,

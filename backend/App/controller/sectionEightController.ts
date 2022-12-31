@@ -66,7 +66,6 @@ const getSectionEight = async (ctx: any) => {
 const deleteSectionEight = async (ctx: any) => {
   try {
     const id=ctx.params.id;
-    console.log(id,"id")
     const data = await DeleteSectionEight(id);
     if (data.error) throw data.error;
     ctx.body = {
