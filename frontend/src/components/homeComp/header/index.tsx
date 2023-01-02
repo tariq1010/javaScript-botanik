@@ -15,29 +15,12 @@ import {
   Numbers,
   NumbersText,
 } from "./element";
-import { GetSectionOneHook } from "hooks/sectionOneHook";
-import { useEffect } from "react";
-import { GetSectionTwoHook } from "hooks/sectionTwoHook";
-import { GetSectionThreeHook } from "hooks/sectionThreeHook";
-import { GetSectionFourHook } from "hooks/sectionFourHook";
 import Loading from "components/common/loader/loader";
 
-function Header() {
-  const { data, getSectionOne ,loading} = GetSectionOneHook();
-  const { data: sectionTwo, getSectionTwo } = GetSectionTwoHook();
-  const { data: sectionThree, getSectionThree } = GetSectionThreeHook();
-  const { data: sectionFour, getSectionFour } = GetSectionFourHook();
-
-  useEffect(() => {
-    getSectionOne();
-    getSectionTwo();
-    getSectionThree();
-    getSectionFour();
-  }, []);
-
+function Header({ loading, data, sectionTwo, sectionThree, sectionFour }) {
   return (
     <HeaderWrapper>
-      {loading && <Loading/>}
+      {loading && <Loading />}
       <MainContainer>
         <ImageWrapper>
           <img className="img-fluid" src={data && data[0]?.image} />
@@ -85,14 +68,13 @@ function Header() {
               </SecondImageContainer>
             </MainCol>
             <MainCol lg={6} className="d-flex justify-content-center">
-
-            {sectionThree && (
-                  <SecondWrapperText
-                    dangerouslySetInnerHTML={{
-                      __html: sectionThree[0]?.paragraph_one,
-                    }}
-                  ></SecondWrapperText>
-                )}
+              {sectionThree && (
+                <SecondWrapperText
+                  dangerouslySetInnerHTML={{
+                    __html: sectionThree[0]?.paragraph_one,
+                  }}
+                ></SecondWrapperText>
+              )}
             </MainCol>
           </MainRow>
         </BottomWrapper>

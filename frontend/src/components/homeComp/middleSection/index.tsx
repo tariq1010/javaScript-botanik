@@ -15,29 +15,13 @@ import {
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-import { GetSectionFiveHook } from "hooks/sectionFiveHook";
-import { useEffect } from "react";
-import { GetSectionSixHook } from "hooks/sectionSixHook";
-import { GetSectionEightHook } from "hooks/sectionEightHook";
-import { GetSectionSevenHook } from "hooks/sectionSevenHook";
 import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
 import { useRef } from "react";
 
-function MiddleSection() {
+function MiddleSection({data,sectionSix,sectionSeven,carousel}) {
   const swiperRef = useRef<SwiperCore>();
-  const { data, getSectionFive } = GetSectionFiveHook();
-  const { data: sectionSix, getSectionSix } = GetSectionSixHook();
-  const { data: carousel, getSectionEight } = GetSectionEightHook();
-  const { data: sectionSeven, getSectionSeven } = GetSectionSevenHook();
-
-  useEffect(() => {
-    getSectionFive();
-    getSectionSix();
-    getSectionEight();
-    getSectionSeven();
-  }, []);
 
   return (
     <MiddleSectionWrapper>
@@ -112,7 +96,7 @@ function MiddleSection() {
               },
             }}
           >
-            {carousel?.map((item) => (
+            {carousel &&carousel?.map((item) => (
               <SwiperSlide>
                 <img
                   key={item._id}
