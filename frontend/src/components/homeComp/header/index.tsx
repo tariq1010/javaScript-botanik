@@ -1,5 +1,4 @@
 import { MainCol, MainContainer, MainRow } from "components/common";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
   BottomWrapper,
   HeaderWrapper,
@@ -22,7 +21,7 @@ function Header({ data, sectionTwo, sectionThree, sectionFour }) {
     <HeaderWrapper>
       <MainContainer>
         <ImageWrapper>
-          <LazyLoadImage
+          <img
             className="img-fluid"
             alt={data && data[0]?.image}
             src={data && data[0]?.image}
@@ -52,7 +51,7 @@ function Header({ data, sectionTwo, sectionThree, sectionFour }) {
             </MainCol>
             <MainCol lg={6}>
               <ImageContainer>
-                <LazyLoadImage
+                <img
                   className="img-fluid sectionImg"
                   alt={sectionTwo && sectionTwo[0]?.image}
                   src={sectionTwo && sectionTwo[0]?.image}
@@ -63,7 +62,7 @@ function Header({ data, sectionTwo, sectionThree, sectionFour }) {
           <MainRow>
             <MainCol lg={6}>
               <SecondImageContainer>
-                <LazyLoadImage
+                <img
                   src={sectionThree && sectionThree[0]?.image}
                   alt=""
                   className="img-fluid sectionImg"

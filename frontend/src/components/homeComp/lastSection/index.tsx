@@ -1,5 +1,4 @@
 import { MainCol, MainContainer, MainRow } from "components/common";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
   ImageWrapper,
   LastSectionWrapper,
@@ -26,20 +25,15 @@ import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
 
-function LastSection({ data, sectionTen,blogs }) {
+function LastSection({ data, sectionTen, blogs }) {
   const navigate = useNavigate();
   const swiperRef = useRef<SwiperCore>();
- 
 
   return (
     <LastSectionWrapper>
       <MainContainer>
         <ImageWrapper>
-          <LazyLoadImage
-            src={data && data[0]?.image}
-            alt=""
-            className="img-fluid"
-          />
+          <img src={data && data[0]?.image} alt="" className="img-fluid" />
           <TextContainer>
             {data && (
               <HeaderText
@@ -59,14 +53,14 @@ function LastSection({ data, sectionTen,blogs }) {
         <Wrapper>
           <MainRow>
             <MainCol lg={6}>
-              <LazyLoadImage
+              <img
                 className="img-fluid wrapperimg"
                 src={sectionTen && sectionTen[0]?.image_one}
               />
             </MainCol>
             <MainCol lg={6}>
               <InnerContainer>
-                <LazyLoadImage
+                <img
                   className="img-fluid containerimg"
                   src={sectionTen && sectionTen[0]?.image_two}
                 />
@@ -114,7 +108,7 @@ function LastSection({ data, sectionTen,blogs }) {
             >
               {blogs?.map((item) => (
                 <SwiperSlide>
-                  <LazyLoadImage
+                  <img
                     key={item._id}
                     className="img-fluid swiperImg"
                     src={item.image}
@@ -136,13 +130,13 @@ function LastSection({ data, sectionTen,blogs }) {
                 className="swiper-button image-swiper-button-next"
                 onClick={() => swiperRef.current?.slidePrev()}
               >
-                <LazyLoadImage className="img-fluid" src={back} />
+                <img className="img-fluid" src={back} />
               </PreviousButton>
               <NextButton
                 className="swiper-button image-swiper-button-prev"
                 onClick={() => swiperRef.current?.slideNext()}
               >
-                <LazyLoadImage className="img-fluid" src={next} />
+                <img className="img-fluid" src={next} />
               </NextButton>
             </div>
           </SwiperContainer>
