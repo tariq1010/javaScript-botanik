@@ -21,16 +21,17 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
+import MintModal from "components/common/modal/mintModal";
 
 function LastSection({ data, sectionTen,blogs }) {
   const navigate = useNavigate();
   const swiperRef = useRef<SwiperCore>();
  
-
+  const [show, setshow] = useState(false);
   return (
     <LastSectionWrapper>
       <MainContainer>
@@ -51,9 +52,10 @@ function LastSection({ data, sectionTen,blogs }) {
                 dangerouslySetInnerHTML={{ __html: data[0]?.paragraph }}
               />
             )}
-            <BuyBtn onClick={() => navigate("/mint-nft")}>
+            <BuyBtn  onClick={() => setshow(true)}>
               Buy Tapera Jungle NFT
             </BuyBtn>
+            <MintModal open={show} setShow={setshow} />
           </TextContainer>
         </ImageWrapper>
         <Wrapper>
