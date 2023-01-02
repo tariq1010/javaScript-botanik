@@ -19,16 +19,20 @@ import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
 import { useRef } from "react";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-function MiddleSection({data,sectionSix,sectionSeven,carousel}) {
+function MiddleSection({ data, sectionSix, sectionSeven, carousel }) {
   const swiperRef = useRef<SwiperCore>();
 
   return (
     <MiddleSectionWrapper>
       <MainContainer>
         <ImageWrapper>
-          <LazyLoadImage className="img-fluid" src={data && data[0]?.image} alt="" />
+          <LazyLoadImage
+            className="img-fluid"
+            src={data && data[0]?.image}
+            alt=""
+          />
           <TextContainer>
             {data && (
               <Text dangerouslySetInnerHTML={{ __html: data[0]?.text }} />
@@ -97,15 +101,16 @@ function MiddleSection({data,sectionSix,sectionSeven,carousel}) {
               },
             }}
           >
-            {carousel &&carousel?.map((item) => (
-              <SwiperSlide>
-                <LazyLoadImage
-                  key={item._id}
-                  className="img-fluid swiperImg"
-                  src={item.image}
-                />
-              </SwiperSlide>
-            ))}
+            {carousel &&
+              carousel?.map((item) => (
+                <SwiperSlide>
+                  <LazyLoadImage
+                    key={item._id}
+                    className="img-fluid swiperImg"
+                    src={item.image}
+                  />
+                </SwiperSlide>
+              ))}
           </Swiper>
           <div className="btnWrapper">
             <PreviousButton

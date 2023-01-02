@@ -1,5 +1,5 @@
 import { MainCol, MainContainer, MainRow } from "components/common";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
   ImageWrapper,
   LastSectionWrapper,
@@ -28,7 +28,7 @@ import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
 
-function LastSection({data,sectionTen}) {
+function LastSection({ data, sectionTen }) {
   const navigate = useNavigate();
   const swiperRef = useRef<SwiperCore>();
   const { data: blogs, getBlog } = GetBlogHook();
@@ -41,7 +41,11 @@ function LastSection({data,sectionTen}) {
     <LastSectionWrapper>
       <MainContainer>
         <ImageWrapper>
-          <LazyLoadImage src={data && data[0]?.image} alt="" className="img-fluid" />
+          <LazyLoadImage
+            src={data && data[0]?.image}
+            alt=""
+            className="img-fluid"
+          />
           <TextContainer>
             {data && (
               <HeaderText
@@ -53,7 +57,9 @@ function LastSection({data,sectionTen}) {
                 dangerouslySetInnerHTML={{ __html: data[0]?.paragraph }}
               />
             )}
-            <BuyBtn onClick={() => navigate("/mint-nft")}>Buy Tapera Jungle NFT</BuyBtn>
+            <BuyBtn onClick={() => navigate("/mint-nft")}>
+              Buy Tapera Jungle NFT
+            </BuyBtn>
           </TextContainer>
         </ImageWrapper>
         <Wrapper>
@@ -123,7 +129,9 @@ function LastSection({data,sectionTen}) {
                   <h4 dangerouslySetInnerHTML={{ __html: item.heading }} />
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: item.content.slice(0, 125) + (item.content.length>125? "...": ""),
+                      __html:
+                        item.content.slice(0, 125) +
+                        (item.content.length > 125 ? "..." : ""),
                     }}
                   />
                 </SwiperSlide>
