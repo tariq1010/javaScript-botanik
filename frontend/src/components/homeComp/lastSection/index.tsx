@@ -20,22 +20,16 @@ import {
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-import { useEffect } from "react";
-import { GetBlogHook } from "hooks/blogHook";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
 
-function LastSection({ data, sectionTen }) {
+function LastSection({ data, sectionTen,blogs }) {
   const navigate = useNavigate();
   const swiperRef = useRef<SwiperCore>();
-  const { data: blogs, getBlog } = GetBlogHook();
-
-  useEffect(() => {
-    getBlog();
-  }, []);
+ 
 
   return (
     <LastSectionWrapper>
