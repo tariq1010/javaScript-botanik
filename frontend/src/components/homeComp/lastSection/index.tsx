@@ -1,4 +1,5 @@
 import { MainCol, MainContainer, MainRow } from "components/common";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {
   ImageWrapper,
   LastSectionWrapper,
@@ -40,7 +41,7 @@ function LastSection({data,sectionTen}) {
     <LastSectionWrapper>
       <MainContainer>
         <ImageWrapper>
-          <img src={data && data[0]?.image} alt="" className="img-fluid" />
+          <LazyLoadImage src={data && data[0]?.image} alt="" className="img-fluid" />
           <TextContainer>
             {data && (
               <HeaderText
@@ -58,14 +59,14 @@ function LastSection({data,sectionTen}) {
         <Wrapper>
           <MainRow>
             <MainCol lg={6}>
-              <img
+              <LazyLoadImage
                 className="img-fluid wrapperimg"
                 src={sectionTen && sectionTen[0]?.image_one}
               />
             </MainCol>
             <MainCol lg={6}>
               <InnerContainer>
-                <img
+                <LazyLoadImage
                   className="img-fluid containerimg"
                   src={sectionTen && sectionTen[0]?.image_two}
                 />
@@ -113,7 +114,7 @@ function LastSection({data,sectionTen}) {
             >
               {blogs?.map((item) => (
                 <SwiperSlide>
-                  <img
+                  <LazyLoadImage
                     key={item._id}
                     className="img-fluid swiperImg"
                     src={item.image}
@@ -122,7 +123,7 @@ function LastSection({data,sectionTen}) {
                   <h4 dangerouslySetInnerHTML={{ __html: item.heading }} />
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: item.content.slice(0, 125) + "...",
+                      __html: item.content.slice(0, 125) + (item.content.length>125? "...": ""),
                     }}
                   />
                 </SwiperSlide>
@@ -133,13 +134,13 @@ function LastSection({data,sectionTen}) {
                 className="swiper-button image-swiper-button-next"
                 onClick={() => swiperRef.current?.slidePrev()}
               >
-                <img className="img-fluid" src={back} />
+                <LazyLoadImage className="img-fluid" src={back} />
               </PreviousButton>
               <NextButton
                 className="swiper-button image-swiper-button-prev"
                 onClick={() => swiperRef.current?.slideNext()}
               >
-                <img className="img-fluid" src={next} />
+                <LazyLoadImage className="img-fluid" src={next} />
               </NextButton>
             </div>
           </SwiperContainer>

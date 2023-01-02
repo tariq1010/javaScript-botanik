@@ -1,4 +1,5 @@
 import { MainCol, MainContainer, MainRow } from "components/common";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {
   BottomWrapper,
   HeaderWrapper,
@@ -15,15 +16,17 @@ import {
   Numbers,
   NumbersText,
 } from "./element";
-import Loading from "components/common/loader/loader";
 
-function Header({ loading, data, sectionTwo, sectionThree, sectionFour }) {
+function Header({ data, sectionTwo, sectionThree, sectionFour }) {
   return (
     <HeaderWrapper>
-      {loading && <Loading />}
       <MainContainer>
         <ImageWrapper>
-          <img className="img-fluid" src={data && data[0]?.image} />
+        <LazyLoadImage
+        className="img-fluid"
+        alt={data && data[0]?.image}
+        src={data && data[0]?.image}
+     />
         </ImageWrapper>
         <TextContainer>
           {data && <p dangerouslySetInnerHTML={{ __html: data[0]?.text }}></p>}
@@ -49,18 +52,22 @@ function Header({ loading, data, sectionTwo, sectionThree, sectionFour }) {
             </MainCol>
             <MainCol lg={6}>
               <ImageContainer>
-                <img
-                  src={sectionTwo && sectionTwo[0]?.image}
-                  alt=""
-                  className="img-fluid sectionImg"
-                />
+              <LazyLoadImage
+        className="img-fluid sectionImg"
+        alt={sectionTwo && sectionTwo[0]?.image}
+        src={sectionTwo && sectionTwo[0]?.image}
+     />
+                
               </ImageContainer>
             </MainCol>
           </MainRow>
           <MainRow>
             <MainCol lg={6}>
               <SecondImageContainer>
-                <img
+              
+
+
+                <LazyLoadImage
                   src={sectionThree && sectionThree[0]?.image}
                   alt=""
                   className="img-fluid sectionImg"
