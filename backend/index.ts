@@ -10,7 +10,7 @@ const cors = require("@koa/cors");
 const cron = require("node-cron");
 const { router } = require("./App/routes/routes");
 const { channel } = require("./App/socket.io/index");
-const { environment } = require("./environment");
+const serve = require("koa-static");
 // mongoose Connection
 const { connectDB } = require("./App/db/index");
 
@@ -19,26 +19,27 @@ const PORT = "8080";
 
 const app = new koa();
 app.use(cors());
+// app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
-
-cron.schedule(" */1 * * * *", async function () {
-  console.log("----cron job----");
-  web3CronJob();
-});
+app.use(serve("./public/uploads"))
+// cron.schedule(" */1 * * * *", async function () {
+//   console.log("----cron job----");
+//   web3CronJob();
+// });
 
 const server = app.listen(PORT, () =>
   console.log(`Server has started. http://localhost:${PORT}`)
 );
 //const server = app.listen(PORT);
-const io = socketio(server, {
-  cors: {
-    origin: environment.CLIENT_URL,
-    methods: ["GET", "POST"],
-  },
-});
-channel(io);
-exports.io = io;
+// const io = socketio(server, {
+//   cors: {
+//     origin: process.env.CLIENT_URL,
+//     methods: ["GET", "POST"],
+//   },
+// });
+// channel(io);
+// exports.io = io;
 
 /**
  * index port

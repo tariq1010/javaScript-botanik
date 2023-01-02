@@ -28,7 +28,9 @@ const Navbar = () => {
               <MainNav.Link href="upload-nft" as={Link} to="/upload-nft">
                 Upload NFTs
               </MainNav.Link>
-
+              <MainNav.Link as={Link} to="/home-content">
+                Upload Content
+              </MainNav.Link>
               <MainNav.Link
                 href="/admin-login"
                 as={Link}

@@ -1,49 +1,54 @@
-import { openNotification } from "components/common";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { checkAuthRequest } from "store/redux/slices/adminSlices/checkAuthSlice";
 import {
-  loginRequest,
+  loginRequestSuccess,
   resetLogin,
 } from "store/redux/slices/adminSlices/loginSlices";
-import {
-  logoutRequest,
-  resetLogout,
-} from "store/redux/slices/adminSlices/logoutSlice";
 import { logoutWallet } from "store/redux/slices/web3ConnectSlice";
 import { btkData } from "store/redux/slices/helperSlices/modelSlice";
-
 import { useAppDispatch, useAppSelector } from "store/store";
-
 import {
   bootanikDataLoading,
   resetBotanikData,
 } from "store/redux/slices/helperSlices/modelSlice";
+import { LoginService } from "services/loginServices";
+import { CommonHook } from "./commonHook";
+import { BrowserUtility } from "utility/browserUtility";
 
 export const LoginHook = () => {
-  const { credentials, result, error, errorMessage } = useAppSelector(
-    (state) => state.login
-  );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const login = () => {
-    dispatch(loginRequest(credentials));
+  const { data, setData, setError, loading, setLoading, error } = CommonHook();
+  const login = async (data) => {
+    try {
+      const obj = {
+        accounts: data,
+      }; 
+      setLoading(true);
+      const result = await LoginService.login(obj);
+      if (result.response == "success" && result.data) {
+        BrowserUtility.save("token", result.data.token);
+        setData(result.data);
+        dispatch(loginRequestSuccess(result.data.token));
+        navigate("/contract-functions");
+      }
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  useEffect(() => {
-    error &&
-      errorMessage.status === 505 &&
-      openNotification(
-        "Error",
-        "Something went Wrong, please refresh",
-        "error"
-      );
-    result && dispatch(resetLogin()) && navigate("/contract-functions");
-  }, [error, result]);
 
   return {
     login,
+    data,
+    loading,
+    error,
   };
 };
 
@@ -68,24 +73,39 @@ export const CheckAuthHook = () => {
 
 export const LogoutHook = () => {
   const dispatch = useAppDispatch();
-  const logout = () => {
-    dispatch(logoutWallet());
-    dispatch(resetBotanikData());
+  const navigate = useNavigate();
+  const { setError, loading, setLoading } = CommonHook();
+  const logout = async () => {
+    try {
+      setLoading(true);
+      const result = await LoginService.logout();
+      if (result.data) {
+        dispatch(logoutWallet());
+        dispatch(resetBotanikData());
+        BrowserUtility.remove("token");
+        dispatch(resetLogin());
+        navigate("/admin-login");
+        setLoading(false);
+      }
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
-
   return {
     logout,
+    loading,
   };
 };
 
 export const OwnerHook = () => {
-  const { web3, userBalance, contract, accounts } = useAppSelector(
-    (state) => state.web3Connect
-  );
+  const { web3, accounts } = useAppSelector((state) => state.web3Connect);
 
   const navigate = useNavigate();
 
-  const { botanikData, botanikLoader } = useAppSelector((state) => state.model);
+  const { botanikData } = useAppSelector((state) => state.model);
 
   const [loader, setLoader] = useState(false);
   const [owner, setOwner] = useState(false);
@@ -109,7 +129,7 @@ export const OwnerHook = () => {
   }, [botanikData]);
 
   useEffect(() => {
-    if (owner) {
+    if (owner && web3) {
       setTimeout(() => {
         alert("You are not Owner!");
         window.location.reload();

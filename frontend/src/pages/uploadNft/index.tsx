@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { UploadNftHook } from "hooks/uploadNftHooks";
 import styled from "styled-components";
 import { openNotification } from "components/common";
-import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../store/store";
 import Backdrop from "../../components/backdrop/backdrop";
 import img from "../../assets/images/bgimage.jpeg";
 import { FaUpload } from "react-icons/fa";
 import samplejson from "../../assets/sample.json";
 import MainNavbar from "components/navbar";
+import { LogoutHook } from "hooks/adminhooks";
 const UploadSection = styled.div`
   background-image: url(${img});
   -webkit-background-size: cover;
@@ -65,13 +65,8 @@ const DownloadLink = styled.div`
 const UploadNft = () => {
   const [files, setFiles] = useState<any>("");
   const { data, uploadHandle, loading } = UploadNftHook();
-  const navigate = useNavigate();
 
   console.log("upload", data?.data?.message);
-
-  const { web3, userBalance, contract, accounts } = useAppSelector(
-    (state) => state.web3Connect
-  );
 
   const handleChange = (e: any) => {
     const fileReader = new FileReader();
@@ -86,7 +81,8 @@ const UploadNft = () => {
       }
     };
   };
-  const { botanikData } = useAppSelector((state) => state.model);
+
+  const { token_temp } = useAppSelector((state) => state.login);
 
   useEffect(() => {
     if (files) {
@@ -107,15 +103,14 @@ const UploadNft = () => {
     hiddenFileInput.current.click();
   };
 
+
+
+  const { logout } = LogoutHook();
   useEffect(() => {
-    //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if (accounts && botanikData?.owner) {
-      (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
-        navigate("/upload-nft");
-    } else {
-      navigate("/admin-login");
+    if (!token_temp) {
+      logout();
     }
-  }, [accounts, botanikData]);
+  }, []);
 
   return (
     <>
@@ -126,9 +121,7 @@ const UploadNft = () => {
         <div className="overlayBg">
           <UploadWrapper>
             <Row>
-              {/* <Col>
-              <input type="file" onChange={handleChange} accept="*json" />
-            </Col> */}
+             
 
               <BtnContainer>
                 <Col>

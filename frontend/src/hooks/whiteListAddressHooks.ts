@@ -1,6 +1,6 @@
 import openNotification from "components/common/toatMessage/toastMessage"
 import { useEffect, useState } from "react"
-import { getProofRequest, removeAddresses, resetWhiteList, saveAddressesRequest } from "store/redux/slices/addressesSlice"
+import { getProofRequest, resetWhiteList, saveAddressesRequest } from "store/redux/slices/addressesSlice"
 import { useAppDispatch, useAppSelector } from "store/store"
 import { setMerkleRootAsync } from 'store/redux/slices/web3ConnectSlice'
 import WhitelistAddressService from "services/whitelistAddressesService"

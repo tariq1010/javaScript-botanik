@@ -9,6 +9,7 @@ import { MintedNftHook } from "hooks/nftHooks";
 import { MintedNftWrapper } from "./mintendElement";
 import { Space, Table, Tag, Image } from "antd";
 import { Card } from "react-bootstrap";
+import { LogoutHook } from "hooks/adminhooks";
 
 const MintedNfts = () => {
   const { Column } = Table;
@@ -27,16 +28,16 @@ const MintedNfts = () => {
   const [isOwner, setIsOwner] = useState(false);
 
   const { botanikData } = useAppSelector((state) => state.model);
+  const { token_temp } = useAppSelector((state) => state.login);
   console.log("owner", isOwner, accounts);
-  useEffect(() => {
-    //auth && dispatch(resetcheckAuth()) && navigate("/contract-functions");
-    if (accounts && botanikData?.owner) {
-      (botanikData?.owner).toLowerCase() === accounts.toLowerCase() &&
-        navigate("/minted");
-    } else {
-      navigate("/admin-login");
+ 
+  const {logout}=LogoutHook()
+  useEffect(()=>{
+    if(!token_temp){
+      logout()
     }
-  }, [accounts, botanikData]);
+
+  },[])
 
   return (
     <MintedNftWrapper>
