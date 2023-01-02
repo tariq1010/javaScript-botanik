@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
 
-contract TAPERAJUNGLE is ERC721, Pausable, Ownable {
+contract TAPERAJUNGLE is ERC721Pausable, Ownable {
     using Strings for uint256;
     using Counters for Counters.Counter;
     Counters.Counter private tokenId;
@@ -14,8 +13,9 @@ contract TAPERAJUNGLE is ERC721, Pausable, Ownable {
     string private baseUriExtended;
     uint256 public immutable MAX_SUPPLY = 8000;
 
-    constructor (string memory name_, string memory symbol_) ERC721(name_, symbol_) {}
-
+    constructor(string memory name_, string memory symbol_)
+        ERC721(name_, symbol_)
+    {}
 
     /*
      * mint nft to the address passed by user in 'to' parameter
@@ -30,7 +30,10 @@ contract TAPERAJUNGLE is ERC721, Pausable, Ownable {
         payable
         whenNotPaused
     {
-        require(tokenId.current() + nftAmount <= MAX_SUPPLY, "Max limit reached");
+        require(
+            tokenId.current() + nftAmount <= MAX_SUPPLY,
+            "Max limit reached"
+        );
         require(msg.value == mintFee * nftAmount, "Invalid mint fee");
         for (uint256 i = 0; i < nftAmount; i++) {
             tokenId.increment();
@@ -46,7 +49,6 @@ contract TAPERAJUNGLE is ERC721, Pausable, Ownable {
      */
 
     function setMintFee(uint256 fee) external onlyOwner {
-        require(fee > 0, "Not allowed");
         mintFee = fee;
     }
 
@@ -66,7 +68,7 @@ contract TAPERAJUNGLE is ERC721, Pausable, Ownable {
         return baseUriExtended;
     }
 
-    function pause() external  whenNotPaused onlyOwner {
+    function pause() external whenNotPaused onlyOwner {
         _pause();
     }
 
@@ -90,7 +92,7 @@ contract TAPERAJUNGLE is ERC721, Pausable, Ownable {
      */
 
     function withdrawEth(address to) external onlyOwner {
-        require(to != address(0) , "zero address");
+        require(to != address(0), "zero address");
         payable(to).transfer(address(this).balance);
     }
 }
