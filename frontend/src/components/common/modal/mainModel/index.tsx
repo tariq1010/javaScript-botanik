@@ -18,13 +18,15 @@ const MainModel = ({
   transferModel,
   withDrawModel,
   setPhaseModal,
-  feeModel
+  feeModel,
+  setShow
 }: {
   connectModel?: any;
   transferModel?: any;
   withDrawModel?: any;
   setPhaseModal?: any;
   feeModel?:any
+  setShow?:any;
 
 }) => {
    console.log(" feeModa",feeModel)
@@ -38,6 +40,7 @@ const MainModel = ({
   useEffect(() => {
     if (modelOpen) {
       setModal1Visible(true);
+      
     }
   }, [modelOpen]);
 
@@ -46,6 +49,8 @@ const MainModel = ({
     setModal1Visible(false);
   };
 
+
+ 
   return (
     <div>
       {web3 === null && connectModel ? (
@@ -56,7 +61,7 @@ const MainModel = ({
           centered
           onCancel={closeModel}
         >
-          <ConnectModel />
+          <ConnectModel  setShow={setShow}/>
         </Modal>
       ) : null}
       {web3 && transferModel ? (
