@@ -19,30 +19,18 @@ import {
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
-import { GetSectionNineHook } from "hooks/sectionNineHook";
-import { useEffect } from "react";
-import { GetSectionTenHook } from "hooks/sectionTenHook";
-import { GetBlogHook } from "hooks/blogHook";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
+import MintModal from "components/common/modal/mintModal";
 
-function LastSection() {
+function LastSection({ data, sectionTen, blogs }) {
   const navigate = useNavigate();
   const swiperRef = useRef<SwiperCore>();
-
-  const { data, getSectionNine } = GetSectionNineHook();
-  const { data: sectionTen, getSectionTen } = GetSectionTenHook();
-  const { data: blogs, getBlog } = GetBlogHook();
-
-  useEffect(() => {
-    getSectionNine();
-    getSectionTen();
-    getBlog();
-  }, []);
-
+ 
+  const [show, setshow] = useState(false);
   return (
     <LastSectionWrapper>
       <MainContainer>
@@ -59,7 +47,10 @@ function LastSection() {
                 dangerouslySetInnerHTML={{ __html: data[0]?.paragraph }}
               />
             )}
-            <BuyBtn onClick={() => navigate("/mint-nft")}>Buy Tapera Jungle NFT</BuyBtn>
+            <BuyBtn  onClick={() => setshow(true)}>
+              Buy Tapera Jungle NFT
+            </BuyBtn>
+            <MintModal open={show} setShow={setshow} />
           </TextContainer>
         </ImageWrapper>
         <Wrapper>
@@ -129,7 +120,9 @@ function LastSection() {
                   <h4 dangerouslySetInnerHTML={{ __html: item.heading }} />
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: item.content.slice(0, 125) + "...",
+                      __html:
+                        item.content.slice(0, 125) +
+                        (item.content.length > 125 ? "..." : ""),
                     }}
                   />
                 </SwiperSlide>

@@ -175,7 +175,7 @@ function MiddleSection() {
         <ImageWrapper>
           <HeaderImageContainer>
             <label htmlFor="five" style={{ width: "100%" }}>
-              <img className="img-fluid" src={data && data[0]?.image} alt="" />
+              <img className="img-fluid" src={data && data[0]?.image} alt=""/>
               <UploadImagedDiv>
                 <UploadImage />
                 <h2>

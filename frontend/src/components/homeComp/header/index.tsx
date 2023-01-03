@@ -15,36 +15,33 @@ import {
   Numbers,
   NumbersText,
 } from "./element";
-import { GetSectionOneHook } from "hooks/sectionOneHook";
-import { useEffect } from "react";
-import { GetSectionTwoHook } from "hooks/sectionTwoHook";
-import { GetSectionThreeHook } from "hooks/sectionThreeHook";
-import { GetSectionFourHook } from "hooks/sectionFourHook";
-import Loading from "components/common/loader/loader";
 
-function Header() {
-  const { data, getSectionOne ,loading} = GetSectionOneHook();
-  const { data: sectionTwo, getSectionTwo } = GetSectionTwoHook();
-  const { data: sectionThree, getSectionThree } = GetSectionThreeHook();
-  const { data: sectionFour, getSectionFour } = GetSectionFourHook();
-
-  useEffect(() => {
-    getSectionOne();
-    getSectionTwo();
-    getSectionThree();
-    getSectionFour();
-  }, []);
-
+function Header({
+  data,
+  sectionTwo,
+  sectionThree,
+  sectionFour,
+  setLoading,
+  imageLoad,
+}) {
   return (
     <HeaderWrapper>
-      {loading && <Loading/>}
       <MainContainer>
         <ImageWrapper>
-          <img className="img-fluid" src={data && data[0]?.image} />
+          <img
+            className="img-fluid"
+            alt={data && data[0]?.image}
+            src={data && data[0]?.image}
+            onLoad={() => setLoading(!imageLoad)}
+          />
         </ImageWrapper>
-        <TextContainer>
+        {
+          !imageLoad &&
+          <TextContainer>
           {data && <p dangerouslySetInnerHTML={{ __html: data[0]?.text }}></p>}
         </TextContainer>
+        }
+       
         <BottomWrapper>
           <MainRow>
             <MainCol lg={6} className="d-flex justify-content-center">
@@ -67,9 +64,9 @@ function Header() {
             <MainCol lg={6}>
               <ImageContainer>
                 <img
-                  src={sectionTwo && sectionTwo[0]?.image}
-                  alt=""
                   className="img-fluid sectionImg"
+                  alt={sectionTwo && sectionTwo[0]?.image}
+                  src={sectionTwo && sectionTwo[0]?.image}
                 />
               </ImageContainer>
             </MainCol>
@@ -85,14 +82,13 @@ function Header() {
               </SecondImageContainer>
             </MainCol>
             <MainCol lg={6} className="d-flex justify-content-center">
-
-            {sectionThree && (
-                  <SecondWrapperText
-                    dangerouslySetInnerHTML={{
-                      __html: sectionThree[0]?.paragraph_one,
-                    }}
-                  ></SecondWrapperText>
-                )}
+              {sectionThree && (
+                <SecondWrapperText
+                  dangerouslySetInnerHTML={{
+                    __html: sectionThree[0]?.paragraph_one,
+                  }}
+                ></SecondWrapperText>
+              )}
             </MainCol>
           </MainRow>
         </BottomWrapper>
