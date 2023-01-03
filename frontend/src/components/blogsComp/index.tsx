@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GetSectionNineHook } from "hooks/sectionNineHook";
+import MintModal from "components/common/modal/mintModal";
 function BlogsCom() {
   const { id } = useParams();
   const [selectBlog, setSelectBlog] = useState();
@@ -55,7 +56,7 @@ function BlogsCom() {
     }
   }, [selectBlog]);
   const navigate = useNavigate()
-
+  const [show, setshow] = useState(false);
   return (
     <BlogWrapper>
       {loading && <Loader />}
@@ -96,7 +97,8 @@ function BlogsCom() {
                 dangerouslySetInnerHTML={{ __html: sectionNine[0]?.paragraph }}
               />
             )}
-            <BuyBtn onClick={() => navigate("/mint-nft")}>Buy Tapera Jungle NFT</BuyBtn>
+            <BuyBtn onClick={() => setshow(true)}>Buy Tapera Jungle NFT</BuyBtn>
+            <MintModal open={show} setShow={setshow} />
           </TextContainer>
         </ImageContainer>
       </MainContainer>
