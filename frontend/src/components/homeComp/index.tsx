@@ -20,7 +20,7 @@ function HomeComp() {
   console.log("imageLoad",imageLoad)
   return (
     <HomeCompWrapper>
-   <Loader />
+      {(imageLoad )&& <Loader />}
       <>
         <Navbar />
         <Header
