@@ -31,6 +31,7 @@ import { GetMintStatusHook } from "hooks/web3Hooks";
 import useForm from "hooks/useForm";
 import validate from "pages/mintingNft/components/validateNumber";
 import { MainModel } from "components/common";
+import SimpleBackdrop from "components/backdrop/backdrop";
 // import validate from "./components/validateNumber";
 const MintModal = ({ open, setShow }) => {
   // const [open, setOpen] = React.useState(false);
@@ -177,6 +178,7 @@ const MintModal = ({ open, setShow }) => {
         aria-describedby="modal-modal-description"
       >
         <BoxContainer>
+        <SimpleBackdrop loading={mintLoading} />
           <Box>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               <HeaderSection>
