@@ -16,7 +16,14 @@ import {
   NumbersText,
 } from "./element";
 
-function Header({ data, sectionTwo, sectionThree, sectionFour }) {
+function Header({
+  data,
+  sectionTwo,
+  sectionThree,
+  sectionFour,
+  setLoading,
+  imageLoad,
+}) {
   return (
     <HeaderWrapper>
       <MainContainer>
@@ -25,6 +32,7 @@ function Header({ data, sectionTwo, sectionThree, sectionFour }) {
             className="img-fluid"
             alt={data && data[0]?.image}
             src={data && data[0]?.image}
+            onLoad={() => setLoading(!imageLoad)}
           />
         </ImageWrapper>
         <TextContainer>

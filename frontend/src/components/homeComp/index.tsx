@@ -4,34 +4,46 @@ import Header from "./header";
 import MiddleSection from "./middleSection";
 import LastSection from "./lastSection";
 import { GetSectionsHook } from "hooks/allSectionsHook";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import { Loader } from "components/common";
 import { GetBlogHook } from "hooks/blogHook";
 import Loader from "./loader";
 
-
 function HomeComp() {
-  const { data: blogs, getBlog,loading:load } = GetBlogHook();
-
- const {getSections,result,loading}= GetSectionsHook()
- useEffect(()=>{
-  getSections()
-  getBlog()
- },[])
-
-
+  const [imageLoad, setImageLoad] = useState(true)
+  const { data: blogs, getBlog, loading: load } = GetBlogHook();
+  const { getSections, result, loading } = GetSectionsHook();
+  useEffect(() => {
+    getSections();
+    getBlog();
+  }, []);
+  console.log("imageLoad",imageLoad)
   return (
-    
     <HomeCompWrapper>
-      { loading ? ( <Loader/>) :(
-        <>
-      <Navbar />
-      <Header  data={result.sectionOne} sectionTwo={result.sectionTwo} sectionThree={result.sectionThree} sectionFour={result.sectionFour}/>
-      <MiddleSection  data={result.sectionFive} sectionSix={result.sectionSix} sectionSeven={result.sectionSeven} carousel={result.sectionEight} />
-      <LastSection  data={result.sectionNine} sectionTen={result.sectionTen} blogs={blogs}  />
-      <Footer />
+   <Loader />
+      <>
+        <Navbar />
+        <Header
+          data={result.sectionOne}
+          sectionTwo={result.sectionTwo}
+          sectionThree={result.sectionThree}
+          sectionFour={result.sectionFour}
+          setLoading={setImageLoad}
+          imageLoad={imageLoad}
+        />
+        <MiddleSection
+          data={result.sectionFive}
+          sectionSix={result.sectionSix}
+          sectionSeven={result.sectionSeven}
+          carousel={result.sectionEight}
+        />
+        <LastSection
+          data={result.sectionNine}
+          sectionTen={result.sectionTen}
+          blogs={blogs}
+        />
+        <Footer />
       </>
-      )}
     </HomeCompWrapper>
   );
 }
