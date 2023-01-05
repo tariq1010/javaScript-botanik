@@ -2,7 +2,7 @@
 
 export const CommonConstant = {
     defaultPageSize: 20,
-    mode: process.env.REACT_APP_MODE,
+    mode: "PRODUCTION",
     maxBonus: 10 ** 18,
     totemChart: "https://coinmarketcap.com/currencies/totem-new-earth-systems/",
   };

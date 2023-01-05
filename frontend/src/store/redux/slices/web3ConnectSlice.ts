@@ -71,7 +71,7 @@ export const loadBlockchain: any = createAsyncThunk(
         await web3.givenProvider.request({
           method: "wallet_switchEthereumChain",
           // params: [{ chainId: Protocols.bsc.chainId.mainnet }],
-          params: [{ chainId: "0x5" }],
+          params: [{ chainId: "0x1" }],
         });
         const marketPlaceContract: EthContract.Contract = new web3.eth.Contract(
           CONTRACT_ABI as AbiItem[],
@@ -102,9 +102,9 @@ export const loadWalletConnect: any = createAsyncThunk(
     try {
       const provider = new WalletConnectProvider({
         rpc: {
-          43114: "https://api.avax.network/ext/bc/C/rpc",
+          1: "https://mainnet.infura.io/v3/",
         },
-        chainId: 43114,
+        chainId: 1,
       });
       console.log("Provider", provider);
       if (provider) {
