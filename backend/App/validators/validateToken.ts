@@ -1,5 +1,4 @@
 import * as jwt from 'jsonwebtoken';
-const { environment } = require('../../environment')
 const SHA256 = require('crypto-js/sha256');
 const { getToken } = require('../model/blacklistModel')
 

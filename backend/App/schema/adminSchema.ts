@@ -16,6 +16,6 @@ let adminSchema = mongoose.Schema(
   }
 );
 
-const Admin = mongoose.model("senshiAdmin", adminSchema);
+const Admin = mongoose.model("botanik-schema", adminSchema);
 
 export { Admin };
