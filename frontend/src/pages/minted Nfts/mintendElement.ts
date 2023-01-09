@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import img from "../../assets/images/bgimage.jpeg";
+// import img from "../../assets/images/bgimage.jpeg";
 export const MintedNftWrapper = styled.div`
 
-background-image: url(${img});
+/* background-image: url(); */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

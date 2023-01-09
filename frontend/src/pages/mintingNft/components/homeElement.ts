@@ -1,9 +1,9 @@
 import { style } from "@mui/system";
 import styled, { css } from "styled-components";
-import wirefram from "../../../assets/images/Wireframe.png";
-import aboutimg from "../../../assets/images/about.svg";
-import nextArrow from "../../../assets/images/nextArrow.svg";
-import prevArrow from "../../../assets/images/prevArrow.svg";
+// import wirefram from "../../../assets/images/Wireframe.png";
+// import aboutimg from "../../../assets/images/about.svg";
+// import nextArrow from "../../../assets/images/nextArrow.svg";
+// import prevArrow from "../../../assets/images/prevArrow.svg";
 
 interface Props {
   battleDesc?: boolean;
@@ -168,7 +168,7 @@ export const Text = styled.p`
 export const HeroSection = styled.div`
   /* position: relative; */
 
-  background-image: url(${wirefram});
+  /* background-image: url(); */
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -187,7 +187,7 @@ export const HeaderSection = styled.div`
 export const JungleSection = styled.div`
   padding-top: 13rem;
   padding-bottom: 5rem;
-  background-image: url(${aboutimg});
+  /* background-image: url(); */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -269,18 +269,12 @@ export const GallerySwiper = styled.div`
   }
 
   .swiper-button-next {
-    /* color:black ;
-    right:0 ;
-    width:4rem ;
-    top:60% ; */
-    background-image: url(${nextArrow});
+ 
+    /* background-image: url(); */
     margin-right: 10rem;
     background-repeat: no-repeat !important;
     width: 4rem;
-    /* width: 100% !important;
-    background-repeat: no-repeat !important; */
-    /* background-position: center ;
-    background-size: cover; */
+  
 
     &::after {
       display: none;
@@ -304,10 +298,7 @@ export const GallerySwiper = styled.div`
 
   .swiper-button-prev {
     color: black;
-
-    /* width:2rem ; */
-
-    background-image: url(${prevArrow});
+    /* background-image: url(); */
     margin-left: 10rem;
     background-repeat: no-repeat !important;
     width: 100% !important;

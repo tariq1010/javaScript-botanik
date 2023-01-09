@@ -7,8 +7,7 @@ import {
   userBalanceAsync,
 } from "../../store/redux/slices/web3ConnectSlice";
 import { getFeeRequest } from "../../store/redux/slices/getFeeSlice";
-import s1 from "../../assets/images/s1.png";
-// import img from '../../assets/images/nextArrow.svg'
+// import s1 from "../../assets/images/s1.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { MainModel, openNotification } from "components/common";
 import { GetProofHook } from "hooks/whiteListAddressHooks";
@@ -46,7 +45,7 @@ import {
   ContactButton,
   FooterText,
 } from "./components/homeElement";
-import img1 from "../../assets/images/img1.png";
+// import img1 from "../../assets/images/img1.png";
 
 // logo
 // redux Slice
@@ -204,7 +203,7 @@ const Minting: React.FC<Props> = ({
 
       <HeroSection>
         <div className="mainImage">
-          <img src={img1} />
+          {/* <img src={img1} /> */}
         </div>
 
         <HeaderSection>
@@ -368,23 +367,23 @@ const Minting: React.FC<Props> = ({
               className="mySwiper"
             >
               <SwiperSlide>
-                <img src={s1} />
+                {/* <img src={} /> */}
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={s1} />
+                {/* <img src={} /> */}
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={s1} />
+                {/* <img src={} /> */}
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={s1} />
+                {/* <img src={} /> */}
               </SwiperSlide>
 
               <SwiperSlide>
-                <img src={s1} />
+                {/* <img src={s1} /> */}
               </SwiperSlide>
             </Swiper>
           </GallerySwiper>

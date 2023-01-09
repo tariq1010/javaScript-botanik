@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import img4 from '../../assets/images/bgimage.jpeg'
+// import img4 from '../../assets/images/bgimage.jpeg'
 
  
 export const Wrapper = styled.div`
-  background-image: url(${img4});
+  background-image: url();
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

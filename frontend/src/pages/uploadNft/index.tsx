@@ -5,13 +5,13 @@ import styled from "styled-components";
 import { openNotification } from "components/common";
 import { useAppSelector } from "../../store/store";
 import Backdrop from "../../components/backdrop/backdrop";
-import img from "../../assets/images/bgimage.jpeg";
+// import img from "../../assets/images/bgimage.jpeg";
 import { FaUpload } from "react-icons/fa";
 import samplejson from "../../assets/sample.json";
 import MainNavbar from "components/navbar";
 import { LogoutHook } from "hooks/adminhooks";
 const UploadSection = styled.div`
-  background-image: url(${img});
+  background-image: url();
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
