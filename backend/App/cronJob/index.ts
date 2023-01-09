@@ -17,7 +17,7 @@ const web3CronJob = async () => {
       let difference = Number(nftCountFromBlockchain) - nftCountFromOffChain;
       const res = await offChainMint(difference);
       const count = await nftCount();
-      conn.io.sockets.emit("nftCount", { count });
+      // conn.io.sockets.emit("nftCount", { count });
 
       console.log(
         "onchain count:",
@@ -34,7 +34,7 @@ const web3CronJob = async () => {
       let difference = nftCountFromOffChain - Number(nftCountFromBlockchain);
       const res = await offChainUnMint(difference);
       const count = await nftCount();
-      conn.io.sockets.emit("nftCount", { count });
+      // conn.io.sockets.emit("nftCount", { count });
 
       console.log(
         "onchain count:",

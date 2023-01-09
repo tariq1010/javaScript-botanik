@@ -6,15 +6,12 @@ const { mintedNfts } = require("../model/nftModel");
 const nftCount = async () => {
   try {
     let totalSupply = await contract.methods.totalSupply().call();
-    let mintLimit = await contract.methods.phaseLimit().call();
+    // let mintLimit = await contract.methods.phaseLimit().call();
     const nftsMinted = await mintedNfts();
-    const phaseLimit= +(mintLimit - nftsMinted.length)
-    const phaseMintedCount= +(totalSupply - nftsMinted.length)
+    // const phaseLimit= +(mintLimit - nftsMinted.length)
+    // const phaseMintedCount= +(totalSupply - nftsMinted.length)
     const count = {
       totalSupply: +totalSupply,
-      phaseLimit,
-      phaseMintedCount,
-      remainingInPhase: phaseLimit-phaseMintedCount,
       offChainCount: nftsMinted.length
     }
     return count;
