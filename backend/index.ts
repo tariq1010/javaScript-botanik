@@ -24,10 +24,11 @@ app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
 app.use(serve("./public/uploads"))
 
-cron.schedule(" */2 * * * *", async function () {
+cron.schedule(" */1 * * * *", async function () {
   console.log("----cron job----");
   web3CronJob();
 });
+web3CronJob();
 
 const server = app.listen(PORT, () =>
   console.log(`Server has started. http://localhost:${PORT}`)
