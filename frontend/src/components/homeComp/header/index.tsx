@@ -98,26 +98,70 @@ function Header({
           <MainRow>
             <MainCol lg={4}>
               <NumbersWrapper>
-                <Numbers>{sectionFour && sectionFour[0]?.heading1}</Numbers>
-                <NumbersText>
+                {/* <Numbers>{sectionFour && sectionFour[0]?.heading1}</Numbers> */}
+                {sectionFour && (
+                  <Numbers
+                    dangerouslySetInnerHTML={{
+                      __html: sectionFour[0]?.heading1,
+                    }}
+                  />
+                )}
+                {/* <NumbersText>
                   {sectionFour && sectionFour[0]?.text1}
-                </NumbersText>
+                </NumbersText> */}
+
+                {sectionFour && (
+                  <NumbersText
+                    dangerouslySetInnerHTML={{
+                      __html: sectionFour[0]?.text1,
+                    }}
+                  />
+                )}
               </NumbersWrapper>
             </MainCol>
             <MainCol lg={4}>
               <NumbersWrapper>
-                <Numbers>{sectionFour && sectionFour[0]?.heading2}</Numbers>
-                <NumbersText>
+                {/* <Numbers>{sectionFour && sectionFour[0]?.heading2}</Numbers> */}
+                {sectionFour && (
+                  <Numbers
+                    dangerouslySetInnerHTML={{
+                      __html: sectionFour[0]?.heading2,
+                    }}
+                  />
+                )}
+                {/* <NumbersText>
                   {sectionFour && sectionFour[0]?.text1}
-                </NumbersText>
+                </NumbersText> */}
+
+                {sectionFour && (
+                  <NumbersText
+                    dangerouslySetInnerHTML={{
+                      __html: sectionFour[0]?.text2,
+                    }}
+                  />
+                )}
               </NumbersWrapper>
             </MainCol>
             <MainCol lg={4}>
               <NumbersWrapper>
-                <Numbers>{sectionFour && sectionFour[0]?.heading3}</Numbers>
-                <NumbersText>
+                {sectionFour && (
+                  <Numbers
+                    dangerouslySetInnerHTML={{
+                      __html: sectionFour[0]?.heading3,
+                    }}
+                  />
+                )}
+                {/* <NumbersText>
                   {sectionFour && sectionFour[0]?.text1}
-                </NumbersText>
+                </NumbersText> */}
+
+                {sectionFour && (
+                  <NumbersText
+                    dangerouslySetInnerHTML={{
+                      __html: sectionFour[0]?.text3,
+                    }}
+                  />
+                )}
               </NumbersWrapper>
             </MainCol>
           </MainRow>
