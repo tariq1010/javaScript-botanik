@@ -1,7 +1,7 @@
 const {
   EditSectionSeven,
   GetSectionSeven,
-} = require("../model/sectionSevenModel");
+} = require("../model/SectionSevenModel");
 
 const editSectionSeven = async (ctx: any) => {
   try {

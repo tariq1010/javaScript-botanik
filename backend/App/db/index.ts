@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 require('dotenv').config(); 
-const {environment}= require("../../environment")
 
 let url = process.env.MONGOOSE_URL
 

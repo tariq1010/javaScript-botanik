@@ -1,5 +1,5 @@
-import { SectionSeven } from "../schema/sectionSevenSchema";
 const fs = require("fs");
+const {SectionSeven} = require("../schema/sectionSevenSchema");
 
 const EditSectionSeven = async (id: any, obj: any) => {
   try {
