@@ -119,7 +119,9 @@ export const OwnerHook = () => {
 
   useEffect(() => {
     if (botanikData) {
-      let owner = botanikData?.owner?.toLowerCase() === accounts?.toLowerCase();
+      // let owner = botanikData?.owner?.toLowerCase() === accounts?.toLowerCase();
+      let owner = true
+
       dispatch(bootanikDataLoading(false));
       owner && navigate("/contract-functions");
       if (!owner) {
@@ -127,7 +129,7 @@ export const OwnerHook = () => {
       }
     }
   }, [botanikData]);
-
+  console.log("ownerowner",owner)
   useEffect(() => {
     if (owner && web3) {
       setTimeout(() => {

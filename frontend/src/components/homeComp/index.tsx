@@ -20,7 +20,7 @@ function HomeComp() {
 
   return (
     <HomeCompWrapper>
-      {/* {imageLoad && <Loader />} */}
+      {imageLoad && <Loader />}
       <>
         <Navbar />
         <Header
