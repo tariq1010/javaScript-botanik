@@ -9,9 +9,9 @@ const {
 const saveSectionEleven = async (ctx: any) => {
   try {
     const body = ctx.request.body;
-    if (ctx.file) {
-      body.image_path = `${process.env.BACKEND_URL}/${ctx.file.filename}`;
-    }
+    // if (ctx.file) {
+    //   body.image_path = `${process.env.BACKEND_URL}/${ctx.file.filename}`;
+    // }
     const data = await SaveSectionEleven(body);
     if (data.error) throw data.error;
     ctx.body = {

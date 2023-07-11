@@ -18,6 +18,7 @@ import { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import deme from "../../assets/images/deme.png";
 import p from "../../assets/images/p1.png";
+import { storage } from "firebase";
 
 function EditBlogsCom() {
   const content = useRef(null);
@@ -26,7 +27,7 @@ function EditBlogsCom() {
 
   const [editBlogFile, setEditBlogFile] = useState(null);
   const { data: blogById, getBlogById, loading: load } = GetBlogByIdHook();
-  const { data: edit, editBlog, loading } = EditBlogHook();
+  const { data: edit, editBlog, loading, setLoading } = EditBlogHook();
 
   function handleBlog() {
     const obj = {
@@ -44,6 +45,27 @@ function EditBlogsCom() {
 
   useEffect(() => {
     if (editBlogFile) {
+      setLoading(true);
+      const storageRef = storage.ref(`/tapera-jungle/${editBlogFile?.name}`);
+      const uploadTask = storageRef.put(editBlogFile);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          console.log(error);
+        },
+        async () => {
+          try {
+            const downloadURL = await storageRef.getDownloadURL();
+            editBlog(id, { image_path: downloadURL });
+            // editBlog(id, formData);
+          } catch (error) {
+            console.error("Error getting download URL:", error);
+          }
+        }
+      );
+
       const formData = new FormData();
       formData.append("section_eleven_image", editBlogFile);
       editBlog(id, formData);

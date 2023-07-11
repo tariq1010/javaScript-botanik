@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Content,
-} from "./adminLoginElements";
+import { Content } from "./adminLoginElements";
 import { useAppDispatch, useAppSelector } from "store/store";
 import SimpleBackdrop from "components/backdrop/backdrop";
 import { mainModel } from "store/redux/slices/helperSlices/modelSlice";
@@ -14,11 +12,8 @@ const AdminLogin = () => {
   //decalartions
   const dispatch = useAppDispatch();
   //useAppSelector
-  
-  
-  const { web3, accounts } = useAppSelector(
-    (state) => state.web3Connect
-  );
+
+  const { web3, accounts } = useAppSelector((state) => state.web3Connect);
 
   const { botanikLoader } = useAppSelector((state) => state.model);
   const [connectModel, setConnectModel] = useState(false);
@@ -26,7 +21,7 @@ const AdminLogin = () => {
   useEffect(() => {
     if (web3 && accounts) {
       login(accounts);
-      checkOwner()
+      checkOwner();
     }
   }, [web3, accounts]);
 

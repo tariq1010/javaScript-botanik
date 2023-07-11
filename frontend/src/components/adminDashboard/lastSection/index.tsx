@@ -36,6 +36,7 @@ import { Swiper as SwiperCore } from "swiper/types";
 import back from "../../../assets/images/back.png";
 import next from "../../../assets/images/next.png";
 import { Tooltip } from "antd";
+import { storage } from "firebase";
 
 function LastSection() {
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ function LastSection() {
     data: editTen,
     editSectionTen,
     loading: load2,
+    setLoading,
   } = EditSectionTenHook();
 
   const { data: blogs, getBlog, loading: load3 } = GetBlogHook();
@@ -109,17 +111,50 @@ function LastSection() {
 
   useEffect(() => {
     if (sectionTenFile) {
-      const formData = new FormData();
-      formData.append("image_one", sectionTenFile);
-      editSectionTen(sectionTen[0]._id, formData);
+      setLoading(true);
+      const storageRef = storage.ref(`/tapera-jungle/${sectionTenFile?.name}`);
+      const uploadTask = storageRef.put(sectionTenFile);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          console.log(error);
+        },
+        async () => {
+          try {
+            const downloadURL = await storageRef.getDownloadURL();
+            editSectionTen(sectionTen[0]._id, { image_one: downloadURL });
+          } catch (error) {
+            console.error("Error getting download URL:", error);
+          }
+        }
+      );
     }
   }, [sectionTenFile]);
 
   useEffect(() => {
     if (sectionTenFile2) {
-      const formData = new FormData();
-      formData.append("image_two", sectionTenFile2);
-      editSectionTen(sectionTen[0]._id, formData);
+      setLoading(true);
+      const storageRef = storage.ref(`/tapera-jungle/${sectionTenFile2?.name}`);
+      const uploadTask = storageRef.put(sectionTenFile2);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          console.log(error);
+        },
+        async () => {
+          try {
+            const downloadURL = await storageRef.getDownloadURL();
+            editSectionTen(sectionTen[0]._id, { image_two: downloadURL });
+          } catch (error) {
+            console.error("Error getting download URL:", error);
+          }
+        }
+      );
+
+      // editSectionTen(sectionTen[0]._id, formData);
     }
   }, [sectionTenFile2]);
 
@@ -171,7 +206,9 @@ function LastSection() {
                 dangerouslySetInnerHTML={{ __html: data[0]?.paragraph }}
               />
             )}
-            <BuyBtn onClick={() => navigate("/mint-nft")}>Buy Tapera Jungle NFT</BuyBtn>
+            <BuyBtn onClick={() => navigate("/mint-nft")}>
+              Buy Tapera Jungle NFT
+            </BuyBtn>
           </TextContainer>
         </ImageWrapper>
         <Wrapper>

@@ -55,6 +55,9 @@ function MiddleSection() {
   const [sectionEightFile, setSectionEightFile] = useState(null);
   const [editEightFile, setEditEightFile] = useState(null);
   const [eightId, setEightId] = useState(null);
+  // const [eightId, setEightId] = useState(null);
+  const [ids, setIds] = useState(null);
+
   const [show, setShow] = useState(false);
 
   const swiperRef = useRef<SwiperCore>();
@@ -114,6 +117,7 @@ function MiddleSection() {
     getSectionEight();
     setSectionEightFile(null);
     setEightId(null);
+    setIds(null);
   }, [addEight, editedEight]);
 
   useEffect(() => {
@@ -156,7 +160,7 @@ function MiddleSection() {
 
   useEffect(() => {
     if (editEightFile) {
-      editSectionEight(eightId, editEightFile);
+      editSectionEight(ids, editEightFile);
     }
   }, [editEightFile]);
 
@@ -175,7 +179,7 @@ function MiddleSection() {
         <ImageWrapper>
           <HeaderImageContainer>
             <label htmlFor="five" style={{ width: "100%" }}>
-              <img className="img-fluid" src={data && data[0]?.image} alt=""/>
+              <img className="img-fluid" src={data && data[0]?.image} alt="" />
               <UploadImagedDiv>
                 <UploadImage />
                 <h2>
@@ -322,16 +326,20 @@ function MiddleSection() {
               },
             }}
           >
-            {carousel?.map((item) => (
-              <SwiperSlide>
+            {carousel?.map((item, index) => (
+              <SwiperSlide key={item?._id}>
                 <SwiperImgContainer>
                   <SwiperImgWrapper>
-                    <label htmlFor="editEight">
+                    <label
+                      htmlFor="editEight"
+                      onClick={() => {
+                        setIds(item._id);
+                      }}
+                    >
                       <img
-                        onClick={() => {
-                          setEightId(item._id);
+                        onMouseOut={() => {
+                          setShow(false);
                         }}
-                        onMouseOut={() => setShow(false)}
                         key={item._id}
                         className="img-fluid swiperImg"
                         src={item.image}
@@ -348,7 +356,9 @@ function MiddleSection() {
                       style={{ display: "none" }}
                       name="editEight"
                       id="editEight"
-                      onChange={(e) => setEditEightFile(e.target.files[0])}
+                      onChange={(e) => {
+                        setEditEightFile(e.target.files[0]);
+                      }}
                     />
                   </SwiperImgWrapper>
                   <Tooltip title="Delete Image">

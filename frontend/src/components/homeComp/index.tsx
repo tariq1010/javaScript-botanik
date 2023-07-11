@@ -10,17 +10,17 @@ import { GetBlogHook } from "hooks/blogHook";
 import Loader from "./loader";
 
 function HomeComp() {
-  const [imageLoad, setImageLoad] = useState(true)
+  const [imageLoad, setImageLoad] = useState(true);
   const { data: blogs, getBlog, loading: load } = GetBlogHook();
   const { getSections, result, loading } = GetSectionsHook();
   useEffect(() => {
     getSections();
     getBlog();
   }, []);
-  console.log("imageLoad",imageLoad)
+
   return (
     <HomeCompWrapper>
-      {(imageLoad )&& <Loader />}
+      {imageLoad && <Loader />}
       <>
         <Navbar />
         <Header

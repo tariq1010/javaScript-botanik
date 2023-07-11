@@ -146,16 +146,25 @@ function Header() {
     }
   }, [sectionThreeFile]);
 
+  console.log(load, "load");
+
   return (
     <HeaderWrapper>
-      {loading && <Loader />}
-      {load && <Loader />}
+      {(loading ||
+        load ||
+        load1 ||
+        load2 ||
+        load3 ||
+        load4 ||
+        load5 ||
+        load6) && <Loader />}
+      {/* {load && <Loader />}
       {load1 && <Loader />}
       {load2 && <Loader />}
       {load3 && <Loader />}
       {load4 && <Loader />}
       {load5 && <Loader />}
-      {load6 && <Loader />}
+      {load6 && <Loader />} */}
 
       <MainContainer>
         <ImageWrapper>

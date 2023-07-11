@@ -48,6 +48,7 @@ export const EditBlogHook = () => {
     data,
     loading,
     error,
+    setLoading,
   };
 };
 
