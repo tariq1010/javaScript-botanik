@@ -35,13 +35,14 @@ function Header({
             onLoad={() => setLoading(!imageLoad)}
           />
         </ImageWrapper>
-        {
-          !imageLoad &&
+        {!imageLoad && (
           <TextContainer>
-          {data && <p dangerouslySetInnerHTML={{ __html: data[0]?.text }}></p>}
-        </TextContainer>
-        }
-       
+            {data && (
+              <p dangerouslySetInnerHTML={{ __html: data[0]?.text }}></p>
+            )}
+          </TextContainer>
+        )}
+
         <BottomWrapper>
           <MainRow>
             <MainCol lg={6} className="d-flex justify-content-center">

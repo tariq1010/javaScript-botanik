@@ -1,5 +1,6 @@
 import { SectionsService } from "services/sectionsServices";
 import { CommonHook } from "./commonHook";
+import { storage } from "firebase";
 
 export const EditSectionEightHook = () => {
   const { data, setData, setError, loading, setLoading, error } = CommonHook();
@@ -7,17 +8,40 @@ export const EditSectionEightHook = () => {
     try {
       setLoading(true);
 
-      const formData = new FormData();
-      formData.append("section_eight_image", data);
-      const result = await SectionsService.editSectionEight(id, formData);
-      if (result.response == "success" && result.data) {
-        setData(result.data);
+      try {
+        const storageRef = storage.ref(`/tapera-jungle/${data?.name}`);
+        const uploadTask = storageRef.put(data);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {},
+          (error) => {
+            console.log(error);
+          },
+          async () => {
+            try {
+              const downloadURL = await storageRef.getDownloadURL();
+              const result = await SectionsService.editSectionEight(id, {
+                image_path: downloadURL,
+              });
+              if (result.data) {
+                setData(result.data);
+                setLoading(false);
+              }
+            } catch (error) {
+              setLoading(false);
+
+              console.error("Error getting download URL:", error);
+            }
+          }
+        );
+      } catch (error) {
+        console.error("Error uploading file:", error);
       }
     } catch (error) {
       setError(error);
       setLoading(false);
     } finally {
-      setLoading(false);
     }
   };
 
@@ -33,18 +57,39 @@ export const AddSectionEightHook = () => {
   const { data, setData, setError, loading, setLoading, error } = CommonHook();
   const addSectionEight = async (data) => {
     try {
-      const formData = new FormData();
-      formData.append("section_eight_image", data);
       setLoading(true);
-      const result = await SectionsService.addSectionEight(formData);
-      if (result.response == "success" && result.data) {
-        setData(result.data);
+      try {
+        const storageRef = storage.ref(`/tapera-jungle/${data?.name}`);
+        const uploadTask = storageRef.put(data);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {},
+          (error) => {
+            console.log(error);
+          },
+          async () => {
+            try {
+              const downloadURL = await storageRef.getDownloadURL();
+              const result = await SectionsService.addSectionEight({
+                image_path: downloadURL,
+              });
+              if (result.data) {
+                setData(result.data);
+                setLoading(false);
+              }
+            } catch (error) {
+              console.error("Error getting download URL:", error);
+            }
+          }
+        );
+      } catch (error) {
+        console.error("Error uploading file:", error);
       }
     } catch (error) {
       setError(error);
       setLoading(false);
     } finally {
-      setLoading(false);
     }
   };
 

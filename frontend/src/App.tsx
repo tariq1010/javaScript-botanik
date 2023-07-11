@@ -29,7 +29,7 @@ const App = () => {
   }, [web3]);
 
   const { token } = useAppSelector((state) => state.login);
-
+  console.log("token",token)
   return (
     <div>
       <BrowserRouter>

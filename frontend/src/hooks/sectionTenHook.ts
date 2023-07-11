@@ -23,6 +23,7 @@ export const EditSectionTenHook = () => {
     data,
     loading,
     error,
+    setLoading,
   };
 };
 

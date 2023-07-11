@@ -4,10 +4,10 @@ const editSectionTwo = async (ctx: any) => {
   try {
     const body = ctx.request.body;
     const id = ctx.params.id;
-
-    if (ctx.file) {
-      body.image_path = `${process.env.BACKEND_URL}/${ctx.file.filename}`;
-    }
+    console.log(body, "333333");
+    // if (ctx.file) {
+    //   body.image_path = `${process.env.BACKEND_URL}/${ctx.file.filename}`;
+    // }
     const data = await EditSectionTwo(id, body);
     if (data.error) throw data.error;
     ctx.body = {
