@@ -130,18 +130,14 @@ const nftsLeft = async () => {
 
 //minted nfts
 const mintedNfts = async () => {
-    try {
-        const mintedNfts = await Nft.find({
-            $and: [
-                { is_minted: true },
-            ],
-        })
-        return mintedNfts;
-    }
-    catch (error) {
-        return { "error": error }
-    }
-
+  try {
+    const mintedNfts = await Nft.find({
+      $and: [{ is_minted: true }],
+    });
+    return mintedNfts;
+  } catch (error) {
+    return { error: error };
+  }
 };
 
 //--update methods--
@@ -189,27 +185,23 @@ const offChainUnMint = async (num: number) => {
 };
 
 const mintNfts = async ({ count }: { count: number }) => {
-    try {
-
-        const updatedNft = await Nft.updateMany(
-            {
-                $and: [
-                    { token_id: { $not: { $gt: count } } },
-                    { is_minted: false }
-                ],
-            },
-            {
-                $set: {
-                    "is_minted": true,
-                }
-            });
-        console.log(updatedNft, "minted")
-        return updatedNft;
-    }
-    catch (error) {
-        console.log(error, "error")
-        return { "error": error }
-    }
+  try {
+    const updatedNft = await Nft.updateMany(
+      {
+        $and: [{ token_id: { $not: { $gt: count } } }, { is_minted: false }],
+      },
+      {
+        $set: {
+          is_minted: true,
+        },
+      }
+    );
+    console.log(updatedNft, "minted");
+    return updatedNft;
+  } catch (error) {
+    console.log(error, "error");
+    return { error: error };
+  }
 };
 
 const unMintNft = async ({ id }: { id: string }) => {

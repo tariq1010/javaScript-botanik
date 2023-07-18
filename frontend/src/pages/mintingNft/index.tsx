@@ -152,7 +152,6 @@ const Minting: React.FC<Props> = ({
       if (status) {
         alert("error");
       } else {
-        // if (accountBalance > num * botanikData?.mintFee) {
         setMintLoading(true);
         const txn = await BotanikService.mint(web3, accounts, num);
         if (txn && txn.status) {
@@ -160,16 +159,12 @@ const Minting: React.FC<Props> = ({
         }
         if (txn && txn.code) {
           ToastMessage(" ", "Transaction Rejected by User", "error");
-          ///////
         }
         dispatch(btkData());
         console.log(txn);
         validateFunc();
         setMintLoading(false);
-        // }
-        // else {
-        //   ToastMessage(" ", "Not enough Eth Balance", "error");
-        // }
+    
       }
     } catch (error) {
       console.log(error);

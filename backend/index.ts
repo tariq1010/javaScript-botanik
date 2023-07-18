@@ -1,3 +1,5 @@
+import { refreshOpenseaData } from "./App/helpers";
+
 /*********** import starts ***********/
 const http = require("http");
 const socketio = require("socket.io");
@@ -22,12 +24,17 @@ app.use(cors());
 // app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
-app.use(serve("./public/uploads"))
+app.use(serve("./public/uploads"));
 
 cron.schedule(" */1 * * * *", async function () {
   console.log("----cron job----");
   web3CronJob();
 });
+
+cron.schedule("0 * * * *", async function () {
+  refreshOpenseaData();
+});
+
 web3CronJob();
 
 const server = app.listen(PORT, () =>
