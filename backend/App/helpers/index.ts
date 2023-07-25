@@ -1,7 +1,6 @@
 const Web3 = require("web3");
 const { CONTRACT_ADDRESS, CONTRACT_ABI } = require("../contract/index");
 const axios = require("axios");
-const { mintedNfts } = require("../model/nftModel");
 require("dotenv").config();
 
 const rpcUrl = process.env.RPC_URL;
@@ -9,17 +8,16 @@ console.log("rpcUrl", rpcUrl);
 const web3 = new Web3(rpcUrl);
 const contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
-async function refreshOpenseaData() {
+async function refreshOpenseaData(count: any) {
   try {
     const apiKey = process.env.OPENSEA_API;
     const headers = {
       "X-API-KEY": apiKey,
       accept: "application/json",
     };
-    let count = await mintedNfts();
-    count = count.length;
+    console.log("count", count);
 
-    const start = count - 150;
+    const start = count - 10;
     console.log("start", start, count);
     for (let i = start; i < count + 1; i++) {
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -35,4 +33,4 @@ async function refreshOpenseaData() {
   }
 }
 
-export { contract,refreshOpenseaData };
+export { contract, refreshOpenseaData };

@@ -1,18 +1,21 @@
+
 const {
   mintedNfts,
   offChainMint,
   offChainUnMint,
 } = require("../model/nftModel");
-const { contract } = require("../helpers/index");
+const { contract, refreshOpenseaData } = require("../helpers/index");
 const { nftCount } = require("../controller/nftCount");
 const conn = require("../../index");
 
 const web3CronJob = async () => {
   try {
     let nftCountFromBlockchain = await contract.methods.totalSupply().call();
+    console.log("nftCountFromBlockchain",nftCountFromBlockchain)
 
-    let nftCountFromOffChain = await mintedNfts();
-    nftCountFromOffChain = nftCountFromOffChain.length
+    let nftCountFromOffChain = 501;
+    console.log("nftCountFromOffChain",nftCountFromOffChain)
+    // nftCountFromOffChain = nftCountFromOffChain.length
     if (Number(nftCountFromBlockchain) > nftCountFromOffChain) {
       let difference = Number(nftCountFromBlockchain) - nftCountFromOffChain;
       const res = await offChainMint(difference);
@@ -30,6 +33,7 @@ const web3CronJob = async () => {
         count,
         "onChain"
       );
+      await refreshOpenseaData(nftCountFromBlockchain)
     } else if (Number(nftCountFromBlockchain) < nftCountFromOffChain) {
       let difference = nftCountFromOffChain - Number(nftCountFromBlockchain);
       const res = await offChainUnMint(difference);
@@ -47,6 +51,7 @@ const web3CronJob = async () => {
         count,
         "offchain"
       );
+      await refreshOpenseaData(nftCountFromBlockchain)
     } else
       console.log(
         "onchain count:",
@@ -54,7 +59,10 @@ const web3CronJob = async () => {
         "offchain count:",
         nftCountFromOffChain,
         "equal"
+
       );
+      await refreshOpenseaData(nftCountFromBlockchain)
+
   } catch (error) {
     console.error(error);
     // ctx.body = { "error": error };
