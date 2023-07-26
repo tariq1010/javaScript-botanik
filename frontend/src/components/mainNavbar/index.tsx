@@ -2,7 +2,7 @@ import { NavbarWrapper, IconContainer, BuyNFTbtn, LogoutBtn } from "./element";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Loader, MainContainer } from "components/common";
-import mainlogo from "../../assets/images/mainlogo.png";
+import mainlogo from "../../assets/images/logo2.png";
 import { LogoutHook } from "hooks/adminhooks";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -20,7 +20,12 @@ function NavbarCom() {
         <MainContainer>
           <Navbar.Brand>
             <Link to="/">
-              <img className="img-fluid" src={mainlogo} />
+              <img
+                className="img-fluid"
+                src={mainlogo}
+                width={215}
+                height={40}
+              />
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />

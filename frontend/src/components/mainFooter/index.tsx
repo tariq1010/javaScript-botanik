@@ -6,7 +6,7 @@ import {
   LogoWrapper,
   MainFooterWrapper,
 } from "./element";
-import footerlogo from "../../assets/images/footerlogo.png";
+import footerlogo from "../../assets/images/footerlogo2.png";
 import { Link } from "react-router-dom";
 
 function MainFooter() {

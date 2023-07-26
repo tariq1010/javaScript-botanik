@@ -1,7 +1,7 @@
 import styled from "styled-components";
 // import bgImg from '../../assets/images/herobg.png'
 // import { motion } from "framer-motion";
-import logo from '../../assets/images/mainlogo.png'
+import logo from "../../assets/images/logo2.png";
 const Container = styled.div`
   position: absolute;
   top: 0;
@@ -21,7 +21,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #D3E5D1;
+  background-color: #d3e5d1;
   /* background-color: #003333; */
   background-position: center;
   background-size: cover;
@@ -92,12 +92,11 @@ const pathVariants = {
 };
 
 const LoaderText = styled.h5`
-
-color: black;
-margin-top: 2rem;
-font-weight: bold;
-font-family: "kanit";
-`
+  color: black;
+  margin-top: 2rem;
+  font-weight: bold;
+  font-family: "kanit";
+`;
 
 const Loader = () => {
   return (
@@ -114,9 +113,8 @@ const Loader = () => {
         duration: 2,
       }}
     >
-
       <Text variants={textVariants} initial="hidden" animate="visible">
-        <img src={logo}  />
+        <img src={logo} width={215} height={40} />
       </Text>
 
       <LoaderText>Loading...</LoaderText>
