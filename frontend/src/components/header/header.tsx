@@ -1,5 +1,4 @@
 import React from "react"
-import logo from "../../assets/icons/logo2.gif"
 // import owlOnFire from "../../assets/images/iaall_owl.gif"
 import "./header.css"
 import { Link } from "react-scroll"
@@ -28,7 +27,7 @@ const Header = () => {
 
             <div className="header-content navbar navbar-expand-lg">
                 <div className="header-col-1 navbar-brand">
-                    <NavLink to="/"> <img src={logo} /></NavLink>  
+                    <NavLink to="/"> </NavLink>  
                 </div>
                 <div className="div-gif">
                         {/* <img src={owlOnFire} /> */}
