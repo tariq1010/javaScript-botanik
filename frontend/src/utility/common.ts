@@ -61,6 +61,18 @@ export class CommonUtility {
     return decimals;
   }
 
+  static covertIpfsUrl(url) {
+    if (url?.startsWith("ipfs://")) {
+      const replacedUrl = url.replace(
+        "ipfs://",
+        "https://infura-ipfs.io/ipfs/"
+      );
+      return replacedUrl;
+
+      return url;
+    }
+  }
+
   static addressConvertor(address) {
     if ((address || "").length < 10) {
       return address || "";
@@ -127,46 +139,45 @@ export class CommonUtility {
   static toWei(decimals) {
     switch (decimals) {
       case "1":
-        return "wei"
+        return "wei";
       case "3":
-        return "Kwei"
+        return "Kwei";
       case "6":
-        return "mwei"
+        return "mwei";
       case "9":
-        return "gwei"
+        return "gwei";
       case "12":
-        return "szabo"
+        return "szabo";
       case "18":
-        return "ether"
+        return "ether";
       case "21":
-        return "kether"
+        return "kether";
       case "24":
-        return "mether"
+        return "mether";
       case "27":
-        return "gether"
+        return "gether";
       case "30":
-        return "tether"
+        return "tether";
       default:
-        return "ether"
+        return "ether";
     }
   }
 
-  static getNonce = async (web3: any,account: any) => {
+  static getNonce = async (web3: any, account: any) => {
     const nonce = await web3.eth.getTransactionCount(account);
     return nonce;
   };
 
-  static getGasForTxn = async (web3: any,data: any, to: any, from: any) => {
+  static getGasForTxn = async (web3: any, data: any, to: any, from: any) => {
     const nonce = await this.getNonce(web3, from);
     const gasLimit = await web3.eth.estimateGas({
-        "from"      : from,       
-        "nonce"     : nonce, 
-        "to"        : to,
-        "data"      : data
-    })
+      from: from,
+      nonce: nonce,
+      to: to,
+      data: data,
+    });
     const gasPrice = await web3.eth.getGasPrice();
     const totalGas = Number(gasPrice) * gasLimit;
     return totalGas;
-     };
-  
+  };
 }

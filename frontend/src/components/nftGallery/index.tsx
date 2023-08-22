@@ -1,36 +1,69 @@
 import { Footer, Navbar } from "components";
 import { ContentWrapper, MintBtn, NFTGalleryWrapper, NftDiv } from "./element";
-import { MainContainer } from "components/common";
+import { Loader, MainContainer } from "components/common";
 import { Image } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { imgData } from "./data";
 import { AiOutlineCheck } from "react-icons/ai";
+import { GetNftsImagesHook } from "hooks/nftHooks";
+import nftgallerimg from "../../assets/images/nftgalleryimg.png";
+import ToastMessage from "components/toast Message/toastMessage";
+import { CommonUtility } from "utility/common";
 
 function NFTGallery() {
   const [selectedIndexes, setSelectedIndexes] = useState([]);
+  const [page, setPage] = useState(20);
 
   const toggleSelection = (index) => {
     if (selectedIndexes.includes(index)) {
       setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
-    } else {
+    } else if (selectedIndexes?.length < 101) {
       setSelectedIndexes([...selectedIndexes, index]);
+    } else {
+      ToastMessage(
+        "Warning",
+        "Max 100 NFTs can be selected at a time",
+        "warning"
+      );
     }
   };
 
+  const { data: nftImages, loading } = GetNftsImagesHook(page);
+
+  const handleScroll = () => {
+    const scrollPosition = window.innerHeight + window.pageYOffset;
+    const scrollHeight = document.documentElement.scrollHeight;
+    if (scrollPosition >= scrollHeight - 180 && !loading) {
+      if (page < nftImages?.total) {
+        setPage(page + 20);
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [nftImages, page, nftImages?.total, loading]);
+
   return (
     <NFTGalleryWrapper>
+      {loading && <Loader />}
       <div className="top-content">
         <Navbar />
         <MainContainer>
           <ContentWrapper>
             <NftDiv>
-              {imgData.map((item, index) => (
+              {nftImages?.nfts_images?.map((item, index) => (
                 <div
                   className="image-container"
-                  onClick={() => toggleSelection(index)}
+                  onClick={() => {
+                    toggleSelection(index);
+                  }}
                 >
                   <Image
-                    src={item.img}
+                    src={CommonUtility.covertIpfsUrl(item.image)}
                     alt={`NFT ${index}`}
                     className={`${
                       selectedIndexes.includes(index) ? "darken" : ""

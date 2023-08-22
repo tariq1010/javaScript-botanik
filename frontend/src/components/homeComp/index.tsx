@@ -19,9 +19,6 @@ function HomeComp() {
     getBlog();
   }, []);
 
-  const { data: nftImages } = GetNftsImagesHook("10");
-  console.log(nftImages, "nftImages");
-
   return (
     <HomeCompWrapper>
       {imageLoad && <Loader />}
