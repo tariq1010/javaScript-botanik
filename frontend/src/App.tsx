@@ -15,6 +15,7 @@ import UploadNft from "pages/uploadNft";
 import { updateAccount } from "store/redux/slices/web3ConnectSlice";
 import { Blogs, Home, AdminDashboard } from "./pages";
 import EditBlogsCom from "components/blogsComp/edit";
+import NftGallery from "pages/nftGallery";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +30,7 @@ const App = () => {
   }, [web3]);
 
   const { token } = useAppSelector((state) => state.login);
-  console.log("token",token)
+  console.log("token", token);
   return (
     <div>
       <BrowserRouter>
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/contract-functions" element={<ContractFunctions />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/upload-nft" element={<UploadNft />} />
+          <Route path="/nft-gallery" element={<NftGallery />} />
           <Route
             path="/edit-blog/:id"
             element={token ? <EditBlogsCom /> : <AdminLogin />}

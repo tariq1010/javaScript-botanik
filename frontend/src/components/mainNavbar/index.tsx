@@ -17,7 +17,7 @@ function NavbarCom() {
     <NavbarWrapper>
       {loading && <Loader />}
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-        <MainContainer>
+        <div className={"container"}>
           <Navbar.Brand>
             <Link to="/">
               <img
@@ -32,15 +32,12 @@ function NavbarCom() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
             <IconContainer>
-              <BuyNFTbtn
-                onClick={() => setshow(true)}
-                //  onClick={() => navigate("/mint-nft")}
-              >
+              <BuyNFTbtn onClick={() => navigate("/nft-gallery")}>
                 Buy Tapera Jungle NFT
               </BuyNFTbtn>
-              <MintModal open={show} setShow={setshow} />
               {location.pathname.slice(0, 6) !== "/blogs" &&
-                location.pathname !== "/" && (
+                location.pathname !== "/" &&
+                location.pathname !== "/nft-gallery" && (
                   <LogoutBtn
                     onClick={() => {
                       logout();
@@ -51,7 +48,7 @@ function NavbarCom() {
                 )}
             </IconContainer>
           </Navbar.Collapse>
-        </MainContainer>
+        </div>
       </Navbar>
     </NavbarWrapper>
   );

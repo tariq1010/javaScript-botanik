@@ -93,6 +93,11 @@ iframe
   {
     justify-content: center !important;
   }
+
+  .container-fluid {
+    padding-left: 7rem;
+    padding-right: 7rem;
+  }
 `;
 
 export default GlobalStyle;
