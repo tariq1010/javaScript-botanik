@@ -14,7 +14,7 @@ const uploadNftModel = async (file: any) => {
 
     shuffleArr.map((item: any, index: any) => {
       item.token_id = token_length + (index + 1);
-      item.is_minted = false;
+      item.is_minted = true;
     });
 
     const saveData = await Nft.insertMany(file);

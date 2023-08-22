@@ -1,4 +1,5 @@
 import { refreshOpenseaData } from "./App/helpers";
+import { updateAllStatus } from "./App/model/nftModel";
 
 /*********** import starts ***********/
 const http = require("http");
@@ -26,16 +27,17 @@ app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
 app.use(serve("./public/uploads"));
 
-cron.schedule(" */2 * * * *", async function () {
-  console.log("----cron job----");
-  web3CronJob();
-});
+// cron.schedule(" */2 * * * *", async function () {
+//   console.log("----cron job----");
+//   web3CronJob();
+// });
 
+updateAllStatus()
 // cron.schedule("0 * * * *", async function () {
 //   refreshOpenseaData();
 // });
 
-web3CronJob();
+// web3CronJob();
 
 const server = app.listen(PORT, () =>
   console.log(`Server has started. http://localhost:${PORT}`)

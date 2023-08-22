@@ -287,6 +287,20 @@ const deleteNft = async (ctx: any) => {
   }
 };
 
+const updateAllStatus = async () => {
+  try {
+    const update = await Nft.updateMany(
+      { is_minted: false },
+      { $set: { is_minted: true } }
+    );
+
+    return { message: `${update.nModified} NFTs updated.` };
+  } catch (error) {
+    return error;
+  }
+};
+
+
 export {
   allNfts,
   getRandomNftForMint,
@@ -305,4 +319,5 @@ export {
   deleteNft,
   offChainMint,
   offChainUnMint,
+  updateAllStatus
 };
