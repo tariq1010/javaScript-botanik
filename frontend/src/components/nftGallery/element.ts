@@ -3,6 +3,13 @@ import styled from "styled-components";
 export const NFTGalleryWrapper = styled.div`
   overflow: hidden;
   background: #fffffe;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .top-content {
+    flex: 1;
+  }
 `;
 
 export const ContentWrapper = styled.div`
