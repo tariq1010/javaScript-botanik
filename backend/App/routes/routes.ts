@@ -1,4 +1,5 @@
 import { adminLogin } from "../auth";
+import { nftsImages } from "../controller/nftsImages";
 const {
   deleteSectionEleven,
   editSectionEleven,
@@ -205,5 +206,7 @@ router.get("/get-section-eleven", getSectionEleven);
 router.get("/get-section-eleven/:id", getByIdSectionEleven);
 router.put("/edit-section-eleven/:id", validateToken, editSectionEleven);
 router.delete("/delete-section-eleven/:id", validateToken, deleteSectionEleven);
+// router.get("/get-nfts-images", nftsImages);
+router.get("/get-nfts-images", nftsImages);
 
 export { router };

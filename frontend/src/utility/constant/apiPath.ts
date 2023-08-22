@@ -1,9 +1,8 @@
 import environment from "enviornment";
 
-
 export const APIPath = {
   server: environment.BACKEND_BASE_URL,
-  moralisServer:'https://nbnob0befkpo.usemoralis.com:2053/server',
+  moralisServer: "https://nbnob0befkpo.usemoralis.com:2053/server",
 
   //admin
   login: "/login",
@@ -13,9 +12,7 @@ export const APIPath = {
   updateUsername: "update-username",
 
   //cmc
-  priceConversion: 'convert-price',
-
-
+  priceConversion: "convert-price",
 
   editSectionOne: "edit-section-one",
   getSectionOne: "get-section-one",
@@ -45,20 +42,14 @@ export const APIPath = {
   editSectionNine: "edit-section-nine",
   getSectionNine: "get-section-nine",
 
-  editSectionTen:"edit-section-ten",
-  getSectionTen:"get-section-ten",
+  editSectionTen: "edit-section-ten",
+  getSectionTen: "get-section-ten",
 
   editBlog: "edit-section-eleven",
   addBlog: "save-section-eleven",
   deleteBlog: "delete-section-eleven",
   getBlog: "get-section-eleven",
-  getBlogById:"get-section-eleven"
+  getBlogById: "get-section-eleven",
 
-
-  
-  
-
-
- 
-
+  getNftsImages: "/get-nfts-images",
 };

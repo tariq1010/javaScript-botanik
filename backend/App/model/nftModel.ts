@@ -286,7 +286,22 @@ const deleteNft = async (ctx: any) => {
     return { error: error };
   }
 };
+const nftImages = async (page: any) => {
+  try {
+    let limit;
+    const total_data = await Nft.countDocuments();
+    if (Number(page)) {
+      limit = page;
+    } else {
+      limit = total_data;
+    }
 
+    const data = await Nft.find().select("image").limit(limit);
+    return { data, total_data };
+  } catch (error) {
+    return { error: error };
+  }
+};
 export {
   allNfts,
   getRandomNftForMint,
@@ -305,4 +320,5 @@ export {
   deleteNft,
   offChainMint,
   offChainUnMint,
+  nftImages,
 };
