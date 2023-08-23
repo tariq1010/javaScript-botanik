@@ -1,3 +1,5 @@
+import { APIPath } from "utility/constant/apiPath";
+import { BaseService } from "./baseService";
 import NetworkService from "./networkService";
 
 class NFTService {
@@ -89,6 +91,18 @@ class NFTService {
       data: { accounts: values.accounts },
     });
   }
+
+  // async getNftsImages(page: any) {
+  // return await new NetworkService().callBackendEndpoint({
+  //   method: "get",
+  //   getNftsImages: `/get-nfts-images?page=${page}`,
+  // });
+  //
+
+  getNftsImages = (page) => {
+    return BaseService.get(`${APIPath.getNftsImages}?page=${page}`);
+  };
+  // }
 }
 
 export default NFTService;

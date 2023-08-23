@@ -164,7 +164,6 @@ const Minting: React.FC<Props> = ({
         console.log(txn);
         validateFunc();
         setMintLoading(false);
-    
       }
     } catch (error) {
       console.log(error);
@@ -197,9 +196,7 @@ const Minting: React.FC<Props> = ({
       <Backdrop loading={loading} />
 
       <HeroSection>
-        <div className="mainImage">
-          {/* <img src={img1} /> */}
-        </div>
+        <div className="mainImage">{/* <img src={img1} /> */}</div>
 
         <HeaderSection>
           <Title>
@@ -262,7 +259,8 @@ const Minting: React.FC<Props> = ({
             <br />
             <br />
             <span>
-              NFTS Left: {(botanikData?.maxSupply - botanikData?.totalSupply) || 0}/
+              NFTS Left:{" "}
+              {botanikData?.maxSupply - botanikData?.totalSupply || 0}/
               {botanikData?.maxSupply || 0}
             </span>
           </Text>
@@ -361,25 +359,15 @@ const Minting: React.FC<Props> = ({
               modules={[EffectCoverflow, Pagination, Navigation]}
               className="mySwiper"
             >
-              <SwiperSlide>
-                {/* <img src={} /> */}
-              </SwiperSlide>
+              <SwiperSlide>{/* <img src={} /> */}</SwiperSlide>
 
-              <SwiperSlide>
-                {/* <img src={} /> */}
-              </SwiperSlide>
+              <SwiperSlide>{/* <img src={} /> */}</SwiperSlide>
 
-              <SwiperSlide>
-                {/* <img src={} /> */}
-              </SwiperSlide>
+              <SwiperSlide>{/* <img src={} /> */}</SwiperSlide>
 
-              <SwiperSlide>
-                {/* <img src={} /> */}
-              </SwiperSlide>
+              <SwiperSlide>{/* <img src={} /> */}</SwiperSlide>
 
-              <SwiperSlide>
-                {/* <img src={s1} /> */}
-              </SwiperSlide>
+              <SwiperSlide>{/* <img src={s1} /> */}</SwiperSlide>
             </Swiper>
           </GallerySwiper>
 

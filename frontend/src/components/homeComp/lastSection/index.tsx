@@ -29,7 +29,7 @@ import MintModal from "components/common/modal/mintModal";
 function LastSection({ data, sectionTen, blogs }) {
   const navigate = useNavigate();
   const swiperRef = useRef<SwiperCore>();
- 
+
   const [show, setshow] = useState(false);
   return (
     <LastSectionWrapper>
@@ -47,7 +47,7 @@ function LastSection({ data, sectionTen, blogs }) {
                 dangerouslySetInnerHTML={{ __html: data[0]?.paragraph }}
               />
             )}
-            <BuyBtn  onClick={() => setshow(true)}>
+            <BuyBtn onClick={() => navigate("/nft-gallery")}>
               Buy Tapera Jungle NFT
             </BuyBtn>
             <MintModal open={show} setShow={setshow} />

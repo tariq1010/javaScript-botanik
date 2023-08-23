@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 // import { Loader } from "components/common";
 import { GetBlogHook } from "hooks/blogHook";
 import Loader from "./loader";
+import { GetNftsImagesHook } from "hooks/nftHooks";
 
 function HomeComp() {
   const [imageLoad, setImageLoad] = useState(true);

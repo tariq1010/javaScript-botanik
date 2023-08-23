@@ -1,3 +1,5 @@
+import { contract } from "../helpers";
+
 const { Nft } = require("../schema/nftSchema");
 
 //--create methods--
@@ -286,7 +288,35 @@ const deleteNft = async (ctx: any) => {
     return { error: error };
   }
 };
+const nftImages = async (page: any) => {
+  try {
+    let nftCountFromBlockchain = await contract.methods.totalSupply().call();
 
+    let limit;
+    const total_data = await Nft.countDocuments({
+      token_id: {
+        $gte: nftCountFromBlockchain,
+      },
+    });
+    console.log(total_data, "total_data");
+    if (Number(page)) {
+      limit = page;
+    } else {
+      limit = total_data;
+    }
+
+    const data = await Nft.find({
+      token_id: {
+        $gte: nftCountFromBlockchain,
+      },
+    })
+      .select("image")
+      .limit(limit);
+    return { data, total_data };
+  } catch (error) {
+    return { error: error };
+  }
+};
 const updateAllStatus = async () => {
   try {
     const update = await Nft.updateMany(
@@ -299,7 +329,6 @@ const updateAllStatus = async () => {
     return error;
   }
 };
-
 
 export {
   allNfts,
@@ -319,5 +348,6 @@ export {
   deleteNft,
   offChainMint,
   offChainUnMint,
-  updateAllStatus
+  nftImages,
+  updateAllStatus,
 };
