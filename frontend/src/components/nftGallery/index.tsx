@@ -1,6 +1,11 @@
 import { Footer, Navbar } from "components";
 import { ContentWrapper, MintBtn, NFTGalleryWrapper, NftDiv } from "./element";
-import { Loader, MainContainer } from "components/common";
+import {
+  Loader,
+  MainContainer,
+  MainModel,
+  openNotification,
+} from "components/common";
 import { Image } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { imgData } from "./data";
@@ -9,10 +14,23 @@ import { GetNftsImagesHook } from "hooks/nftHooks";
 import nftgallerimg from "../../assets/images/nftgalleryimg.png";
 import ToastMessage from "components/toast Message/toastMessage";
 import { CommonUtility } from "utility/common";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { btkData, mainModel } from "store/redux/slices/helperSlices/modelSlice";
+import { BotanikService } from "web3Functions/botanik";
+
+import { userBalanceAsync } from "store/redux/slices/web3ConnectSlice";
 
 function NFTGallery() {
+  const { web3, accounts } = useAppSelector((state) => state.web3Connect);
+  const { botanikData } = useAppSelector((state) => state.model);
+  let pageInitial = 20;
+  const dispatch = useAppDispatch();
+
+  const [connectModel, setConnectModel] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
-  const [page, setPage] = useState(20);
+  const [page, setPage] = useState(pageInitial);
+  const [status, setStatus] = useState(false);
+  const [mintLoading, setMintLoading] = useState(false);
 
   const toggleSelection = (index) => {
     if (selectedIndexes.includes(index)) {
@@ -35,11 +53,15 @@ function NFTGallery() {
     const scrollHeight = document.documentElement.scrollHeight;
     if (scrollPosition >= scrollHeight - 180 && !loading) {
       if (page < nftImages?.total) {
-        setPage(page + 20);
+        setPage(page + 10);
       }
     }
   };
-
+  useEffect(() => {
+    {
+      dispatch(btkData());
+    }
+  }, []);
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -47,9 +69,63 @@ function NFTGallery() {
     };
   }, [nftImages, page, nftImages?.total, loading]);
 
+  const validateFunc = async () => {
+    if (
+      botanikData?.isPaused ||
+      botanikData?.totalSupply >= botanikData?.phaseLimit
+    ) {
+      setStatus(true);
+    } else {
+      setStatus(false);
+    }
+  };
+
+  const mint = async () => {
+    try {
+      if (status) {
+        alert("error");
+      } else {
+        setMintLoading(true);
+        const txn = await BotanikService.mint(
+          web3,
+          accounts,
+          selectedIndexes?.length
+        );
+        if (txn && txn.status) {
+          ToastMessage("Success", "Transaction Successfull", "success");
+        }
+        if (txn && txn.code) {
+          ToastMessage(" ", "Transaction Rejected by User", "error");
+          ///////
+        }
+        dispatch(btkData());
+        console.log(txn);
+        validateFunc();
+        setMintLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setMintLoading(false);
+    }
+  };
+
+  const connectModelFn = () => {
+    setConnectModel(true);
+
+    dispatch(mainModel(true));
+  };
+
+  //useEffects
+  useEffect(() => {
+    web3 && dispatch(userBalanceAsync());
+  }, [web3]);
+
   return (
     <NFTGalleryWrapper>
-      {loading && <Loader />}
+      {((loading && page == pageInitial) || mintLoading) && <Loader />}
+      {/* { mintLoading) && <Loader />} */}
+      <MainModel connectModel={connectModel} />
+
       <div className="top-content">
         <Navbar />
         <MainContainer>
@@ -93,8 +169,34 @@ function NFTGallery() {
                 </div>
               ))}
             </NftDiv>
-            {selectedIndexes?.length > 0 && (
-              <MintBtn>Mint {selectedIndexes?.length} NFTs</MintBtn>
+
+            {selectedIndexes?.length > 0 && accounts ? (
+              <div>
+                <MintBtn
+                  onClick={(event) => {
+                    if (botanikData?.totalSupply === botanikData?.maxSupply) {
+                      openNotification(
+                        "Supply Completed",
+                        "Limit Reached",
+                        "warning"
+                      );
+                    } else if (botanikData?.isPaused) {
+                      openNotification("Paused", "Minting paused", "warning");
+                    } else {
+                      mint();
+                    }
+                  }}
+                >
+                  Mint {selectedIndexes?.length} NFTs
+                </MintBtn>
+              </div>
+            ) : (
+              !accounts &&
+              !loading && (
+                <MintBtn onClick={() => connectModelFn()}>
+                  Connect Wallet
+                </MintBtn>
+              )
             )}
           </ContentWrapper>
         </MainContainer>
