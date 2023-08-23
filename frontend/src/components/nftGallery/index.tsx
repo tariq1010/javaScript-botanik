@@ -99,12 +99,11 @@ function NFTGallery() {
           ///////
         }
         dispatch(btkData());
-        console.log(txn);
+
         validateFunc();
         setMintLoading(false);
       }
     } catch (error) {
-      console.log(error);
       setMintLoading(false);
     }
   };
