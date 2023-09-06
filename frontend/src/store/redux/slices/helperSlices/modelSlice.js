@@ -36,6 +36,7 @@ export const mainModel = createAsyncThunk(
   "connectModel",
   async (modelOpen, thunkAPI) => {
     try {
+      console.log(modelOpen, "modal1122");
       const result = modelOpen;
       return result;
     } catch (error) {

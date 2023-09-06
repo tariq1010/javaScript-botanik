@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import {
-  ConnectModel,
-  TransferModel,
-  WithDrawModel,
-  SetPhaseModal,
-  UpdateFeeModel,
-} from "components/common/modal";
+import ConnectModel from "../connectModel/connectModal";
+import TransferModel from "../transferOwnershipModel/index";
+import WithDrawModel from "../withdrawModel/index";
+import SetPhaseModal from "../setPhaseModal/index";
+import UpdateFeeModel from "../setFeeModal/index";
 
 import { Modal } from "antd";
 import { useAppDispatch, useAppSelector } from "store/store";

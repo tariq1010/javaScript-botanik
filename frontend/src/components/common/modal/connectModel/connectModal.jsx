@@ -13,12 +13,12 @@ import {
 } from "store/redux/slices/web3ConnectSlice";
 import { useAppDispatch } from "store/store";
 
-const ConnectModal = ({setShow}) => {
+const ConnectModal = ({ setShow }) => {
   const dispatch = useAppDispatch();
 
   const handleWeb3MetaMask = async () => {
     dispatch(loadBlockchain());
-    setShow(true)
+    setShow(true);
   };
 
   const handleWeb3WalletConnect = async () => {

@@ -7,7 +7,8 @@ import { CONTRACT_ADDRESS, CONTRACT_ABI } from "../../../contract/index";
 import { RootStateType } from "../../store";
 import NFTService from "services/nftServices";
 import { ContractUtility } from "utility/contract-utility";
-
+import UniversalProvider from "@walletconnect/universal-provider";
+import { Web3Modal } from "@web3modal/standalone";
 export const initialState = {
   web3: null,
   contract: null,
@@ -67,7 +68,111 @@ export const loadBlockchain = createAsyncThunk(
 );
 
 // Connect with Wallet of users choice
+
 export const loadWalletConnect = createAsyncThunk(
+  "LoadWalletConnect",
+  async (chain, address) => {
+    try {
+      const DEFAULT_PROJECT_ID = "1eccdcef1fec662a8e65ca062f39ed04";
+      const DEFAULT_RELAY_URL = "wss://relay.walletconnect.com";
+      console.log(address, chain, "ayaaaaaa");
+      const connector = await UniversalProvider.init({
+        projectId: DEFAULT_PROJECT_ID,
+        logger: "debug",
+        relayUrl: DEFAULT_RELAY_URL,
+      });
+
+      const web3Modal = new Web3Modal({
+        projectId: DEFAULT_PROJECT_ID || "",
+        walletConnectVersion: 2,
+      });
+
+      connector.on("display_uri", async (uri) => {
+        console.log("EVENT", "QR Code Modal open");
+        web3Modal?.openModal({ uri });
+      });
+
+      // Subscribe to session ping
+      connector.on("session_ping", ({ id, topic }) => {
+        console.log("EVENT", "session_ping");
+        console.log(id, topic);
+      });
+
+      // Subscribe to session event
+      connector.on("session_event", ({ event, chainId }) => {
+        console.log("EVENT", "session_event");
+        console.log(event, chainId);
+      });
+
+      // Subscribe to session update
+      connector.on("session_update", ({ topic, session }) => {
+        console.log("EVENT", "session_updated");
+      });
+
+      // Subscribe to session delete
+      connector.on("session_delete", ({ id, topic }) => {
+        console.log("EVENT", "session_deleted");
+        console.log(id, topic);
+        // resetApp();
+      });
+      let rpc;
+      if (chain === 5) {
+        rpc = { 5: "https://rpc.goerli.mudit.blog" };
+      } else {
+        rpc = {
+          80001: "https://rpc-mumbai.matic.today",
+        };
+      }
+
+      await connector.connect({
+        namespaces: {
+          eip155: {
+            methods: [
+              "eth_sendTransaction",
+              "eth_signTransaction",
+              "eth_sign",
+              "personal_sign",
+              "eth_signTypedData",
+            ],
+            chains: [`eip155:1`],
+            events: ["chainChanged", "accountsChanged"],
+            rpcMap: rpc,
+          },
+        },
+        // pairingTopic: pairing?.topic,
+      });
+
+      const accounts = await connector.enable();
+      let account = accounts[0];
+      console.log("accounts", accounts);
+
+      web3Modal?.closeModal();
+
+      // const provider = new ethers.providers.Web3Provider(window.ethereum);
+      // const signer = await provider.getSigner();
+      // const { chainId } = await provider.getNetwork();
+
+      // if (chain === chainId) {
+      //   const web3 = provider;
+      //   const data = {
+      //     account,
+      //     web3,
+      //     chainId,
+      //     signer
+      //   };
+      //   console.log("data", data);
+      // return data;
+      // } else {
+      //   throw new Error("Chain ID does not match.");
+      // }
+    } catch (err) {
+      console.error("Error:", err);
+      throw err;
+    }
+  }
+);
+
+export const loadWalletConnects = createAsyncThunk(
   "LoadWalletConnect",
   async (_, thunkAPI) => {
     try {
